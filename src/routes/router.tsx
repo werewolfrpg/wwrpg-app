@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Leaderboard from '../pages/leaderboard'
-import Overview from '../pages/overview'
 import Home from '../pages/home'
+import Leaderboard from '../pages/leaderboard'
+import PlayerOverview from '../pages/player-overview'
+import MatchOverview from '../pages/match-overview'
 
 export const router = createBrowserRouter([
 	{
@@ -13,7 +14,11 @@ export const router = createBrowserRouter([
 		element: <Leaderboard />
 	},
 	{
-		path: '/overview',
-		element: <Overview />
+		path: '/overview/player/:minecraftId',
+		element: <PlayerOverview />
+	},
+	{
+		path: '/overview/match/:matchId',
+		element: <MatchOverview />
 	}
 ])
