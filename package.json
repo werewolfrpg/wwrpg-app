@@ -7,6 +7,10 @@
 		"build": "react-scripts build"
 	},
 	"dependencies": {
+		"@emotion/react": "^11.11.0",
+		"@emotion/styled": "^11.11.0",
+		"@mui/icons-material": "^5.11.16",
+		"@mui/material": "^5.13.0",
 		"@types/jest": "^27.5.2",
 		"@types/node": "^16.18.30",
 		"@types/react": "^18.2.6",
