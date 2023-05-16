@@ -3,6 +3,8 @@ import { MatchOverview } from '../types/match'
 import { PlayerOverview } from '../types/overview'
 
 // TODO - port 8086
+// match list
+// match overview
 
 /**
  * Fetches leaderboard information.
@@ -157,9 +159,15 @@ export const getPlayerStats = (minecraftId: string): Promise<PlayerOverview> => 
  * /api/match/player/<minecraftId>
  *
  * @param minecraftId Player Minecraft id.
+ * @param page Page number.
+ * @param count Match entry count.
  * @returns Player match history.
  */
-export const getPlayerMatches = (minecraftId: string): Promise<MatchOverview[]> => {
+export const getPlayerMatchHistory = (
+	minecraftId: string,
+	page: number = 1,
+	count: number = 20
+): Promise<MatchOverview[]> => {
 	return new Promise(resolve => {
 		resolve([
 			{
