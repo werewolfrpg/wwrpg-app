@@ -32,22 +32,20 @@ export default <T extends any>({ data, count, total, header, row, changePage }: 
 				</TableHead>
 				<TableBody>{data.map((entry, i) => row(entry, i))}</TableBody>
 				<TableFooter>
-					<TableRow style={{ cursor: 'auto' }} hover={false}>
-						<TablePagination
-							rowsPerPageOptions={[]}
-							onPageChange={(_, newPage) => {
-								setPage(newPage)
+					<TablePagination
+						style={{ border: 'none' }}
+						rowsPerPageOptions={[]}
+						onPageChange={(_, newPage) => {
+							setPage(newPage)
 
-								if (changePage) {
-									changePage(newPage)
-								}
-							}}
-							count={total}
-							rowsPerPage={count}
-							page={page}
-							style={{ border: 'none' }}
-						/>
-					</TableRow>
+							if (changePage) {
+								changePage(newPage)
+							}
+						}}
+						count={total}
+						rowsPerPage={count}
+						page={page}
+					/>
 				</TableFooter>
 			</Table>
 		</TableContainer>

@@ -3,8 +3,10 @@ import { Stack, Box, LinearProgress, Typography, Divider, Card } from '@mui/mate
 import StatisticCard from './statistic-card'
 import { PlayerOverview } from '../../../../types/overview'
 import Title from '../../../../components/title'
+import Statistic from './statistic'
 
 export default ({
+	minecraftId,
 	minecraftUsername,
 	score,
 	ranking,
@@ -20,7 +22,10 @@ export default ({
 	return (
 		<Card>
 			<Title title={minecraftUsername} divider />
-			<StatisticCard title="Rank" value={'#' + ranking} />
+			<Stack direction="row" justifyContent="center" sx={{ py: 2 }}>
+				<img src={'https://mc-heads.net/body/' + minecraftId} height={200} />
+				<Statistic title="Rank" value={'#' + ranking} />
+			</Stack>
 			<Divider />
 			<Stack>
 				<StatisticCard title={title} value={score} />
