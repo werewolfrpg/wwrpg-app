@@ -25,7 +25,7 @@ export default ({ stats }: OverviewPanelProps) => {
 					},
 					{
 						title: 'Win %',
-						value: (totalPlayed / totalVictories).toFixed(1)
+						value: ((totalPlayed / totalVictories) * 100).toFixed(1)
 					},
 					{
 						title: 'Matches Played',
