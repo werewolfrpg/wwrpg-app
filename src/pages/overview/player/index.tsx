@@ -4,13 +4,11 @@ import { PlayerOverview } from '../../../types/overview'
 import { getPlayerStats } from '../../../apis/wwrpg'
 import { MatchOverview } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
-import { Divider } from '@mui/material'
-import { DashboardRounded } from '@mui/icons-material'
-import Panel from '../../../components/panel'
 import MatchList from '../../../components/match-list'
-import StatisticPanel from './components/statistic-panel'
 import RolePanel from './components/role-panel'
 import RankPanel from './components/rank-panel'
+import OverviewPanel from './components/overview-panel'
+import { Grid } from '@mui/material'
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()
@@ -32,66 +30,23 @@ export default () => {
 	}
 
 	return (
-		<div>
-			<RankPanel score={stats.score} title="TODO" />
-			<RolePanel roles={stats.gameStats} />
-			<Panel title="Overview" icon={<DashboardRounded />}>
-				<StatisticPanel
-					title="Performance"
-					statistics={[
-						{
-							title: 'Wins',
-							value: stats.gameStats.reduce((sum, { data }) => sum + data.victories, 0)
-						},
-						{
-							title: 'Win %',
-							value: (
-								stats.gameStats.reduce((sum, { data }) => sum + data.played, 0) /
-								stats.gameStats.reduce((sum, { data }) => sum + data.victories, 0)
-							).toFixed(2)
-						},
-						{
-							title: 'Matches Played',
-							value: stats.gameStats.reduce((sum, { data }) => sum + data.played, 0)
-						}
-					]}
-				/>
-				<StatisticPanel
-					statistics={[
-						{
-							title: 'Kills',
-							value: stats.kills
-						},
-						{
-							title: 'Deaths',
-							value: stats.deaths
-						},
-						{
-							title: 'K/D',
-							value: (stats.kills / stats.deaths).toFixed(2)
-						}
-					]}
-				/>
-				<Divider />
-				<StatisticPanel
-					title="Skeletons Punished"
-					statistics={[
-						{
-							title: 'Emeralds Collected',
-							value: stats.skeletons.basicSkeletonEmeraldDrops
-						},
-						{
-							title: 'Basic Killed',
-							value: stats.skeletons.killedBasicSkeletons
-						},
-						{
-							title: 'Special Killed',
-							value: stats.skeletons.killedSpecialSkeletons
-						}
-					]}
-				/>
-			</Panel>
-			<MatchList matches={matches} />
-		</div>
+		<Grid container spacing={4} justifyContent="center">
+			<Grid container item spacing={2} xs={2} direction="column">
+				<Grid item>
+					<RankPanel score={stats.score} title="TODO" />
+				</Grid>
+				<Grid item>
+					<RolePanel roles={stats.gameStats} />
+				</Grid>
+			</Grid>
+			<Grid container item spacing={2} xs={6} direction="column">
+				<Grid item>
+					<OverviewPanel stats={stats} />
+				</Grid>
+				<Grid item>
+					<MatchList matches={matches} />
+				</Grid>
+			</Grid>
+		</Grid>
 	)
 }
