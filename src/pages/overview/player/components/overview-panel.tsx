@@ -53,7 +53,7 @@ export default ({ stats }: OverviewPanelProps) => {
 				title="Skeletons Punished"
 				statistics={[
 					{
-						title: 'Emeralds Collected',
+						title: 'Emeralds',
 						value: stats.skeletons.basicSkeletonEmeraldDrops
 					},
 					{

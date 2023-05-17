@@ -8,14 +8,14 @@ export interface PanelProps extends React.PropsWithChildren {
 
 export default ({ title, icon, children }: PanelProps) => {
 	return (
-		<Card style={{ flex: 1 }}>
+		<Card>
 			<Box sx={{ p: 2 }} display="flex">
 				{icon && icon}
 				<Typography variant="h3" sx={{ px: 1 }}>
 					{title}
 				</Typography>
 			</Box>
-			<Divider />
+			{children && <Divider />}
 			{children}
 		</Card>
 	)

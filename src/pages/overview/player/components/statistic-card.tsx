@@ -7,7 +7,6 @@ export default ({ title, value, caption }: StatisiticProps) => {
 		<Card
 			sx={{
 				p: 1,
-				minWidth: 200,
 				borderWidth: 0,
 				transition: 'ease 150ms',
 				m: 1,

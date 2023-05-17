@@ -6,8 +6,8 @@ export const theme = createTheme({
 			defaultProps: {
 				variant: 'outlined',
 				style: {
-					borderRadius: 7.5,
-					display: 'inline-block'
+					flex: 1,
+					borderRadius: 7.5
 				}
 			}
 		},
