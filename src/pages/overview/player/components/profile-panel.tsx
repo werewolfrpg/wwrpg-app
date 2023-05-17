@@ -1,8 +1,8 @@
 import React from 'react'
-import { Stack, Box, LinearProgress, Typography, Divider } from '@mui/material'
-import Panel from '../../../../components/panel'
+import { Stack, Box, LinearProgress, Typography, Divider, Card } from '@mui/material'
 import StatisticCard from './statistic-card'
 import { PlayerOverview } from '../../../../types/overview'
+import Title from '../../../../components/title'
 
 export default ({
 	minecraftUsername,
@@ -18,7 +18,8 @@ export default ({
 	const scoreProgress = nextThreshold === -1 ? 100 : a / b
 
 	return (
-		<Panel title={minecraftUsername}>
+		<Card>
+			<Title title={minecraftUsername} divider />
 			<StatisticCard title="Rank" value={'#' + ranking} />
 			<Divider />
 			<Stack>
@@ -30,6 +31,6 @@ export default ({
 					</Typography>
 				</Box>
 			</Stack>
-		</Panel>
+		</Card>
 	)
 }

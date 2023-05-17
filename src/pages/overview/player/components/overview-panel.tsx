@@ -1,9 +1,9 @@
 import React from 'react'
 import { DashboardRounded } from '@mui/icons-material'
-import { Divider } from '@mui/material'
-import Panel from '../../../../components/panel'
+import { Card, Divider } from '@mui/material'
 import StatisticPanel from './statistic-panel'
 import { PlayerOverview } from '../../../../types/overview'
+import Title from '../../../../components/title'
 
 export interface OverviewPanelProps {
 	stats: PlayerOverview
@@ -14,7 +14,8 @@ export default ({ stats }: OverviewPanelProps) => {
 	const totalPlayed = stats.gameStats.reduce((sum, { data }) => sum + data.played, 0)
 
 	return (
-		<Panel title="Overview" icon={<DashboardRounded />}>
+		<Card>
+			<Title title="Overview" icon={<DashboardRounded />} divider />
 			<StatisticPanel
 				title="Performance"
 				statistics={[
@@ -24,7 +25,7 @@ export default ({ stats }: OverviewPanelProps) => {
 					},
 					{
 						title: 'Win %',
-						value: (totalPlayed / totalVictories).toFixed(2)
+						value: (totalPlayed / totalVictories).toFixed(1)
 					},
 					{
 						title: 'Matches Played',
@@ -70,6 +71,6 @@ export default ({ stats }: OverviewPanelProps) => {
 					}
 				]}
 			/>
-		</Panel>
+		</Card>
 	)
 }

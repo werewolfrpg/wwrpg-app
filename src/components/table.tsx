@@ -3,7 +3,6 @@ import {
 	Card,
 	Table,
 	TableBody,
-	TableCell,
 	TableContainer,
 	TableFooter,
 	TableHead,
@@ -15,11 +14,12 @@ export interface TableProps<T> {
 	data: T[]
 	count: number
 	total: number
-	headers: string[]
+	header: JSX.Element
 	row: (data: T, index: number) => JSX.Element
+	changePage?: (page: number) => void
 }
 
-export default <T extends any>({ data, count, total, headers, row }: TableProps<T>) => {
+export default <T extends any>({ data, count, total, header, row, changePage }: TableProps<T>) => {
 	const [page, setPage] = useState(0)
 
 	return (
@@ -27,11 +27,7 @@ export default <T extends any>({ data, count, total, headers, row }: TableProps<
 			<Table>
 				<TableHead>
 					<TableRow style={{ cursor: 'auto' }} hover={false}>
-						{headers.map((header, i) => (
-							<TableCell align="center" key={i}>
-								{header}
-							</TableCell>
-						))}
+						{header}
 					</TableRow>
 				</TableHead>
 				<TableBody>{data.map((entry, i) => row(entry, i))}</TableBody>
@@ -39,7 +35,13 @@ export default <T extends any>({ data, count, total, headers, row }: TableProps<
 					<TableRow style={{ cursor: 'auto' }} hover={false}>
 						<TablePagination
 							rowsPerPageOptions={[]}
-							onPageChange={(_, newPage) => setPage(newPage)}
+							onPageChange={(_, newPage) => {
+								setPage(newPage)
+
+								if (changePage) {
+									changePage(newPage)
+								}
+							}}
 							count={total}
 							rowsPerPage={count}
 							page={page}

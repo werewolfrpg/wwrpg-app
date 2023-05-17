@@ -31,8 +31,16 @@ export default () => {
 		<Table
 			data={leaderboard.data}
 			count={20}
-			total={leaderboard.meta.entries}
-			headers={['Rank', 'Player', 'Title', 'Score', 'Win %', 'Match Player']}
+			total={leaderboard.meta.entries * leaderboard.meta.totalPageNumber}
+			header={
+				<>
+					{['Rank', 'Player', 'Title', 'Score', 'Win %', 'Match Player'].map((header, index) => (
+						<TableCell align="center" key={index}>
+							{header}
+						</TableCell>
+					))}
+				</>
+			}
 			row={({ minecraftId, ranking, minecraftUsername, title, score, gamesWon, gamesPlayed }) => (
 				<TableRow key={minecraftId} onClick={() => navigate('/overview/player/' + minecraftId)}>
 					<TableCell align="center">{ranking}</TableCell>
@@ -43,6 +51,7 @@ export default () => {
 					<TableCell align="right">{gamesPlayed}</TableCell>
 				</TableRow>
 			)}
+			changePage={refreshLeaderboard}
 		/>
 	)
 }
