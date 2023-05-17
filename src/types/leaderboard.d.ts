@@ -2,7 +2,8 @@ export interface Player {
 	minecraftId: string
 	minecraftUsername: string
 	score: number
-	rank: string
+	ranking: string
+	title: string
 	gamesPlayed: number
 	gamesWon: number
 }

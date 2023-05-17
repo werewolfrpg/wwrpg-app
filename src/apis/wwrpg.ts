@@ -17,7 +17,7 @@ export const getLeaderboard = async (
 	page: number = 1,
 	count: number = 20
 ): Promise<Leaderboard> => {
-	const res = await axios.get(BASE_URL + '/api/leaderboard/' + page + '/' + count)
+	const res = await axios.get(BASE_URL + '/api/leaderboard/?page=' + page + '&number=' + count)
 	return res.data
 }
 
@@ -46,9 +46,9 @@ export const getPlayerMatchHistory = async (
 	minecraftId: string,
 	page: number = 1,
 	count: number = 20
-): Promise<MatchOverview[]> => {
+): Promise<MatchOverview> => {
 	const res = await axios.get(
-		BASE_URL + '/api/match/player/' + minecraftId + '/' + page + '/' + count
+		BASE_URL + '/api/match/player/' + minecraftId + '?page=' + page + '&number=' + count
 	)
 	return res.data
 }

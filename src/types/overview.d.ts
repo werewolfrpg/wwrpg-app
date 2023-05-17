@@ -85,9 +85,15 @@ export interface Items {
 
 export interface PlayerOverview {
 	minecraftId: string
-	score: number
+	minecraftUsername: string
 	kills: number
 	deaths: number
+	score: number
+	currentThreshold: number
+	nextThreshold: number
+	ranking: number
+	title: string
+	nextTitle: string
 	gameStats: GameStats[]
 	skeletons: Skeletons
 	items: Items
