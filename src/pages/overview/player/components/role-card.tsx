@@ -3,7 +3,7 @@ import { GameStats } from '../../../../types/overview'
 import Statistic from './statistic'
 
 export default ({ role, data: { victories, played } }: GameStats) => {
-	const winRate = (victories / played) * 100
+	const winRate = played > 0 ? (victories / played) * 100 : 0
 
 	return (
 		<Stack key={role} direction="row" sx={{ p: 2 }}>

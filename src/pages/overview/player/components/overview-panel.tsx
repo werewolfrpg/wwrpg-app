@@ -10,6 +10,9 @@ export interface OverviewPanelProps {
 }
 
 export default ({ stats }: OverviewPanelProps) => {
+	const totalVictories = stats.gameStats.reduce((sum, { data }) => sum + data.victories, 0)
+	const totalPlayed = stats.gameStats.reduce((sum, { data }) => sum + data.played, 0)
+
 	return (
 		<Panel title="Overview" icon={<DashboardRounded />}>
 			<StatisticPanel
@@ -17,18 +20,15 @@ export default ({ stats }: OverviewPanelProps) => {
 				statistics={[
 					{
 						title: 'Wins',
-						value: stats.gameStats.reduce((sum, { data }) => sum + data.victories, 0)
+						value: totalVictories
 					},
 					{
 						title: 'Win %',
-						value: (
-							stats.gameStats.reduce((sum, { data }) => sum + data.played, 0) /
-							stats.gameStats.reduce((sum, { data }) => sum + data.victories, 0)
-						).toFixed(2)
+						value: (totalPlayed / totalVictories).toFixed(2)
 					},
 					{
 						title: 'Matches Played',
-						value: stats.gameStats.reduce((sum, { data }) => sum + data.played, 0)
+						value: totalPlayed
 					}
 				]}
 			/>

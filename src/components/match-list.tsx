@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Table from './table'
 
 export interface MatchListProps {
-	matches: MatchOverview[]
+	matches: MatchOverview
 }
 
 export default ({ matches }: MatchListProps) => {
@@ -13,16 +13,16 @@ export default ({ matches }: MatchListProps) => {
 
 	return (
 		<Table
-			data={matches}
-			count={matches.length}
-			total={matches.length}
+			data={matches.data}
+			count={20}
+			total={matches.meta.totalPageNumber * 20}
 			headers={['Match History']}
-			row={({ matchId, map, date, duration }) => (
+			row={({ matchId, map, startTime, endTime, winner }) => (
 				<TableRow key={matchId} onClick={() => navigate('/overview/match/' + matchId)}>
 					<TableCell>
 						<Typography variant="h3">{map}</Typography>
 						<div>
-							{date} - {duration}
+							{startTime} - {endTime} - {winner}
 						</div>
 					</TableCell>
 				</TableRow>

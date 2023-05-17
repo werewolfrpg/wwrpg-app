@@ -9,12 +9,13 @@ import RolePanel from './components/role-panel'
 import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
 import ItemPanel from './components/item-panel'
-import { Grid } from '@mui/material'
+import { Box, Grid, Tab, Tabs } from '@mui/material'
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()
 	const [stats, setStats] = useState<PlayerOverview | null>(null)
-	const [matches, setMatches] = useState<MatchOverview[] | null>(null)
+	const [matches, setMatches] = useState<MatchOverview | null>(null)
+	const [tab, setTab] = useState(0)
 
 	useEffect(() => {
 		if (minecraftId) {
@@ -34,7 +35,7 @@ export default () => {
 		<Grid container spacing={4} justifyContent="center">
 			<Grid container item spacing={2} xs={2} direction="column">
 				<Grid item>
-					<ProfilePanel name="Than00ber" score={stats.score} rank={1} />
+					<ProfilePanel {...stats} />
 				</Grid>
 				<Grid item>
 					<RolePanel roles={stats.gameStats} />
@@ -42,33 +43,58 @@ export default () => {
 			</Grid>
 			<Grid container item spacing={2} xs={6} direction="column">
 				<Grid item>
-					<OverviewPanel stats={stats} />
+					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+						<Tabs value={tab} onChange={(_, i) => setTab(i)}>
+							<Tab label="Overview" />
+							<Tab label="Items" />
+						</Tabs>
+					</Box>
 				</Grid>
-				<Grid item>
-					<ItemPanel
-						items={[
-							{
-								name: 'Steak',
-								stats: {
-									Used: 1
+				{tab == 0 ? (
+					<>
+						<Grid item>
+							<OverviewPanel stats={stats} />
+						</Grid>
+						<Grid item>
+							<MatchList matches={matches} />
+						</Grid>
+					</>
+				) : (
+					<Grid item>
+						<ItemPanel
+							items={[
+								{
+									name: 'Steak',
+									stats: {
+										Used: 1
+									}
+								},
+								{
+									name: 'Steak',
+									stats: {
+										Used: 1
+									}
+								},
+								{
+									name: 'Steak',
+									stats: {
+										Used: 1
+									}
+								},
+								{
+									name: 'Stun Grenade',
+									stats: {
+										Used: 1,
+										Hits: 12,
+										dfbcn: 12,
+										wd: 12,
+										'Hit Targets': 23
+									}
 								}
-							},
-							{
-								name: 'Stun Grenade',
-								stats: {
-									Used: 1,
-									Hits: 12,
-									dfbcn: 12,
-									wd: 12,
-									'Hit Targets': 23
-								}
-							}
-						]}
-					/>
-				</Grid>
-				<Grid item>
-					<MatchList matches={matches} />
-				</Grid>
+							]}
+						/>
+					</Grid>
+				)}
 			</Grid>
 		</Grid>
 	)

@@ -2,23 +2,32 @@ import React from 'react'
 import { Stack, Box, LinearProgress, Typography, Divider } from '@mui/material'
 import Panel from '../../../../components/panel'
 import StatisticCard from './statistic-card'
+import { PlayerOverview } from '../../../../types/overview'
 
-export interface RankPanelProps {
-	name: string
-	score: number
-	rank: number
-}
+export default ({
+	minecraftUsername,
+	score,
+	ranking,
+	title,
+	nextTitle,
+	currentThreshold,
+	nextThreshold
+}: PlayerOverview) => {
+	const b = score - currentThreshold
+	const a = nextThreshold - currentThreshold
+	const scoreProgress = nextThreshold === -1 ? 100 : a / b
 
-export default ({ name, score, rank }: RankPanelProps) => {
 	return (
-		<Panel title={name}>
-			<StatisticCard title="Rank" value={'#' + rank} />
+		<Panel title={minecraftUsername}>
+			<StatisticCard title="Rank" value={'#' + ranking} />
 			<Divider />
 			<Stack>
-				<StatisticCard title={'to cal.'} value={score} />
+				<StatisticCard title={title} value={score} />
 				<Box position="relative" sx={{ p: 1, mx: 1 }}>
-					<LinearProgress variant="determinate" value={40} sx={{ color: 'silver' }} />
-					<Typography fontSize={12}>1234 until next rank</Typography>
+					<LinearProgress variant="determinate" value={scoreProgress} />
+					<Typography fontSize={12} align="right">
+						{nextThreshold === -1 ? 'Max score reached!' : a - b + ' until ' + nextTitle}
+					</Typography>
 				</Box>
 			</Stack>
 		</Panel>

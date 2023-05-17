@@ -15,7 +15,7 @@ export default ({ title, value, caption, tooltip }: StatisiticProps) => {
 				<Typography fontSize={16} fontWeight={900} color="grey">
 					{title}
 				</Typography>
-				<Typography variant="h3">{value == 'NaN' ? '--' : value}</Typography>
+				<Typography variant="h3">{value == 'NaN' || value == 'Infinity' ? '--' : value}</Typography>
 				<Typography variant="caption">{caption}</Typography>
 			</Stack>
 		</Tooltip>

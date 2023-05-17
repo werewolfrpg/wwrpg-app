@@ -33,11 +33,11 @@ export default () => {
 			count={20}
 			total={leaderboard.meta.entries}
 			headers={['Rank', 'Player', 'Title', 'Score', 'Win %', 'Match Player']}
-			row={({ minecraftId, minecraftUsername, rank, score, gamesWon, gamesPlayed }, i) => (
+			row={({ minecraftId, ranking, minecraftUsername, title, score, gamesWon, gamesPlayed }) => (
 				<TableRow key={minecraftId} onClick={() => navigate('/overview/player/' + minecraftId)}>
-					<TableCell align="center">{page * 20 + i + 1}</TableCell>
+					<TableCell align="center">{ranking}</TableCell>
 					<TableCell align="left">{minecraftUsername}</TableCell>
-					<TableCell align="center">{rank}</TableCell>
+					<TableCell align="center">{title}</TableCell>
 					<TableCell align="center">{score}</TableCell>
 					<TableCell align="center">{(gamesWon / gamesPlayed) * 100 + '%'}</TableCell>
 					<TableCell align="right">{gamesPlayed}</TableCell>
