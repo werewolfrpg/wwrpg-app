@@ -1,21 +1,21 @@
 import React from 'react'
-import { MilitaryTech } from '@mui/icons-material'
-import { Stack, Box, LinearProgress, Typography } from '@mui/material'
+import { Stack, Box, LinearProgress, Typography, Divider } from '@mui/material'
 import Panel from '../../../../components/panel'
-import Statistic from './statistic'
+import StatisticCard from './statistic-card'
 
 export interface RankPanelProps {
-	title: string
+	name: string
 	score: number
+	rank: number
 }
 
-export default ({ title, score }: RankPanelProps) => {
+export default ({ name, score, rank }: RankPanelProps) => {
 	return (
-		<Panel title="Rank" icon={<MilitaryTech />}>
+		<Panel title={name}>
+			<StatisticCard title="Rank" value={'#' + rank} />
+			<Divider />
 			<Stack>
-				<Box sx={{ py: 1 }}>
-					<Statistic title={title} value={score} caption="Rank #24" />
-				</Box>
+				<StatisticCard title={'to cal.'} value={score} />
 				<Box position="relative" sx={{ p: 1, mx: 1 }}>
 					<LinearProgress variant="determinate" value={40} sx={{ color: 'silver' }} />
 					<Typography fontSize={12}>1234 until next rank</Typography>
