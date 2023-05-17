@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Card, Divider, Typography } from '@mui/material'
 
-interface PanelProps extends React.PropsWithChildren {
+export interface PanelProps extends React.PropsWithChildren {
 	title: string
 	icon?: JSX.Element
 }

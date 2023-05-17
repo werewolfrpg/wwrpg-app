@@ -11,7 +11,7 @@ import {
 	TableRow
 } from '@mui/material'
 
-interface TableProps<T> {
+export interface TableProps<T> {
 	data: T[]
 	count: number
 	total: number

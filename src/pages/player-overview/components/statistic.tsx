@@ -1,9 +1,9 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
 
-interface StatisiticProps {
+export interface StatisiticProps {
 	title: string
-	value: string
+	value: any
 	caption?: string
 }
 
@@ -13,7 +13,7 @@ export default ({ title, value, caption }: StatisiticProps) => {
 			<Typography fontSize={16} fontWeight={900} color="grey">
 				{title}
 			</Typography>
-			<Typography variant="h3">{value}</Typography>
+			<Typography variant="h3">{value == 'NaN' ? '--' : value}</Typography>
 			<Typography variant="caption">{caption}</Typography>
 		</Stack>
 	)
