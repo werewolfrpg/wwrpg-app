@@ -6,8 +6,9 @@ import { MatchOverview } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
 import MatchList from '../../../components/match-list'
 import RolePanel from './components/role-panel'
-import RankPanel from './components/rank-panel'
 import OverviewPanel from './components/overview-panel'
+import ProfilePanel from './components/profile-panel'
+import ItemPanel from './components/item-panel'
 import { Grid } from '@mui/material'
 
 export default () => {
@@ -33,7 +34,7 @@ export default () => {
 		<Grid container spacing={4} justifyContent="center">
 			<Grid container item spacing={2} xs={2} direction="column">
 				<Grid item>
-					<RankPanel score={stats.score} title="TODO" />
+					<ProfilePanel name="Than00ber" score={stats.score} rank={1} />
 				</Grid>
 				<Grid item>
 					<RolePanel roles={stats.gameStats} />
@@ -42,6 +43,28 @@ export default () => {
 			<Grid container item spacing={2} xs={6} direction="column">
 				<Grid item>
 					<OverviewPanel stats={stats} />
+				</Grid>
+				<Grid item>
+					<ItemPanel
+						items={[
+							{
+								name: 'Steak',
+								stats: {
+									Used: 1
+								}
+							},
+							{
+								name: 'Stun Grenade',
+								stats: {
+									Used: 1,
+									Hits: 12,
+									dfbcn: 12,
+									wd: 12,
+									'Hit Targets': 23
+								}
+							}
+						]}
+					/>
 				</Grid>
 				<Grid item>
 					<MatchList matches={matches} />
