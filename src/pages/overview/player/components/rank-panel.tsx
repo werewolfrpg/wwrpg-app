@@ -1,7 +1,7 @@
 import React from 'react'
 import { MilitaryTech } from '@mui/icons-material'
 import { Stack, Box, LinearProgress, Typography } from '@mui/material'
-import Panel from '../../../components/panel'
+import Panel from '../../../../components/panel'
 import Statistic from './statistic'
 
 export interface RankPanelProps {

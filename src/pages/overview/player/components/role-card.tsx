@@ -1,5 +1,5 @@
 import { Stack, Tooltip, Box, CircularProgress } from '@mui/material'
-import { GameStats } from '../../../types/overview'
+import { GameStats } from '../../../../types/overview'
 import Statistic from './statistic'
 
 export default ({ role, data: { victories, played } }: GameStats) => {

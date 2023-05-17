@@ -1,8 +1,8 @@
 import React from 'react'
 import { AssignmentIndRounded } from '@mui/icons-material'
-import Panel from '../../../components/panel'
+import Panel from '../../../../components/panel'
 import RoleCard from './role-card'
-import { GameStats } from '../../../types/overview'
+import { GameStats } from '../../../../types/overview'
 
 export interface RolePanelProps {
 	roles: GameStats[]
