@@ -1,9 +1,8 @@
 import React from 'react'
 import { DashboardRounded } from '@mui/icons-material'
-import { Card, Divider } from '@mui/material'
+import { Box, Card, Divider, Typography } from '@mui/material'
 import StatisticPanel from './statistic-panel'
 import { PlayerOverview } from '../../../../types/overview'
-import Title from '../../../../components/title'
 
 export interface OverviewPanelProps {
 	stats: PlayerOverview
@@ -15,7 +14,13 @@ export default ({ stats }: OverviewPanelProps) => {
 
 	return (
 		<Card>
-			<Title title="Overview" icon={<DashboardRounded />} divider />
+			<Box sx={{ p: 2 }} display="flex">
+				<DashboardRounded />
+				<Typography variant="h3" sx={{ px: 1 }}>
+					Overview
+				</Typography>
+			</Box>
+			<Divider />
 			<StatisticPanel
 				title="Performance"
 				statistics={[

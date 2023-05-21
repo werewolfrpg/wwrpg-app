@@ -1,8 +1,17 @@
 import React from 'react'
 import StatisticPanel from './statistic-panel'
-import { Card, Divider, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material'
+import {
+	Box,
+	Card,
+	Divider,
+	Table,
+	TableBody,
+	TableContainer,
+	TableHead,
+	TableRow,
+	Typography
+} from '@mui/material'
 import { Item } from '../../../../types/overview'
-import Title from '../../../../components/title'
 import { BlenderRounded } from '@mui/icons-material'
 
 export interface ItemPanelProps {
@@ -15,7 +24,13 @@ export default ({ items }: ItemPanelProps) => {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<Title title="Items" icon={<BlenderRounded />} divider />
+						<Box sx={{ p: 2 }} display="flex">
+							<BlenderRounded />
+							<Typography variant="h3" sx={{ px: 1 }}>
+								Items
+							</Typography>
+						</Box>
+						<Divider />
 					</TableRow>
 				</TableHead>
 				<TableBody>
