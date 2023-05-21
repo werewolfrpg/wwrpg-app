@@ -8,6 +8,7 @@ export default () => {
 		<div>
 			<nav>
 				<div onClick={() => navigate('/leaderboard')}>Leaderboard</div>
+				<div onClick={() => navigate('/history')}>History</div>
 			</nav>
 		</div>
 	)

@@ -1,8 +1,7 @@
 import React from 'react'
-import { TableRow, TableCell, Typography, Divider } from '@mui/material'
+import { Box, Card, Chip, Grid, Stack, Typography, useTheme } from '@mui/material'
 import { MatchOverview } from '../types/match'
 import { useNavigate } from 'react-router-dom'
-import Table from './table'
 import Title from './title'
 
 export interface MatchListProps {
@@ -10,24 +9,88 @@ export interface MatchListProps {
 }
 
 export default ({ matches }: MatchListProps) => {
+	const theme = useTheme()
 	const navigate = useNavigate()
 
 	return (
-		<Table
-			data={matches.data}
-			count={20}
-			total={matches.meta.totalPageNumber * 20}
-			header={<Title title="Matches" divider />}
-			row={({ matchId, map, startTime, endTime, winner }) => (
-				<TableRow key={matchId} onClick={() => navigate('/overview/match/' + matchId)}>
-					<TableCell>
-						<Typography variant="h3">{map}</Typography>
-						<div>
-							{startTime} - {endTime} - {winner}
-						</div>
-					</TableCell>
-				</TableRow>
-			)}
-		/>
+		<Card>
+			<Title title="Matches" divider />
+			<Stack p={2}>
+				{matches.data.map(({ date, matches }, index) => (
+					<Box key={index}>
+						<Stack direction="row" alignItems="center" gap={1} my={1}>
+							<Box
+								style={{
+									width: 10,
+									height: 10,
+									borderRadius: 10,
+									background: theme.palette.primary.main
+								}}
+							/>
+							<Typography fontWeight={600} fontSize={20}>
+								{date}
+							</Typography>
+							<Chip label={matches.length} />
+						</Stack>
+						<Stack display="flex" direction="row" gap={1}>
+							<Box style={{ width: 10, height: 'flex', display: 'flex', justifyContent: 'center' }}>
+								<Box
+									style={{
+										width: 4,
+										height: '100%',
+										borderRadius: 4,
+										background: theme.palette.primary.main
+									}}
+								/>
+							</Box>
+							<Grid container spacing={1} direction="column" my={1} mb={2}>
+								{matches.map(match => (
+									<Grid item key={match.matchId}>
+										<Card
+											onClick={() => navigate('/overview/match/' + match.matchId)}
+											style={{ cursor: 'pointer' }}
+										>
+											<Box
+												style={{
+													backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0)), 
+                          url(${require('../assets/map.png')}`,
+													backgroundPosition: 'center'
+												}}
+											>
+												<Stack gap={1} direction="row">
+													{/* <Box style={{ background: 'red', width: 4, height: 'flex' }} /> */}
+													<Stack p={2}>
+														<Stack direction="row" alignItems="center" gap={1}>
+															<Typography variant="h4">{match.map}</Typography>
+															<Chip label={match.time + ' - ' + match.duration} />
+														</Stack>
+														<Box my={1}>{match.winner}</Box>
+													</Stack>
+												</Stack>
+											</Box>
+										</Card>
+									</Grid>
+								))}
+							</Grid>
+						</Stack>
+					</Box>
+				))}
+				<Box>
+					<Stack direction="row" alignItems="center" gap={1} my={1}>
+						<Box
+							style={{
+								width: 10,
+								height: 10,
+								borderRadius: 10,
+								background: theme.palette.primary.main
+							}}
+						/>
+						<Typography fontWeight={600} fontSize={20}>
+							No match history prior to {matches.data[matches.data.length - 1].date}
+						</Typography>
+					</Stack>
+				</Box>
+			</Stack>
+		</Card>
 	)
 }

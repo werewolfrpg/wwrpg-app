@@ -42,21 +42,25 @@ export default () => {
 		<TableContainer component={Card}>
 			<Table>
 				<TableHead>
-					<TableCell align="left">Rank</TableCell>
-					<TableCell align="left">Player</TableCell>
-					<TableCell align="center">Title</TableCell>
-					<TableCell align="center">Score</TableCell>
-					<TableCell align="center">Win %</TableCell>
-					<TableCell align="right">Matches Played</TableCell>
+					<TableRow>
+						<TableCell align="left">Rank</TableCell>
+						<TableCell align="left">Player</TableCell>
+						<TableCell align="center">Title</TableCell>
+						<TableCell align="center">Score</TableCell>
+						<TableCell align="center">Win %</TableCell>
+						<TableCell align="right">Matches Played</TableCell>
+					</TableRow>
 				</TableHead>
 				<TableBody>
 					{leaderboard.data.map(
 						({ minecraftId, ranking, minecraftUsername, title, score, gamesWon, gamesPlayed }) => (
 							<TableRow
+								hover
+								style={{ cursor: 'pointer' }}
 								key={minecraftId}
 								onClick={() => navigate('/overview/player/' + minecraftId)}
 							>
-								<TableCell align="left">{ranking}</TableCell>
+								<TableCell align="left">#{ranking}</TableCell>
 								<TableCell align="left">
 									<Stack direction="row" alignItems="center">
 										<img src={'https://mc-heads.net/head/' + minecraftId} height={40} />
@@ -76,15 +80,17 @@ export default () => {
 					)}
 				</TableBody>
 				<TableFooter>
-					<TablePagination
-						style={{ border: 'none' }}
-						rowsPerPageOptions={[20, 50, 100]}
-						onPageChange={(_, page) => refreshLeaderboard(page, count)}
-						onRowsPerPageChange={event => refreshLeaderboard(0, parseInt(event.target.value))}
-						count={leaderboard.meta.entries * leaderboard.meta.totalPageNumber}
-						rowsPerPage={count}
-						page={page}
-					/>
+					<TableRow>
+						<TablePagination
+							style={{ border: 'none' }}
+							rowsPerPageOptions={[20, 50, 100]}
+							onPageChange={(_, page) => refreshLeaderboard(page, count)}
+							onRowsPerPageChange={event => refreshLeaderboard(0, parseInt(event.target.value))}
+							count={leaderboard.meta.entries * leaderboard.meta.totalPageNumber}
+							rowsPerPage={count}
+							page={page}
+						/>
+					</TableRow>
 				</TableFooter>
 			</Table>
 		</TableContainer>

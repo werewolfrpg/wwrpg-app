@@ -2,6 +2,13 @@ import { createTheme } from '@mui/material'
 
 export const theme = createTheme({
 	components: {
+		MuiChip: {
+			defaultProps: {
+				style: {
+					cursor: 'inherit'
+				}
+			}
+		},
 		MuiCard: {
 			defaultProps: {
 				variant: 'outlined',
@@ -41,14 +48,6 @@ export const theme = createTheme({
 				caption: {
 					fontSize: 12,
 					color: 'secondary'
-				}
-			}
-		},
-		MuiTableRow: {
-			defaultProps: {
-				hover: true,
-				style: {
-					cursor: 'pointer'
 				}
 			}
 		}
