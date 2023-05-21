@@ -1,8 +1,7 @@
 import React from 'react'
-import { Box, Card, Chip, Grid, Stack, Typography, useTheme } from '@mui/material'
-import { MatchOverview } from '../types/match'
+import { Box, Card, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material'
+import { MatchOverview } from '../../../types/match'
 import { useNavigate } from 'react-router-dom'
-import Title from './title'
 
 export interface MatchListProps {
 	matches: MatchOverview
@@ -14,7 +13,12 @@ export default ({ matches }: MatchListProps) => {
 
 	return (
 		<Card>
-			<Title title="Matches" divider />
+			<Box sx={{ p: 2 }} display="flex">
+				<Typography variant="h3" sx={{ px: 1 }}>
+					Matches
+				</Typography>
+			</Box>
+			<Divider />
 			<Stack p={2}>
 				{matches.data.map(({ date, matches }, index) => (
 					<Box key={index}>
@@ -53,7 +57,7 @@ export default ({ matches }: MatchListProps) => {
 											<Box
 												style={{
 													backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0)), 
-                          url(${require('../assets/map.png')}`,
+                          url(${require('../../../assets/map.png')}`,
 													backgroundPosition: 'center'
 												}}
 											>

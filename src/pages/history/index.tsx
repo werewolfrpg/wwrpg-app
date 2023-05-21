@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MatchOverview } from '../../types/match'
 import { getMatchHistory } from '../../apis/wwrpg'
-import MatchList from '../../components/match-list'
+import MatchesPanel from './components/matches-panel'
 
 export default () => {
 	const [matches, setMatches] = useState<MatchOverview | null>(null)
@@ -14,5 +14,5 @@ export default () => {
 		return <div>loading...</div>
 	}
 
-	return <MatchList matches={matches} />
+	return <MatchesPanel matches={matches} />
 }
