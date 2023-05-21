@@ -4,11 +4,16 @@ import Leaderboard from '../pages/leaderboard'
 import PlayerOverview from '../pages/overview/player'
 import MatchOverview from '../pages/overview/match'
 import History from '../pages/history'
+import Gameplay from '../pages/gameplay'
 
 export const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />
+	},
+	{
+		path: '/gameplay',
+		element: <Gameplay />
 	},
 	{
 		path: '/leaderboard',
