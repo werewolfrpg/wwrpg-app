@@ -61,38 +61,7 @@ export default () => {
 					</>
 				) : (
 					<Grid item>
-						<ItemPanel
-							items={[
-								{
-									name: 'Steak',
-									stats: {
-										Used: 1
-									}
-								},
-								{
-									name: 'Steak',
-									stats: {
-										Used: 1
-									}
-								},
-								{
-									name: 'Steak',
-									stats: {
-										Used: 1
-									}
-								},
-								{
-									name: 'Stun Grenade',
-									stats: {
-										Used: 1,
-										Hits: 12,
-										dfbcn: 12,
-										wd: 12,
-										'Hit Targets': 23
-									}
-								}
-							]}
-						/>
+						<ItemPanel items={stats.items} />
 					</Grid>
 				)}
 			</Grid>

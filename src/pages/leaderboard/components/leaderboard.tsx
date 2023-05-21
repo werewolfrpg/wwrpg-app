@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Leaderboard } from '../types/leaderboard'
-import { getLeaderboard } from '../apis/wwrpg'
 import { useNavigate } from 'react-router-dom'
 import {
 	Card,
@@ -15,13 +13,15 @@ import {
 	TableRow,
 	Typography
 } from '@mui/material'
+import { LeaderboardOverview } from '../../../types/leaderboard'
+import { getLeaderboard } from '../../../apis/wwrpg'
 
 export default () => {
 	const navigate = useNavigate()
 
 	const [page, setPage] = useState(0)
 	const [count, setCount] = useState(20)
-	const [leaderboard, setLeaderboard] = useState<Leaderboard | null>(null)
+	const [leaderboard, setLeaderboard] = useState<LeaderboardOverview | null>(null)
 
 	useEffect(() => {
 		refreshLeaderboard(page, count)

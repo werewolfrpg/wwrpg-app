@@ -14,7 +14,7 @@ export interface Meta {
 	entries: number
 }
 
-export interface Leaderboard {
+export interface LeaderboardOverview {
 	meta: Meta
 	data: Player[]
 }

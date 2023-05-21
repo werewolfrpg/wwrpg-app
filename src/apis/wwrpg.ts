@@ -1,4 +1,4 @@
-import { Leaderboard } from '../types/leaderboard'
+import { LeaderboardOverview } from '../types/leaderboard'
 import { MatchOverview } from '../types/match'
 import { PlayerOverview } from '../types/overview'
 import axios from 'axios'
@@ -16,7 +16,7 @@ const BASE_URL = process.env.REACT_APP_WWRPG_BASE_URL
 export const getLeaderboard = async (
 	page: number = 1,
 	count: number = 20
-): Promise<Leaderboard> => {
+): Promise<LeaderboardOverview> => {
 	const res = await axios.get(BASE_URL + '/api/leaderboard/?page=' + page + '&number=' + count)
 	return res.data
 }

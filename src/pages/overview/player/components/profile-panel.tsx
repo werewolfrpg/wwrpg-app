@@ -23,7 +23,7 @@ export default ({
 		<Card>
 			<Title title={minecraftUsername} divider />
 			<Stack direction="row" justifyContent="center" sx={{ py: 2 }}>
-				<img src={'https://mc-heads.net/body/' + minecraftId} height={200} />
+				<Box component="img" src={'https://mc-heads.net/body/' + minecraftId} height={200} />
 				<Statistic title="Rank" value={'#' + ranking} />
 			</Stack>
 			<Divider />
