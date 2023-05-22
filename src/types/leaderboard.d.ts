@@ -1,20 +1,26 @@
-export interface Player {
+import { LeaderboardDto } from './dtos/leadboard.dto.d'
+import { Paginated } from './response'
+
+export interface LeaderboardPlayerDto {
 	minecraftId: string
 	minecraftUsername: string
 	score: number
-	ranking: string
+	ranking: number
 	title: string
 	gamesPlayed: number
 	gamesWon: number
 }
 
-export interface Meta {
-	pageNumber: number
-	totalPageNumber: number
-	entries: number
+export interface LeaderboardPlayer {
+	minecraftId: string
+	username: string
+	score: number
+	rank: number
+	title: string
+	played: number
+	won: number
 }
 
-export interface LeaderboardOverview {
-	meta: Meta
-	data: Player[]
-}
+export type LeaderboardDto = Paginated<LeaderboardPlayerDto>
+
+export type Leaderboard = Paginated<LeaderboardPlayer>
