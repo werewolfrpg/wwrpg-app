@@ -22,7 +22,6 @@ export interface MatchDto {
 }
 
 export interface MatchDetailsDto {
-	id: number
 	playerId: string
 	matchId: string
 	role: string
@@ -44,11 +43,11 @@ export interface Match {
 }
 
 export interface PlayerMatch extends Match {
-	won: boolean
 	role: string
+	score: number
 }
 
-export type DailyMatches<T extends Match> = {
+export type DailyMatches<T extends Match = Match> = {
 	date: string
 	matches: T[]
 }

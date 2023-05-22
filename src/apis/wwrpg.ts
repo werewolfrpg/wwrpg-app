@@ -81,16 +81,21 @@ export const getPlayerMatchHistory = async (
 ): Promise<PlayerMatches> => {
 	const res = await axios.get(BASE_URL + '/api/match/player/' + minecraftId + '?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as MatchesDto
-	const matches = convertToMatches(raw)
-	const playerMatches: PlayerMatch[] = matches.map(match => ({ ...match, won: true, role: 'WEREWOLF' }))
-	const data = convertToDailyMatches<PlayerMatch>(playerMatches)
+
+	const matches: PlayerMatch[] = convertToMatches(raw).map(match => ({
+		...match,
+		role: 'WEREWOLF',
+		score: 123
+	}))
+
+	const data = convertToDailyMatches<PlayerMatch>(matches)
 	return { meta, data }
 }
 
 export const getMatchHistory = async (page: number = 1, count: number = 20): Promise<Matches> => {
-	const res = await axios.get(BASE_URL + '/api/matches')
-	const { meta, data: matches } = res.data as MatchesDto
-	const data = convertToDailyMatches(convertToMatches(matches))
+	const res = await axios.get(BASE_URL + '/api/matches?page=' + page + '&number=' + count)
+	const { meta, data: raw } = res.data as MatchesDto
+	const data = convertToDailyMatches<Match>(convertToMatches(raw))
 	return { meta, data }
 }
 

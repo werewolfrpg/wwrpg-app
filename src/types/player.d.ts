@@ -52,22 +52,26 @@ export interface Skeletons {
 	}
 }
 
+export interface Score {
+	current: number
+	progress: number
+	difference: number
+}
+
+export interface Title {
+	current: string
+	next?: string
+}
+
 export interface PlayerStatistic {
 	minecraftId: string
 	username: string
-	score: {
-		current: number
-		progress: number
-		difference: number
-	}
-	rank: number
-	title: {
-		current: string
-		next: string | null
-	}
-	matches: MatchStatistic
 	kills: number
 	deaths: number
+	rank: number
+	score: Score
+	title: Title
+	matches: MatchStatistic
 	skeletons: Skeletons
 	roles: Role[]
 	items: Item[]
