@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { PlayerOverview } from '../../../types/overview'
+import { PlayerStatistic } from '../../../types/player'
 import { getPlayerStats } from '../../../apis/wwrpg'
-import { MatchOverview } from '../../../types/match'
+import { PlayerMatches } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
 import MatchList from '../../history/components/matches-panel'
 import RolePanel from './components/role-panel'
@@ -13,8 +13,8 @@ import { Box, Grid, Tab, Tabs } from '@mui/material'
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()
-	const [stats, setStats] = useState<PlayerOverview | null>(null)
-	const [matches, setMatches] = useState<MatchOverview | null>(null)
+	const [stats, setStats] = useState<PlayerStatistic | null>(null)
+	const [matches, setMatches] = useState<PlayerMatches | null>(null)
 	const [tab, setTab] = useState(0)
 
 	useEffect(() => {
@@ -35,10 +35,10 @@ export default () => {
 		<Grid container spacing={4} justifyContent="center">
 			<Grid container item spacing={2} xs={2} direction="column">
 				<Grid item>
-					<ProfilePanel {...stats} />
+					<ProfilePanel stats={stats} />
 				</Grid>
 				<Grid item>
-					<RolePanel roles={stats.gameStats} />
+					<RolePanel roles={stats.roles} />
 				</Grid>
 			</Grid>
 			<Grid container item spacing={2} xs={6} direction="column">

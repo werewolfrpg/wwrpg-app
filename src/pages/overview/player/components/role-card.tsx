@@ -1,21 +1,19 @@
 import { Stack, Tooltip, Box, CircularProgress } from '@mui/material'
-import { GameStats } from '../../../../types/overview'
+import { Role } from '../../../../types/player'
 import Statistic from './statistic'
 
-export default ({ role, data: { victories, played } }: GameStats) => {
-	const winRate = played > 0 ? (victories / played) * 100 : 0
+export interface RoleCardProps {
+	role: Role
+}
+
+export default ({ role: { name, played, won } }: RoleCardProps) => {
+	const winRate = played > 0 ? (won / played) * 100 : 0
 
 	return (
-		<Stack key={role} direction="row" sx={{ p: 2 }}>
+		<Stack direction="row" sx={{ p: 2 }}>
 			<Tooltip title={'Win rate: ' + winRate.toFixed() + '%'}>
 				<Box position="relative" alignItems="center" justifyContent="center" display="flex">
-					<CircularProgress
-						variant="determinate"
-						thickness={5}
-						value={100}
-						size={50}
-						sx={{ px: 1, color: 'silver' }}
-					/>
+					<CircularProgress variant="determinate" thickness={5} value={100} size={50} sx={{ px: 1, color: 'silver' }} />
 					<CircularProgress
 						variant="determinate"
 						thickness={5}
@@ -25,10 +23,7 @@ export default ({ role, data: { victories, played } }: GameStats) => {
 					/>
 				</Box>
 			</Tooltip>
-			<Statistic
-				title={role[0] + role.toLowerCase().substring(1)}
-				value={victories + 'W - ' + (played - victories) + 'L'}
-			/>
+			<Statistic title={name[0] + name.toLowerCase().substring(1)} value={won + 'W - ' + (played - won) + 'L'} />
 		</Stack>
 	)
 }

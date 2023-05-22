@@ -13,7 +13,7 @@ import {
 	TableRow,
 	Typography
 } from '@mui/material'
-import { LeaderboardOverview } from '../../../types/leaderboard'
+import { Leaderboard } from '../../../types/leaderboard'
 import { getLeaderboard } from '../../../apis/wwrpg'
 
 export default () => {
@@ -21,7 +21,7 @@ export default () => {
 
 	const [page, setPage] = useState(0)
 	const [count, setCount] = useState(20)
-	const [leaderboard, setLeaderboard] = useState<LeaderboardOverview | null>(null)
+	const [leaderboard, setLeaderboard] = useState<Leaderboard | null>(null)
 
 	useEffect(() => {
 		refreshLeaderboard(page, count)
@@ -52,32 +52,28 @@ export default () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{leaderboard.data.map(
-						({ minecraftId, ranking, minecraftUsername, title, score, gamesWon, gamesPlayed }) => (
-							<TableRow
-								hover
-								style={{ cursor: 'pointer' }}
-								key={minecraftId}
-								onClick={() => navigate('/overview/player/' + minecraftId)}
-							>
-								<TableCell align="left">#{ranking}</TableCell>
-								<TableCell align="left">
-									<Stack direction="row" alignItems="center">
-										<img src={'https://mc-heads.net/head/' + minecraftId} height={40} />
-										<Typography fontWeight={900} p={2}>
-											{minecraftUsername}
-										</Typography>
-									</Stack>
-								</TableCell>
-								<TableCell align="center">{title}</TableCell>
-								<TableCell align="center">{score}</TableCell>
-								<TableCell align="center">
-									{gamesPlayed > 0 ? ((gamesWon / gamesPlayed) * 100).toFixed(1) + '%' : '--'}
-								</TableCell>
-								<TableCell align="right">{gamesPlayed}</TableCell>
-							</TableRow>
-						)
-					)}
+					{leaderboard.data.map(({ minecraftId, rank, username, title, score, won, played }) => (
+						<TableRow
+							hover
+							style={{ cursor: 'pointer' }}
+							key={minecraftId}
+							onClick={() => navigate('/overview/player/' + minecraftId)}
+						>
+							<TableCell align="left">#{rank}</TableCell>
+							<TableCell align="left">
+								<Stack direction="row" alignItems="center">
+									<img src={'https://mc-heads.net/head/' + minecraftId} height={40} />
+									<Typography fontWeight={900} p={2}>
+										{username}
+									</Typography>
+								</Stack>
+							</TableCell>
+							<TableCell align="center">{title}</TableCell>
+							<TableCell align="center">{score}</TableCell>
+							<TableCell align="center">{played > 0 ? ((won / played) * 100).toFixed(1) + '%' : '--'}</TableCell>
+							<TableCell align="right">{played}</TableCell>
+						</TableRow>
+					))}
 				</TableBody>
 				<TableFooter>
 					<TableRow>

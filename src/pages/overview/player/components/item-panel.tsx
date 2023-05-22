@@ -11,7 +11,7 @@ import {
 	TableRow,
 	Typography
 } from '@mui/material'
-import { Item } from '../../../../types/overview'
+import { Item } from '../../../../types/player'
 import { BlenderRounded } from '@mui/icons-material'
 
 export interface ItemPanelProps {

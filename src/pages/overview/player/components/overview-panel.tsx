@@ -1,17 +1,14 @@
 import React from 'react'
 import { DashboardRounded } from '@mui/icons-material'
+import { PlayerStatistic } from '../../../../types/player'
 import { Box, Card, Divider, Typography } from '@mui/material'
 import StatisticPanel from './statistic-panel'
-import { PlayerOverview } from '../../../../types/overview'
 
 export interface OverviewPanelProps {
-	stats: PlayerOverview
+	stats: PlayerStatistic
 }
 
 export default ({ stats }: OverviewPanelProps) => {
-	const totalVictories = stats.gameStats.reduce((sum, { data }) => sum + data.victories, 0)
-	const totalPlayed = stats.gameStats.reduce((sum, { data }) => sum + data.played, 0)
-
 	return (
 		<Card>
 			<Box sx={{ p: 2 }} display="flex">
@@ -26,15 +23,15 @@ export default ({ stats }: OverviewPanelProps) => {
 				statistics={[
 					{
 						title: 'Wins',
-						value: totalVictories
+						value: stats.matches.won
 					},
 					{
 						title: 'Win %',
-						value: ((totalPlayed / totalVictories) * 100).toFixed(1)
+						value: ((stats.matches.won / stats.matches.played) * 100).toFixed(1)
 					},
 					{
 						title: 'Matches Played',
-						value: totalPlayed
+						value: stats.matches.played
 					}
 				]}
 			/>
@@ -60,19 +57,19 @@ export default ({ stats }: OverviewPanelProps) => {
 				statistics={[
 					{
 						title: 'Emeralds',
-						value: stats.skeletons.basicSkeletonEmeraldDrops
+						value: stats.skeletons.emeralds
 					},
 					{
 						title: 'Basic Killed',
-						value: stats.skeletons.killedBasicSkeletons
+						value: stats.skeletons.killed.basic
 					},
 					{
 						title: 'Lucky Killed',
-						value: stats.skeletons.killedLuckySkeletons
+						value: stats.skeletons.killed.lucky
 					},
 					{
 						title: 'Special Killed',
-						value: stats.skeletons.killedSpecialSkeletons
+						value: stats.skeletons.killed.special
 					}
 				]}
 			/>

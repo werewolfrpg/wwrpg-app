@@ -1,18 +1,13 @@
 import React from 'react'
-import { AssignmentIndRounded } from '@mui/icons-material'
 import RoleCard from './role-card'
-import { GameStats } from '../../../../types/overview'
+import { Role } from '../../../../types/player'
 import { Box, Card, Divider, Typography } from '@mui/material'
 
 export interface RolePanelProps {
-	roles: GameStats[]
+	roles: Role[]
 }
 
 export default ({ roles }: RolePanelProps) => {
-	const sorted = roles.sort(
-		(a, b) => a.data.played / a.data.victories - b.data.played / b.data.victories
-	)
-
 	return (
 		<Card>
 			<Box sx={{ p: 2 }} display="flex">
@@ -21,8 +16,8 @@ export default ({ roles }: RolePanelProps) => {
 				</Typography>
 			</Box>
 			<Divider />
-			{sorted.map((stat, index) => (
-				<RoleCard key={index} {...stat} />
+			{roles.map((role, index) => (
+				<RoleCard key={index} role={role} />
 			))}
 		</Card>
 	)

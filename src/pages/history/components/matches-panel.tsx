@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Card, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material'
-import { MatchOverview } from '../../../types/match'
+import { Matches } from '../../../types/match'
 import { useNavigate } from 'react-router-dom'
 
 export interface MatchListProps {
-	matches: MatchOverview
+	matches: Matches
 }
 
 export default ({ matches }: MatchListProps) => {
@@ -50,10 +50,7 @@ export default ({ matches }: MatchListProps) => {
 							<Grid container spacing={1} direction="column" my={1} mb={2}>
 								{matches.map(match => (
 									<Grid item key={match.matchId}>
-										<Card
-											onClick={() => navigate('/overview/match/' + match.matchId)}
-											style={{ cursor: 'pointer' }}
-										>
+										<Card onClick={() => navigate('/overview/match/' + match.matchId)} style={{ cursor: 'pointer' }}>
 											<Box
 												style={{
 													backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0)), 
