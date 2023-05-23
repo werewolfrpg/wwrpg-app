@@ -12,7 +12,7 @@ export default ({ children }: React.PropsWithChildren) => {
 				<AppBar position="fixed">
 					<Container>
 						<Toolbar disableGutters>
-							<Button sx={{ color: '#fff' }} onClick={() => navigate('/home')}>
+							<Button sx={{ color: '#fff' }} onClick={() => navigate('/')}>
 								Home
 							</Button>
 							<Button sx={{ color: '#fff' }} onClick={() => navigate('/gameplay')}>

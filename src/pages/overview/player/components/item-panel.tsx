@@ -1,21 +1,8 @@
-import React, { useState } from 'react'
-import StatisticPanel from './statistic-panel'
-import {
-	Box,
-	Button,
-	Card,
-	Collapse,
-	Divider,
-	Stack,
-	Table,
-	TableBody,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Typography
-} from '@mui/material'
-import { Item } from '../../../../types/player'
+import { useState } from 'react'
+import { Box, Card, Collapse, Divider, Stack, Typography } from '@mui/material'
 import { ArrowDownwardRounded, ArrowUpwardRounded, BlenderRounded } from '@mui/icons-material'
+import StatisticPanel from './statistic-panel'
+import { Item } from '../../../../types/player'
 
 export interface ItemPanelProps {
 	items: Item[]
@@ -23,29 +10,17 @@ export interface ItemPanelProps {
 
 export default ({ items }: ItemPanelProps) => {
 	return (
-		<TableContainer component={Card}>
-			<Table>
-				<TableHead>
-					<TableRow>
-						<Box sx={{ p: 2 }} display="flex">
-							<BlenderRounded />
-							<Typography variant="h3" sx={{ px: 1 }}>
-								Items
-							</Typography>
-						</Box>
-						<Divider />
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{items.map((item, index) => (
-						<>
-							<ItemCard key={index} {...item} />
-							{index != items.length - 1 && <Divider />}
-						</>
-					))}
-				</TableBody>
-			</Table>
-		</TableContainer>
+		<Card>
+			<Box sx={{ p: 2 }} display="flex">
+				<BlenderRounded />
+				<Typography variant="h3" sx={{ px: 1 }}>
+					Items
+				</Typography>
+			</Box>
+			{items.map((item, index) => (
+				<ItemCard key={index} {...item} />
+			))}
+		</Card>
 	)
 }
 
@@ -54,6 +29,7 @@ const ItemCard = (item: Item) => {
 
 	return (
 		<Box>
+			<Divider />
 			<Stack
 				direction="row"
 				alignItems="center"
