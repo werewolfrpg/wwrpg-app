@@ -12,19 +12,20 @@ export default ({ stats: { minecraftId, username, score, rank, title } }: Profil
 	return (
 		<Card>
 			<Box sx={{ p: 2 }} display="flex">
-				<Typography variant="h3" sx={{ px: 1 }}>
+				<Typography variant="h3" px={1}>
 					{username}
 				</Typography>
 			</Box>
 			<Divider />
-			<Stack direction="row" justifyContent="center" sx={{ py: 2 }}>
-				<Box component="img" src={'https://mc-heads.net/body/' + minecraftId} height={200} />
+			<Stack direction="row" py={2} justifyContent="center" alignItems="center" gap={1}>
 				<Statistic title="Rank" value={'#' + rank} />
+				<Box component="img" src={'https://mc-heads.net/body/' + minecraftId} height={150} />
+				<Statistic title="Score" value={score.current} />
 			</Stack>
 			<Divider />
 			<Stack>
 				<StatisticCard title={title.current} value={score.current} />
-				<Box position="relative" sx={{ p: 1, mx: 1 }}>
+				<Box position="relative" p={1} mx={1}>
 					<LinearProgress variant="determinate" value={score.progress} />
 					<Typography fontSize={12} align="right">
 						{title.next ? score.difference + ' until ' + title.next : 'Max score reached!'}

@@ -12,7 +12,7 @@ export default ({ title, statistics }: StatisticPanelProps) => {
 	return (
 		<Box>
 			{title && (
-				<Typography variant="h4" sx={{ mx: 4, mt: 2 }}>
+				<Typography variant="h4" mx={4} mt={2}>
 					{title}
 				</Typography>
 			)}
