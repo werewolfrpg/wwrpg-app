@@ -1,16 +1,6 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import AppLayout from '../layout/app-layout'
 
 export default () => {
-	const navigate = useNavigate()
-
-	return (
-		<div>
-			<nav>
-				<div onClick={() => navigate('/leaderboard')}>Leaderboard</div>
-				<div onClick={() => navigate('/history')}>History</div>
-				<div onClick={() => navigate('/gameplay')}>Gameplay</div>
-			</nav>
-		</div>
-	)
+	return <AppLayout>HOME</AppLayout>
 }

@@ -4,12 +4,13 @@ import { PlayerStatistic } from '../../../types/player'
 import { getPlayerStats } from '../../../apis/wwrpg'
 import { PlayerMatches } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
-import MatchList from '../../history/components/matches-panel'
+import { Grid, Tab, Tabs } from '@mui/material'
 import RolePanel from './components/role-panel'
 import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
 import ItemPanel from './components/item-panel'
-import { Box, Grid, Tab, Tabs } from '@mui/material'
+import MatchesPanel from './components/matches-panel'
+import AppLayout from '../../../layout/app-layout'
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()
@@ -32,39 +33,39 @@ export default () => {
 	}
 
 	return (
-		<Grid container spacing={4} justifyContent="center">
-			<Grid container item spacing={2} xs={2} direction="column">
-				<Grid item>
-					<ProfilePanel stats={stats} />
+		<AppLayout>
+			<Grid container gap={4}>
+				<Grid container item direction="column" xs={3} gap={3}>
+					<Grid item>
+						<ProfilePanel stats={stats} />
+					</Grid>
+					<Grid item>
+						<RolePanel roles={stats.roles} />
+					</Grid>
 				</Grid>
-				<Grid item>
-					<RolePanel roles={stats.roles} />
-				</Grid>
-			</Grid>
-			<Grid container item spacing={2} xs={6} direction="column">
-				<Grid item>
-					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+				<Grid container item direction="column" xs /*gap={3}*/>
+					<Grid item mb={3}>
 						<Tabs value={tab} onChange={(_, i) => setTab(i)}>
 							<Tab label="Overview" />
 							<Tab label="Items" />
 						</Tabs>
-					</Box>
-				</Grid>
-				{tab == 0 ? (
-					<>
-						<Grid item>
-							<OverviewPanel stats={stats} />
-						</Grid>
-						<Grid item>
-							<MatchList matches={matches} />
-						</Grid>
-					</>
-				) : (
-					<Grid item>
-						<ItemPanel items={stats.items} />
 					</Grid>
-				)}
+					{tab == 0 ? (
+						<>
+							<Grid item>
+								<OverviewPanel stats={stats} />
+							</Grid>
+							<Grid item>
+								<MatchesPanel matches={matches} />
+							</Grid>
+						</>
+					) : (
+						<Grid item>
+							<ItemPanel items={stats.items} />
+						</Grid>
+					)}
+				</Grid>
 			</Grid>
-		</Grid>
+		</AppLayout>
 	)
 }
