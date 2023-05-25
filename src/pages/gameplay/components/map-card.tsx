@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Card, CardActionArea, CardContent, CardMedia, Chip, Stack, Typography } from '@mui/material'
+import { Card, CardActionArea, CardContent, CardMedia, Chip, Stack, Typography } from '@mui/material'
 
 export interface MapCardProps {
 	name: string

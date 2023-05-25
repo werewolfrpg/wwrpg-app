@@ -30,29 +30,20 @@ const MatchEntry = ({ score, role, duration, matchId }: PlayerMatch) => {
 	const navigate = useNavigate()
 
 	return (
-		<Stack
-			direction="row"
-			alignItems="center"
-			gap={1}
-			// my={0.25}
-			style={{ cursor: 'pointer' }}
+		<Box
 			onClick={() => navigate('/overview/match/' + matchId)}
+			my={0.2}
+			style={{
+				backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${require('../../../../assets/map.png')}`,
+				backgroundPosition: 'center',
+				cursor: 'pointer'
+			}}
 		>
-			<Box style={{ background: 'red', width: 4, height: 60 }} />
-			<Stack direction="row" alignItems="center" mx={2} gap={10}>
-				<Box component="img" src={require('../../../../assets/icon.png')} width={32} height={32} />
+			<Stack direction="row" alignItems="center" m={2}>
 				<Statistic title="Score" value={score} />
 				<Statistic title={role} value={duration} />
 			</Stack>
-			<Box
-				style={{
-					backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0)), url(${require('../../../../assets/map.png')}`,
-					backgroundPosition: 'center',
-					height: 60,
-					flex: 1
-				}}
-			/>
-		</Stack>
+		</Box>
 	)
 }
 
