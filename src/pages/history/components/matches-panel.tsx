@@ -54,7 +54,7 @@ export default ({ matches }: MatchListProps) => {
 											<Box
 												style={{
 													backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0)), 
-                          url(${require('../../../assets/map.png')}`,
+                          url(${require('../../../assets/images/map.png')}`,
 													backgroundPosition: 'center'
 												}}
 											>

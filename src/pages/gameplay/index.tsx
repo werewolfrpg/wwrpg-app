@@ -32,21 +32,21 @@ const roles = [
 const maps = [
 	{
 		name: 'Airship',
-		image: require('../../assets/map.png'),
+		image: require('../../assets/images/map.png'),
 		description:
 			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
 		tags: ['Popular', 'Large', 'Difficult']
 	},
 	{
 		name: 'Airship',
-		image: require('../../assets/map.png'),
+		image: require('../../assets/images/map.png'),
 		description:
 			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
 		tags: ['Easy', 'Small']
 	},
 	{
 		name: 'Airship',
-		image: require('../../assets/map.png'),
+		image: require('../../assets/images/map.png'),
 		description:
 			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
 		tags: ['Popular', 'Large', 'Difficult']

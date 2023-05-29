@@ -34,7 +34,7 @@ const MatchEntry = ({ score, role, duration, matchId }: PlayerMatch) => {
 			onClick={() => navigate('/overview/match/' + matchId)}
 			my={0.2}
 			style={{
-				backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${require('../../../../assets/map.png')}`,
+				backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${require('../../../../assets/images/map.png')}`,
 				backgroundPosition: 'center',
 				cursor: 'pointer'
 			}}

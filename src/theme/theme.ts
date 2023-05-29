@@ -1,6 +1,20 @@
 import { createTheme } from '@mui/material'
 
 export const theme = createTheme({
+	palette: {
+		background: {
+			// default: '#000712'
+			// default: '#000'
+		},
+		text: {
+			// primary: '#FFF',
+			// secondary: '#FFF',
+			// disabled: '#FFF'
+		}
+	},
+	typography: {
+		fontFamily: ['Ubuntu'].join(',')
+	},
 	components: {
 		MuiChip: {
 			defaultProps: {
