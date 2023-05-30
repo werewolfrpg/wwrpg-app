@@ -1,12 +1,14 @@
-import { MutableRefObject, useLayoutEffect, useRef, useState } from 'react'
-import { Box, Container, Grow, Stack, Typography, styled } from '@mui/material'
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import { Box, Container, Grow, Stack, Tooltip, Typography, styled } from '@mui/material'
 import { ContentCopy } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+import { headers } from '../../../routes/router'
 
 const Header = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
 	width: '100vw',
-	zIndex: 1000
+	zIndex: 1000,
+	top: 0
 }))
 
 const Content = styled(Stack)(({ theme }) => ({
@@ -14,15 +16,16 @@ const Content = styled(Stack)(({ theme }) => ({
 	transition: '300ms ease',
 	marginLeft: theme.spacing(10),
 	marginRight: theme.spacing(10),
-	padding: theme.spacing(1)
+	paddingTop: theme.spacing(3),
+	paddingBottom: theme.spacing(3)
 }))
 
 const Link = styled(Typography)({
 	color: 'white',
+	fontSize: 20,
 	cursor: 'pointer',
 	fontFamily: 'Minecraft Ten',
-	transition: 'line-height 300ms ease',
-	padding: 10,
+	transition: '300ms ease',
 	'&:hover': {
 		lineHeight: 1,
 		textDecoration: 'underline',
@@ -38,39 +41,32 @@ export default () => {
 	const container = useRef<HTMLElement>()
 
 	useLayoutEffect(() => {
-		const listener = (_: Event) => {
-			setShowBanner(document.documentElement.scrollTop > banner.current!.clientHeight)
-		}
-		document.addEventListener('scroll', listener)
-
-		return () => {
-			document.removeEventListener('scroll', listener)
-		}
+		updateShowBanner()
+		document.addEventListener('scroll', updateShowBanner)
+		return () => document.removeEventListener('scroll', updateShowBanner)
 	}, [])
+
+	const updateShowBanner = () => {
+		setShowBanner(document.documentElement.scrollTop > banner.current!.clientHeight)
+	}
 
 	return (
 		<>
 			<Banner
 				server="wwrpg.aesten.net"
+				version="1.19.2"
 				logo={require('../../../assets/images/logo.png')}
 				wallpaper={require('../../../assets/images/wallpaper.png')}
 				container={banner}
 			/>
-			<Header ref={container} position={showBanner ? 'fixed' : 'relative'} top={showBanner ? 0 : 'auto'}>
+			<Header ref={container} position={showBanner ? 'fixed' : 'relative'}>
 				<Container>
 					<Content direction="row">
-						<Link fontSize={20} onClick={() => navigate('/')}>
-							Home
-						</Link>
-						<Link fontSize={20} onClick={() => navigate('/gameplay')}>
-							Gameplay
-						</Link>
-						<Link fontSize={20} onClick={() => navigate('/leaderboard')}>
-							Leaderboard
-						</Link>
-						<Link fontSize={20} onClick={() => navigate('/history')}>
-							Games
-						</Link>
+						{headers.map((header, index) => (
+							<Link key={index} onClick={() => navigate(header.path)}>
+								{header.name}
+							</Link>
+						))}
 					</Content>
 				</Container>
 			</Header>
@@ -81,14 +77,16 @@ export default () => {
 
 const Banner = ({
 	server,
+	version,
 	logo,
 	wallpaper,
 	container
 }: {
 	server: string
+	version: string
 	logo: NodeRequire | any
 	wallpaper: NodeRequire | any
-	container: MutableRefObject<HTMLElement | undefined>
+	container: React.MutableRefObject<HTMLElement | undefined>
 }) => {
 	return (
 		<Box
@@ -103,11 +101,16 @@ const Banner = ({
 				<Grow in timeout={1000}>
 					<Box component="img" src={logo} height="120px" />
 				</Grow>
-				<Stack direction="row" gap={1}>
+				<Stack direction="row" gap={1} alignItems="center">
 					<Typography fontFamily="Minecraft" variant="h3">
-						{server}
+						{server} | {version}
 					</Typography>
-					<ContentCopy onClick={() => navigator.clipboard.writeText(server)} style={{ cursor: 'pointer' }} />
+					<Tooltip title="Copy server address">
+						<ContentCopy
+							style={{ cursor: 'pointer', fontSize: 20 }}
+							onClick={() => navigator.clipboard.writeText(server)}
+						/>
+					</Tooltip>
 				</Stack>
 			</Stack>
 		</Box>
