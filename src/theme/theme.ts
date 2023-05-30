@@ -8,8 +8,8 @@ export const theme = createTheme({
 		},
 		text: {
 			primary: '#FFF',
-			secondary: '#FFF',
-			disabled: '#FFF'
+			secondary: '#C0C0C0',
+			disabled: '#808080'
 		}
 	},
 	typography: {
@@ -46,7 +46,7 @@ export const theme = createTheme({
 			styleOverrides: {
 				tooltip: {
 					fontSize: 13,
-					fontWeight: 400,
+					fontWeight: 'bold',
 					backgroundColor: 'black'
 				},
 				arrow: {

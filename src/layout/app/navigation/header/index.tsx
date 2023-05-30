@@ -1,8 +1,8 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
-import { Box, Container, Grow, Stack, Tooltip, Typography, styled } from '@mui/material'
-import { ContentCopy } from '@mui/icons-material'
+import { useLayoutEffect, useRef, useState } from 'react'
+import { Box, Container, Stack, Typography, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { headers } from '../../../routes/router'
+import { headers } from '../../../../routes/router'
+import Banner from './components/banner'
 
 const Header = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
@@ -55,8 +55,8 @@ export default () => {
 			<Banner
 				server="wwrpg.aesten.net"
 				version="1.19.2"
-				logo={require('../../../assets/images/logo.png')}
-				wallpaper={require('../../../assets/images/wallpaper.png')}
+				logo={require('../../../../assets/images/logo.png')}
+				wallpaper={require('../../../../assets/images/wallpaper.png')}
 				container={banner}
 			/>
 			<Header ref={container} position={showBanner ? 'fixed' : 'relative'}>
@@ -72,47 +72,5 @@ export default () => {
 			</Header>
 			{showBanner && <Box height={container.current?.clientHeight} />}
 		</>
-	)
-}
-
-const Banner = ({
-	server,
-	version,
-	logo,
-	wallpaper,
-	container
-}: {
-	server: string
-	version: string
-	logo: NodeRequire | any
-	wallpaper: NodeRequire | any
-	container: React.MutableRefObject<HTMLElement | undefined>
-}) => {
-	return (
-		<Box
-			ref={container}
-			style={{
-				backgroundImage: `url(${wallpaper}`,
-				backgroundPosition: 'center',
-				backgroundSize: 'cover'
-			}}
-		>
-			<Stack justifyContent="center" alignItems="center" width="100vw" p={5} gap={2}>
-				<Grow in timeout={1000}>
-					<Box component="img" src={logo} height="120px" />
-				</Grow>
-				<Stack direction="row" gap={1} alignItems="center">
-					<Typography fontFamily="Minecraft" variant="h3">
-						{server} | {version}
-					</Typography>
-					<Tooltip title="Copy server address">
-						<ContentCopy
-							style={{ cursor: 'pointer', fontSize: 20 }}
-							onClick={() => navigator.clipboard.writeText(server)}
-						/>
-					</Tooltip>
-				</Stack>
-			</Stack>
-		</Box>
 	)
 }
