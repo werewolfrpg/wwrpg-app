@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Grid, Stack, Tab, Tabs, Typography } from '@mui/material'
-import AppLayout from '../../layout/app-layout'
+import AppLayout from '../../layout/app'
 import RoleSection from './components/role-section'
 import ItemDescriptor from './components/item-descriptor'
 import MapCard from './components/map-card'

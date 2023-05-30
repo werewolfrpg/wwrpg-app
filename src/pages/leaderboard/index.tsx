@@ -1,6 +1,6 @@
 import React from 'react'
 import Leaderboard from './components/leaderboard'
-import AppLayout from '../../layout/app-layout'
+import AppLayout from '../../layout/app'
 
 export default () => {
 	return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import AppLayout from '../../layout/app-layout'
+import AppLayout from '../../layout/app'
 import { Box } from '@mui/material'
 
 export default () => {

@@ -10,7 +10,7 @@ import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
 import ItemPanel from './components/item-panel'
 import MatchesPanel from './components/matches-panel'
-import AppLayout from '../../../layout/app-layout'
+import AppLayout from '../../../layout/app'
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()

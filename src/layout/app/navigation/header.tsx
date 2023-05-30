@@ -52,8 +52,8 @@ export default () => {
 		<>
 			<Banner
 				server="wwrpg.aesten.net"
-				logo={require('../../assets/images/logo.png')}
-				wallpaper={require('../../assets/images/wallpaper.png')}
+				logo={require('../../../assets/images/logo.png')}
+				wallpaper={require('../../../assets/images/wallpaper.png')}
 				container={banner}
 			/>
 			<Header ref={container} position={showBanner ? 'fixed' : 'relative'} top={showBanner ? 0 : 'auto'}>
