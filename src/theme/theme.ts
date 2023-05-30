@@ -13,7 +13,7 @@ export const theme = createTheme({
 		}
 	},
 	typography: {
-		fontFamily: ['Ubuntu'].join(',')
+		fontFamily: ['Roboto'].join(',')
 	},
 	components: {
 		MuiContainer: {
