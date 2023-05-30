@@ -3,19 +3,24 @@ import { createTheme } from '@mui/material'
 export const theme = createTheme({
 	palette: {
 		background: {
-			// default: '#000712'
-			// default: '#000'
+			default: '#212121',
+			paper: '#141414'
 		},
 		text: {
-			// primary: '#FFF',
-			// secondary: '#FFF',
-			// disabled: '#FFF'
+			primary: '#FFF',
+			secondary: '#FFF',
+			disabled: '#FFF'
 		}
 	},
 	typography: {
 		fontFamily: ['Ubuntu'].join(',')
 	},
 	components: {
+		MuiContainer: {
+			defaultProps: {
+				maxWidth: 'lg'
+			}
+		},
 		MuiChip: {
 			defaultProps: {
 				style: {
