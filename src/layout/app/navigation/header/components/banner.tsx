@@ -1,6 +1,6 @@
 import React from 'react'
 import { ContentCopy } from '@mui/icons-material'
-import { Box, Stack, Grow, Typography, Tooltip, styled } from '@mui/material'
+import { Box, Stack, Typography, Tooltip, styled } from '@mui/material'
 
 const Content = styled(Stack)(({ theme }) => ({
 	justifyContent: 'center',
@@ -29,9 +29,7 @@ export default ({ server, version, logo, wallpaper, container }: BannerProps) =>
 			}}
 		>
 			<Content>
-				<Grow in timeout={1000}>
-					<Box component="img" src={logo} height="120px" />
-				</Grow>
+				<Box component="img" src={logo} height="120px" />
 				<Stack direction="row" alignItems="center" gap={1}>
 					<Typography fontFamily="Minecraft" variant="h3">
 						{server} | {version}

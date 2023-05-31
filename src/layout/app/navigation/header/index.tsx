@@ -41,6 +41,8 @@ export default () => {
 	const container = useRef<HTMLElement>()
 
 	useLayoutEffect(() => {
+		container.current?.scrollIntoView()
+
 		updateShowBanner()
 		document.addEventListener('scroll', updateShowBanner)
 		return () => document.removeEventListener('scroll', updateShowBanner)
