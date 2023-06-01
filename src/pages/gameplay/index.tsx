@@ -86,11 +86,6 @@ export default () => {
 			<Container>
 				<Box>
 					<Typography variant="h1" align="center" my={8}>
-						What is WWRPG?
-					</Typography>
-				</Box>
-				<Box>
-					<Typography variant="h1" align="center" my={8}>
 						Roles
 					</Typography>
 					{roles.map((role, index) => (

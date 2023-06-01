@@ -1,6 +1,16 @@
-import { DailyMatches, MatchDto, Matches, MatchesDto, PlayerMatch, PlayerMatches } from '../types/match'
+import { SkeletonsDto } from './../types/player.d'
+import {
+	DailyMatches,
+	MatchPlayerDto,
+	MatchDto,
+	Matches,
+	MatchesDto,
+	PlayerMatch,
+	PlayerMatches,
+	MatchPlayer
+} from '../types/match'
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
-import { PlayerDto, PlayerStatistic } from '../types/player'
+import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
 import { Match } from '../types/match'
 import axios from 'axios'
 
@@ -18,6 +28,12 @@ export const getLeaderboard = async (page: number = 1, count: number = 20): Prom
 		...player
 	}))
 	return { meta, data }
+
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({ meta, data })
+	// 	}, 3000)
+	// })
 }
 
 export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatistic> => {
@@ -32,14 +48,7 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 		progress: data.nextThreshold === -1 ? 100 : a / b
 	}
 
-	const skeletons = {
-		emeralds: data.skeletons.basicSkeletonEmeraldDrops + 2 * data.skeletons.killedLuckySkeletons,
-		killed: {
-			basic: data.skeletons.killedBasicSkeletons,
-			lucky: data.skeletons.killedLuckySkeletons,
-			special: data.skeletons.killedSpecialSkeletons
-		}
-	}
+	const skeletons = convertSkeletons(data.skeletons)
 
 	const roles = data.gameStats
 		.map(stat => ({
@@ -97,6 +106,28 @@ export const getMatchHistory = async (page: number = 1, count: number = 20): Pro
 	const { meta, data: raw } = res.data as MatchesDto
 	const data = convertToDailyMatches<Match>(convertToMatches(raw))
 	return { meta, data }
+}
+
+export const getMatch = async (matchId: string): Promise<MatchPlayer[]> => {
+	const res = await axios.get(BASE_URL + '/api/stats/match/' + matchId)
+	const raw = res.data as MatchPlayerDto[]
+
+	return raw.map(data => {
+		const { playerId, scoreGain, deathCause, ...stats } = data
+		const skeletons = convertSkeletons(data.skeletons)
+		return { minecraftId: playerId, score: scoreGain, death: deathCause, ...stats, skeletons }
+	})
+}
+
+const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
+	return {
+		emeralds: skeletons.basicSkeletonEmeraldDrops + 2 * skeletons.killedLuckySkeletons,
+		killed: {
+			basic: skeletons.killedBasicSkeletons,
+			lucky: skeletons.killedLuckySkeletons,
+			special: skeletons.killedSpecialSkeletons
+		}
+	}
 }
 
 const convertToDailyMatches = <M extends Match>(matches: Match[]): DailyMatches<M>[] => {

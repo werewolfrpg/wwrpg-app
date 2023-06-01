@@ -29,9 +29,11 @@ export default ({ image, logo, ...info }: WallpaperProps) => {
 					<Typography variant="h1">This is the official ...</Typography>
 					<Box component="img" src={logo} width="50%" my={5} />
 					<Typography variant="h1">... website</Typography>
+					<Box mt={5}>
+						<ServerLink {...info} />
+					</Box>
 				</Content>
 			</Grow>
-			<ServerLink {...info} />
 		</Box>
 	)
 }

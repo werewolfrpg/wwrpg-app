@@ -1,18 +1,6 @@
 import { Paginated } from './response'
 import { Item, Skeletons, SkeletonsDto } from './player'
 
-export interface MatchPlayer {
-	minecraftId: string
-	matchId: string
-	role: string
-	result: string
-	score: number
-	kills: number
-	death?: string
-	skeletons: Skeletons
-	items: Item[]
-}
-
 export interface MatchDto {
 	matchId: string
 	map: string
@@ -21,7 +9,16 @@ export interface MatchDto {
 	winner: string
 }
 
-export interface MatchDetailsDto {
+export interface Match {
+	matchId: string
+	map: string
+	date: string
+	time: string
+	duration: string
+	winner: string
+}
+
+export interface MatchPlayerDto {
 	playerId: string
 	matchId: string
 	role: string
@@ -33,13 +30,16 @@ export interface MatchDetailsDto {
 	items: Item[]
 }
 
-export interface Match {
+export interface MatchPlayer {
+	minecraftId: string
 	matchId: string
-	map: string
-	date: string
-	time: string
-	duration: string
-	winner: string
+	role: string
+	result: string
+	score: number
+	kills: number
+	death?: string
+	skeletons: Skeletons
+	items: Item[]
 }
 
 export interface PlayerMatch extends Match {
