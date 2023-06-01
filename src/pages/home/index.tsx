@@ -9,6 +9,7 @@ export default () => {
 				image={require('../../assets/images/wallpaper.png')}
 				logo={require('../../assets/images/logo.png')}
 				server="wwrpg.aesten.net"
+				version="1.19.2"
 			/>
 		</AppLayout>
 	)

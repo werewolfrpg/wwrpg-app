@@ -1,7 +1,8 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Box, Container, Stack, Typography, styled } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
+import { ServerLinkProps } from '../../../../components/server-link'
 import Banner from './components/banner'
 
 const Header = styled(Box)(({ theme }) => ({
@@ -34,34 +35,41 @@ const Link = styled(Typography)({
 	}
 })
 
-export default () => {
+export type HeaderProps = ServerLinkProps
+
+export default (props: HeaderProps) => {
 	const navigate = useNavigate()
-	const [showBanner, setShowBanner] = useState(false)
+	const location = useLocation()
+	const [isAtTop, setIsAtTop] = useState(false)
 	const banner = useRef<HTMLElement>()
 	const container = useRef<HTMLElement>()
 
-	useLayoutEffect(() => {
-		container.current?.scrollIntoView()
+	const shouldLoadBanner = location.pathname !== '/'
 
-		updateShowBanner()
-		document.addEventListener('scroll', updateShowBanner)
+	useLayoutEffect(() => {
+		if (shouldLoadBanner) {
+			container.current?.scrollIntoView()
+			updateShowBanner()
+			document.addEventListener('scroll', updateShowBanner)
+		}
 		return () => document.removeEventListener('scroll', updateShowBanner)
 	}, [])
 
 	const updateShowBanner = () => {
-		setShowBanner(document.documentElement.scrollTop > banner.current!.clientHeight)
+		setIsAtTop(document.documentElement.scrollTop > banner.current!.clientHeight)
 	}
 
 	return (
 		<>
-			<Banner
-				server="wwrpg.aesten.net"
-				version="1.19.2"
-				logo={require('../../../../assets/images/logo.png')}
-				wallpaper={require('../../../../assets/images/wallpaper.png')}
-				container={banner}
-			/>
-			<Header ref={container} position={showBanner ? 'fixed' : 'relative'}>
+			{shouldLoadBanner && (
+				<Banner
+					{...props}
+					logo={require('../../../../assets/images/logo.png')}
+					wallpaper={require('../../../../assets/images/wallpaper.png')}
+					container={banner}
+				/>
+			)}
+			<Header ref={container} position={isAtTop ? 'fixed' : 'relative'}>
 				<Container>
 					<Content direction="row">
 						{headers.map((header, index) => (
@@ -72,7 +80,7 @@ export default () => {
 					</Content>
 				</Container>
 			</Header>
-			{showBanner && <Box height={container.current?.clientHeight} />}
+			{isAtTop && <Box height={container.current?.clientHeight} />}
 		</>
 	)
 }

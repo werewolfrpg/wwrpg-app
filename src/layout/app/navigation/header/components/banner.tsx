@@ -1,20 +1,17 @@
 import React from 'react'
-import { ContentCopy } from '@mui/icons-material'
-import { Box, Stack, Typography, Tooltip, styled } from '@mui/material'
+import { Box, Stack, styled } from '@mui/material'
+import ServerLink, { ServerLinkProps } from '../../../../../components/server-link'
 
 const Content = styled(Stack)(({ theme }) => ({
 	justifyContent: 'center',
 	alignItems: 'center',
 	width: '100vw',
-	padding: theme.spacing(5),
-	gap: theme.spacing(2)
+	padding: theme.spacing(5)
 }))
 
-export interface BannerProps {
-	server: string
-	version: string
-	logo: NodeRequire | any
-	wallpaper: NodeRequire | any
+export type BannerProps = ServerLinkProps & {
+	logo: string
+	wallpaper: string
 	container: React.MutableRefObject<HTMLElement | undefined>
 }
 
@@ -30,17 +27,7 @@ export default ({ server, version, logo, wallpaper, container }: BannerProps) =>
 		>
 			<Content>
 				<Box component="img" src={logo} height="120px" />
-				<Stack direction="row" alignItems="center" gap={1}>
-					<Typography fontFamily="Minecraft" variant="h3">
-						{server} | {version}
-					</Typography>
-					<Tooltip title="Copy server address">
-						<ContentCopy
-							style={{ cursor: 'pointer', fontSize: 20 }}
-							onClick={() => navigator.clipboard.writeText(server)}
-						/>
-					</Tooltip>
-				</Stack>
+				<ServerLink server={server} version={version} />
 			</Content>
 		</Box>
 	)

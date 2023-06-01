@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Container, Divider, Grid, Stack, SvgIcon, Typography, styled } from '@mui/material'
+import ServerLink, { ServerLinkProps } from '../../../../components/server-link'
 import { useNavigate } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
 
@@ -7,7 +8,8 @@ const Footer = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
 	width: '100vw',
 	bottom: 0,
-	padding: theme.spacing(10)
+	paddingTop: theme.spacing(8),
+	paddingBottom: theme.spacing(4)
 }))
 
 const Link = styled(Typography)(({ theme }) => ({
@@ -20,7 +22,9 @@ const Link = styled(Typography)(({ theme }) => ({
 	}
 }))
 
-export default () => {
+export type FooterProps = ServerLinkProps
+
+export default (props: FooterProps) => {
 	const navigate = useNavigate()
 
 	return (
@@ -30,13 +34,11 @@ export default () => {
 					<Typography fontSize={24} fontFamily="Minecraft">
 						Play now on:
 					</Typography>
-					<Typography variant="h3" m={2}>
-						wwrpg.aesten.net
-					</Typography>
+					<ServerLink {...props} />
 				</Stack>
-				<Grid container spacing={10} py={2}>
+				<Grid container spacing={10} py={2} direction={{ xs: 'column-reverse', md: 'row' }}>
 					<Grid item xs={8}>
-						<Stack gap={5}>
+						<Stack gap={5} justifyContent="space-between">
 							<Stack>
 								<Typography fontSize={20} fontFamily="Minecraft" mb={2}>
 									About
@@ -57,7 +59,7 @@ export default () => {
 						</Stack>
 					</Grid>
 					<Grid item xs={4}>
-						<Stack justifyContent="flex-end" display="flex" flexDirection="column" alignItems="flex-end">
+						<Stack display="flex" flexDirection="column" alignItems={{ sx: 'flex', md: 'flex-end' }}>
 							<Typography fontSize={20} fontFamily="Minecraft" mb={2}>
 								Quick Links
 							</Typography>
@@ -69,9 +71,10 @@ export default () => {
 						</Stack>
 					</Grid>
 				</Grid>
-				<Stack direction="row" justifyContent="center" alignItems="center" gap={5}>
+				<Divider sx={{ bgcolor: 'text.secondary', my: 4 }} />
+				<Stack direction={{ xs: 'column', md: 'row' }} justifyContent="center" alignItems="center" gap={5}>
 					<Typography variant="caption">Privacy & Cookies</Typography>
-					<Typography variant="caption">Terms and Conditions</Typography>
+					<Typography variant="caption">Terms & Conditions</Typography>
 					<Typography variant="caption">© 2023 Example</Typography>
 				</Stack>
 			</Container>

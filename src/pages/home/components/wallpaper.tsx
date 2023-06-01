@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Grow, Stack, Tooltip, Typography, styled } from '@mui/material'
-import { ContentCopy } from '@mui/icons-material'
+import { Box, Grow, Stack, Typography, styled } from '@mui/material'
+import ServerLink, { ServerLinkProps } from '../../../components/server-link'
 
 const Content = styled(Stack)({
 	justifyContent: 'center',
@@ -8,13 +8,13 @@ const Content = styled(Stack)({
 	height: '100%'
 })
 
-export interface WallpaperProps {
+export type WallpaperProps = ServerLinkProps & {
 	server: string
 	image: string
 	logo: string
 }
 
-export default ({ image, logo, server }: WallpaperProps) => {
+export default ({ image, logo, ...info }: WallpaperProps) => {
 	return (
 		<Box
 			style={{
@@ -31,15 +31,7 @@ export default ({ image, logo, server }: WallpaperProps) => {
 				<Grow in={true} timeout={1000}>
 					<Box component="img" src={logo} width="50%" />
 				</Grow>
-				<Stack direction="row" gap={1} m={1} zIndex={100}>
-					<Typography variant="h3">{server}</Typography>
-					<Tooltip title="Copy server address">
-						<ContentCopy
-							style={{ cursor: 'pointer', fontSize: 20 }}
-							onClick={() => navigator.clipboard.writeText(server)}
-						/>
-					</Tooltip>
-				</Stack>
+				<ServerLink {...info} />
 			</Content>
 		</Box>
 	)
