@@ -56,17 +56,21 @@ export const theme = createTheme({
 		},
 		MuiTypography: {
 			styleOverrides: {
-				h3: {
-					fontSize: 20,
-					fontWeight: 700
+				h1: {
+					fontFamily: 'Minecraft Ten',
+					fontSize: 50
 				},
-				h4: {
-					fontSize: 16,
-					fontWeight: 900
+				h2: {
+					fontFamily: 'Minecraft Ten',
+					fontSize: 35
+				},
+				h3: {
+					fontFamily: 'Minecraft Ten',
+					fontSize: 25
 				},
 				caption: {
-					fontSize: 12,
-					color: 'secondary'
+					color: 'text.secondary',
+					fontSize: 16
 				}
 			}
 		}

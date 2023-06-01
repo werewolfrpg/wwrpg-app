@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Box, Grid, Stack, Tab, Tabs, Typography } from '@mui/material'
+import React from 'react'
+import { Box, Stack, Typography } from '@mui/material'
 import AppLayout from '../../layout/app'
 import RoleSection from './components/role-section'
 import ItemDescriptor from './components/item-descriptor'
-import MapCard from './components/map-card'
+import MapsSection from './components/maps-section'
 
 const roles = [
 	{
@@ -31,22 +31,22 @@ const roles = [
 
 const maps = [
 	{
-		name: 'Airship',
-		image: require('../../assets/images/map.png'),
+		name: 'Airship 1',
+		thumbnail: require('../../assets/images/map.png'),
 		description:
-			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
+			'In publishing and graphic design, Lorem ipsum isf a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
 		tags: ['Popular', 'Large', 'Difficult']
 	},
 	{
-		name: 'Airship',
-		image: require('../../assets/images/map.png'),
+		name: 'Airship 2',
+		thumbnail: require('../../assets/images/map.png'),
 		description:
-			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
+			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
 		tags: ['Easy', 'Small']
 	},
 	{
-		name: 'Airship',
-		image: require('../../assets/images/map.png'),
+		name: 'Airship 3',
+		thumbnail: require('../../assets/images/map.png'),
 		description:
 			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
 		tags: ['Popular', 'Large', 'Difficult']
@@ -128,11 +128,7 @@ export default () => {
 				<Typography variant="h1" align="center" my={8}>
 					Maps
 				</Typography>
-				<Stack direction="row" gap={3}>
-					{maps.map((map, index) => (
-						<MapCard key={index} {...map} />
-					))}
-				</Stack>
+				<MapsSection maps={maps} />
 			</Box>
 		</AppLayout>
 	)

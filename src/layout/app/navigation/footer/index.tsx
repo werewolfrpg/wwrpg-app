@@ -34,7 +34,7 @@ export default () => {
 						wwrpg.aesten.net
 					</Typography>
 				</Stack>
-				<Grid container spacing={10} py={10}>
+				<Grid container spacing={10} py={2}>
 					<Grid item xs={8}>
 						<Stack gap={5}>
 							<Stack>
@@ -71,7 +71,7 @@ export default () => {
 				</Grid>
 				<Stack direction="row" justifyContent="center" alignItems="center" gap={5}>
 					<Typography variant="caption">Privacy & Cookies</Typography>
-					<Typography variant="caption">Terms and conditions</Typography>
+					<Typography variant="caption">Terms and Conditions</Typography>
 					<Typography variant="caption">© 2023 Example</Typography>
 				</Stack>
 			</Container>
