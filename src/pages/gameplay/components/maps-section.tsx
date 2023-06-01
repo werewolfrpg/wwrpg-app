@@ -4,7 +4,8 @@ import { Stack, Box, Typography, Chip, styled } from '@mui/material'
 
 const ArrowButton = styled(Box)(({ theme }) => ({
 	cursor: 'pointer',
-	margin: theme.spacing(3)
+	margin: theme.spacing(1),
+	padding: theme.spacing(1)
 }))
 
 const MapIndicator = styled(Box)(({ active }: { active: boolean }) => ({
@@ -62,7 +63,7 @@ export default ({ maps }: MapsSectionProps) => {
 						<Chip key={index} label={tag} style={{ background: 'green' }} />
 					))}
 				</Stack>
-				<Typography textAlign="center" fontSize={18} mx={12}>
+				<Typography textAlign="center" fontSize={18} mx={{ md: 12 }}>
 					{maps[map].description}
 				</Typography>
 			</Stack>

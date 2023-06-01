@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Container, Stack, Typography } from '@mui/material'
 import AppLayout from '../../layout/app'
 import RoleSection from './components/role-section'
 import ItemDescriptor from './components/item-descriptor'
@@ -83,53 +83,55 @@ const items = [
 export default () => {
 	return (
 		<AppLayout>
-			<Box>
-				<Typography variant="h1" align="center" my={8}>
-					What is WWRPG?
-				</Typography>
-			</Box>
-			<Box>
-				<Typography variant="h1" align="center" my={8}>
-					Roles
-				</Typography>
-				{roles.map((role, index) => (
-					<RoleSection key={index} {...role} flipped={index % 2 === 0} />
-				))}
-			</Box>
-			<Box>
-				<Typography variant="h1" align="center" my={8}>
-					Items
-				</Typography>
-				<Stack direction="row" justifyContent="center" gap={5}>
-					<Stack>
-						{items
-							.filter(item => item.shop == 'Basic')
-							.map((item, index) => (
-								<ItemDescriptor key={index} {...item} />
-							))}
+			<Container>
+				<Box>
+					<Typography variant="h1" align="center" my={8}>
+						What is WWRPG?
+					</Typography>
+				</Box>
+				<Box>
+					<Typography variant="h1" align="center" my={8}>
+						Roles
+					</Typography>
+					{roles.map((role, index) => (
+						<RoleSection key={index} {...role} flipped={index % 2 === 0} />
+					))}
+				</Box>
+				<Box>
+					<Typography variant="h1" align="center" my={8}>
+						Items
+					</Typography>
+					<Stack direction="row" justifyContent="center" gap={5}>
+						<Stack>
+							{items
+								.filter(item => item.shop == 'Basic')
+								.map((item, index) => (
+									<ItemDescriptor key={index} {...item} />
+								))}
+						</Stack>
+						<Box component="img" src="https://mc-heads.net/player/c5ef3347-4593-4f39-8bb1-2eaa40dd986e" />
+						<Box component="img" src="https://mc-heads.net/player/c5ef3347-4593-4f39-8bb1-2eaa40dd986e" />
+						<Stack>
+							{items
+								.filter(item => item.shop == 'Special')
+								.map((item, index) => (
+									<ItemDescriptor key={index} {...item} />
+								))}
+						</Stack>
 					</Stack>
-					<Box component="img" src="https://mc-heads.net/player/c5ef3347-4593-4f39-8bb1-2eaa40dd986e" />
-					<Box component="img" src="https://mc-heads.net/player/c5ef3347-4593-4f39-8bb1-2eaa40dd986e" />
-					<Stack>
-						{items
-							.filter(item => item.shop == 'Special')
-							.map((item, index) => (
-								<ItemDescriptor key={index} {...item} />
-							))}
-					</Stack>
-				</Stack>
-			</Box>
-			<Box>
-				<Typography variant="h1" align="center" my={8}>
-					Score
-				</Typography>
-			</Box>
-			<Box>
-				<Typography variant="h1" align="center" my={8}>
-					Maps
-				</Typography>
-				<MapsSection maps={maps} />
-			</Box>
+				</Box>
+				<Box>
+					<Typography variant="h1" align="center" my={8}>
+						Score
+					</Typography>
+				</Box>
+				<Box>
+					<Typography variant="h1" align="center" my={8}>
+						Maps
+					</Typography>
+					<MapsSection maps={maps} />
+				</Box>
+			</Container>
 		</AppLayout>
 	)
 }
