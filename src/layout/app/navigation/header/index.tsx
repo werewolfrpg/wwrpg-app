@@ -47,12 +47,13 @@ export default (props: HeaderProps) => {
 	const shouldLoadBanner = location.pathname !== '/'
 
 	useLayoutEffect(() => {
+		container.current?.scrollIntoView()
+
 		if (shouldLoadBanner) {
-			container.current?.scrollIntoView()
 			updateShowBanner()
 			document.addEventListener('scroll', updateShowBanner)
+			return () => document.removeEventListener('scroll', updateShowBanner)
 		}
-		return () => document.removeEventListener('scroll', updateShowBanner)
 	}, [])
 
 	const updateShowBanner = () => {
@@ -69,7 +70,7 @@ export default (props: HeaderProps) => {
 					container={banner}
 				/>
 			)}
-			<Header ref={container} position={isAtTop ? 'fixed' : 'relative'}>
+			<Header ref={container} position={!shouldLoadBanner || isAtTop ? 'fixed' : 'relative'}>
 				<Container>
 					<Content direction="row">
 						{headers.map((header, index) => (

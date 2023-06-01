@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grow, Stack, Typography, styled } from '@mui/material'
+import { Box, Grow, Slide, Stack, Typography, styled } from '@mui/material'
 import ServerLink, { ServerLinkProps } from '../../../components/server-link'
 
 const Content = styled(Stack)({
@@ -21,18 +21,17 @@ export default ({ image, logo, ...info }: WallpaperProps) => {
 				backgroundImage: `url(${image}`,
 				backgroundPosition: 'center',
 				backgroundSize: 'cover',
-				height: 'calc(100vh - 80px)'
+				height: '100vh'
 			}}
 		>
-			<Content>
-				<Typography variant="h1" m={3}>
-					Welcome To
-				</Typography>
-				<Grow in={true} timeout={1000}>
-					<Box component="img" src={logo} width="50%" />
-				</Grow>
-				<ServerLink {...info} />
-			</Content>
+			<Grow in={true} timeout={1000}>
+				<Content>
+					<Typography variant="h1">This is the official ...</Typography>
+					<Box component="img" src={logo} width="50%" my={5} />
+					<Typography variant="h1">... website</Typography>
+				</Content>
+			</Grow>
+			<ServerLink {...info} />
 		</Box>
 	)
 }
