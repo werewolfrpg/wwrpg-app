@@ -1,11 +1,15 @@
 import React from 'react'
 import AppLayout from '../../layout/app'
-import { Box } from '@mui/material'
+import Wallpaper from './components/wallpaper'
 
 export default () => {
 	return (
 		<AppLayout>
-			<Box>Server</Box>
+			<Wallpaper
+				image={require('../../assets/images/wallpaper.png')}
+				logo={require('../../assets/images/logo.png')}
+				server="wwrpg.aesten.net"
+			/>
 		</AppLayout>
 	)
 }
