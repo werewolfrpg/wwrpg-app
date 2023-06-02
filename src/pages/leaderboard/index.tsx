@@ -6,26 +6,22 @@ import { getLeaderboard } from '../../apis/wwrpg'
 import { Leaderboard } from '../../types/leaderboard'
 
 export default () => {
-	const [page, setPage] = useState(0)
-	const [count, setCount] = useState(20)
 	const [leaderboard, setLeaderboard] = useState<Leaderboard | null>(null)
 
 	useEffect(() => {
-		onRefresh(page, count)
+		onRefresh(1)
 	}, [])
 
-	const onRefresh = (newPage: number, newCount: number) => {
-		setPage(newPage)
-		setCount(newCount)
+	const onRefresh = (page: number, count: number = 10) => {
 		setLeaderboard(null)
-		getLeaderboard(newPage + 1, newCount).then(setLeaderboard)
+		getLeaderboard(page, count).then(setLeaderboard)
 	}
 
 	return (
 		<AppLayout>
 			<Container>
 				<Box py={5}>
-					<LeaderboardTable {...{ page, count, leaderboard, onRefresh }} />
+					<LeaderboardTable {...{ leaderboard, onRefresh }} />
 				</Box>
 			</Container>
 		</AppLayout>

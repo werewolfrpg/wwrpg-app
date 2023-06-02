@@ -4,10 +4,9 @@ import { Grid, Hidden, Skeleton, Stack } from '@mui/material'
 export interface LeaderboardRowProps {
 	values?: (string | React.ReactNode)[]
 	light?: boolean
-	onClick?: () => unknown
 }
 
-export default ({ values, light, onClick }: LeaderboardRowProps) => {
+export default ({ values, light }: LeaderboardRowProps) => {
 	if (!values) {
 		values = [
 			<Skeleton width={20} />,
@@ -25,13 +24,7 @@ export default ({ values, light, onClick }: LeaderboardRowProps) => {
 	const [rank, player, title, score, win, matches] = values
 
 	return (
-		<Grid
-			container
-			onClick={onClick}
-			style={{ cursor: onClick ? 'pointer' : 'inherit' }}
-			bgcolor={light ? 'background.default' : 'background.paper'}
-			p={2}
-		>
+		<Grid container bgcolor={light ? 'background.default' : 'background.paper'} p={2}>
 			<Grid item justifySelf="center" alignSelf="center" xs={1}>
 				{rank}
 			</Grid>
