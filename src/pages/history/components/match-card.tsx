@@ -57,14 +57,12 @@ export default ({ match }: MatchCardProps) => {
 				<Stack direction="row" alignItems="center" gap={3} p={3}>
 					<Tooltip
 						title={
-							!match.winner
-								? 'Game Canceled'
-								: match.winner.charAt(0) + match.winner.substring(1).toLowerCase() + ' Victory'
+							!match.winner ? 'Game Canceled' : match.winner[0] + match.winner.substring(1).toLowerCase() + ' Victory'
 						}
 					>
 						{!match.winner ? <WarningRounded /> : <WinnerIndicator role={match.winner} />}
 					</Tooltip>
-					<Typography variant="h4">{match.map.charAt(0).toUpperCase() + match.map.substring(1)}</Typography>
+					<Typography variant="h4">{match.map[0].toUpperCase() + match.map.substring(1)}</Typography>
 					<Typography variant="caption" color="text.secondary">
 						{match.time + ' • ' + match.duration}
 					</Typography>

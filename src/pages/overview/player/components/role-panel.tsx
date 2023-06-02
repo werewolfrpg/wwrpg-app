@@ -10,7 +10,7 @@ export interface RolePanelProps {
 export default ({ roles }: RolePanelProps) => {
 	return (
 		<Card>
-			<Typography variant="h3" p={1} pt={2} align="center">
+			<Typography variant="h3" p={2}>
 				Roles
 			</Typography>
 			<Divider />

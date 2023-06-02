@@ -30,8 +30,8 @@ export interface StatisticProgressProps {
 export default ({ progress }: StatisticProgressProps) => {
 	return (
 		<Container>
-			<Background value={100} />
-			<Foreground value={progress} />
+			<Background size={50} value={100} />
+			<Foreground size={50} value={progress} />
 		</Container>
 	)
 }
