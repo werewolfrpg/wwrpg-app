@@ -35,7 +35,7 @@ export default () => {
 	return (
 		<AppLayout>
 			<Container>
-				<Box py={10}>
+				<Box py={5}>
 					<Grid container gap={4}>
 						<Grid container item direction="column" xs={3} gap={3}>
 							<Grid item>

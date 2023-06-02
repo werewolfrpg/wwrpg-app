@@ -2,6 +2,12 @@ import React from 'react'
 import { Box, Stack, styled } from '@mui/material'
 import ServerLink, { ServerLinkProps } from '../../../../../components/server-link'
 
+const Container = styled(Box)<{ image: string }>(({ image }) => ({
+	backgroundImage: `url(${image})`,
+	backgroundPosition: 'center',
+	backgroundSize: 'cover'
+}))
+
 const Content = styled(Stack)(({ theme }) => ({
 	justifyContent: 'center',
 	alignItems: 'center',
@@ -17,18 +23,11 @@ export type BannerProps = ServerLinkProps & {
 
 export default ({ server, version, logo, wallpaper, container }: BannerProps) => {
 	return (
-		<Box
-			ref={container}
-			style={{
-				backgroundImage: `url(${wallpaper}`,
-				backgroundPosition: 'center',
-				backgroundSize: 'cover'
-			}}
-		>
+		<Container ref={container} image={wallpaper}>
 			<Content>
 				<Box component="img" src={logo} height="120px" />
 				<ServerLink server={server} version={version} />
 			</Content>
-		</Box>
+		</Container>
 	)
 }
