@@ -17,7 +17,9 @@ export default ({ title, value, caption, tooltip }: StatisiticProps) => {
 				<Typography fontSize={16} fontWeight={900} color="grey">
 					{title}
 				</Typography>
-				<Typography variant="h3">{text}</Typography>
+				<Typography fontFamily="Minecraft" fontSize={24}>
+					{text}
+				</Typography>
 				<Typography variant="caption">{caption}</Typography>
 			</Stack>
 		</Tooltip>

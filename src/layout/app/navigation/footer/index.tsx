@@ -40,7 +40,7 @@ export default (props: FooterProps) => {
 					<Grid item xs={8}>
 						<Stack gap={5} justifyContent="space-between">
 							<Stack>
-								<Typography fontSize={20} fontFamily="Minecraft" mb={2}>
+								<Typography variant="h4" mb={2}>
 									About
 								</Typography>
 								<Typography color="text.secondary">
@@ -60,7 +60,7 @@ export default (props: FooterProps) => {
 					</Grid>
 					<Grid item xs={4}>
 						<Stack display="flex" flexDirection="column" alignItems={{ sx: 'flex', md: 'flex-end' }}>
-							<Typography fontSize={20} fontFamily="Minecraft" mb={2}>
+							<Typography variant="h4" mb={2}>
 								Quick Links
 							</Typography>
 							{headers.map((link, index) => (
@@ -71,7 +71,7 @@ export default (props: FooterProps) => {
 						</Stack>
 					</Grid>
 				</Grid>
-				<Divider sx={{ bgcolor: 'text.secondary', my: 4 }} />
+				<Divider sx={{ bgcolor: 'text.secondary', my: 2 }} />
 				<Stack direction={{ xs: 'column', md: 'row' }} justifyContent="center" alignItems="center" gap={5}>
 					<Typography variant="caption">Privacy & Cookies</Typography>
 					<Typography variant="caption">Terms & Conditions</Typography>

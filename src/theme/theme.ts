@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material'
 
 export const theme = createTheme({
 	palette: {
+		// divider: '#808080',
 		background: {
 			default: '#212121',
 			paper: '#141414'
@@ -16,6 +17,13 @@ export const theme = createTheme({
 		fontFamily: ['Roboto'].join(',')
 	},
 	components: {
+		MuiDivider: {
+			defaultProps: {
+				style: {
+					background: 'background.default'
+				}
+			}
+		},
 		MuiContainer: {
 			defaultProps: {
 				maxWidth: 'lg'
@@ -67,6 +75,10 @@ export const theme = createTheme({
 				h3: {
 					fontFamily: 'Minecraft Ten',
 					fontSize: 25
+				},
+				h4: {
+					fontFamily: 'Minecraft',
+					fontSize: 20
 				},
 				caption: {
 					color: 'text.secondary',

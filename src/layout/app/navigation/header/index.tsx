@@ -1,8 +1,9 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Box, Container, Stack, Typography, styled } from '@mui/material'
+import { Box, Collapse, Container, Hidden, Stack, Typography, styled } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
 import { ServerLinkProps } from '../../../../components/server-link'
+import { Menu } from '@mui/icons-material'
 import Banner from './components/banner'
 
 const Header = styled(Box)(({ theme }) => ({
@@ -41,6 +42,7 @@ export default (props: HeaderProps) => {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const [isAtTop, setIsAtTop] = useState(false)
+	const [showMenu, setShowMenu] = useState(true)
 	const banner = useRef<HTMLElement>()
 	const container = useRef<HTMLElement>()
 
@@ -72,13 +74,20 @@ export default (props: HeaderProps) => {
 			)}
 			<Header ref={container} position={!shouldLoadBanner || isAtTop ? 'fixed' : 'relative'}>
 				<Container>
-					<Content direction="row">
-						{headers.map((header, index) => (
-							<Link key={index} onClick={() => navigate(header.path)}>
-								{header.name}
-							</Link>
-						))}
-					</Content>
+					<Hidden mdUp>
+						<Box p={2}>
+							<Menu onClick={() => setShowMenu(!showMenu)} />
+						</Box>
+					</Hidden>
+					<Collapse in={showMenu}>
+						<Content direction={{ md: 'row' }}>
+							{headers.map((header, index) => (
+								<Link key={index} onClick={() => navigate(header.path)}>
+									{header.name}
+								</Link>
+							))}
+						</Content>
+					</Collapse>
 				</Container>
 			</Header>
 			{isAtTop && <Box height={container.current?.clientHeight} />}

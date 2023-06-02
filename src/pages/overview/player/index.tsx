@@ -4,7 +4,7 @@ import { PlayerStatistic } from '../../../types/player'
 import { getPlayerStats } from '../../../apis/wwrpg'
 import { PlayerMatches } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
-import { Container, Grid, Tab, Tabs } from '@mui/material'
+import { Box, Container, Grid, Tab, Tabs } from '@mui/material'
 import RolePanel from './components/role-panel'
 import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
@@ -35,38 +35,40 @@ export default () => {
 	return (
 		<AppLayout>
 			<Container>
-				<Grid container gap={4}>
-					<Grid container item direction="column" xs={3} gap={3}>
-						<Grid item>
-							<ProfilePanel stats={stats} />
-						</Grid>
-						<Grid item>
-							<RolePanel roles={stats.roles} />
-						</Grid>
-					</Grid>
-					<Grid container item direction="column" xs /*gap={3}*/>
-						<Grid item mb={3}>
-							<Tabs value={tab} onChange={(_, i) => setTab(i)}>
-								<Tab label="Overview" />
-								<Tab label="Items" />
-							</Tabs>
-						</Grid>
-						{tab == 0 ? (
-							<>
-								<Grid item>
-									<OverviewPanel stats={stats} />
-								</Grid>
-								<Grid item>
-									<MatchesPanel matches={matches} />
-								</Grid>
-							</>
-						) : (
+				<Box py={10}>
+					<Grid container gap={4}>
+						<Grid container item direction="column" xs={3} gap={3}>
 							<Grid item>
-								<ItemPanel items={stats.items} />
+								<ProfilePanel stats={stats} />
 							</Grid>
-						)}
+							<Grid item>
+								<RolePanel roles={stats.roles} />
+							</Grid>
+						</Grid>
+						<Grid container item direction="column" xs /*gap={3}*/>
+							<Grid item mb={3}>
+								<Tabs value={tab} onChange={(_, i) => setTab(i)}>
+									<Tab label="Overview" />
+									<Tab label="Items" />
+								</Tabs>
+							</Grid>
+							{tab == 0 ? (
+								<>
+									<Grid item>
+										<OverviewPanel stats={stats} />
+									</Grid>
+									<Grid item>
+										<MatchesPanel matches={matches} />
+									</Grid>
+								</>
+							) : (
+								<Grid item>
+									<ItemPanel items={stats.items} />
+								</Grid>
+							)}
+						</Grid>
 					</Grid>
-				</Grid>
+				</Box>
 			</Container>
 		</AppLayout>
 	)

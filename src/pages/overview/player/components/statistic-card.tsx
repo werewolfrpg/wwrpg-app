@@ -1,22 +1,21 @@
 import React from 'react'
-import { Card } from '@mui/material'
+import { Card, styled } from '@mui/material'
 import Statistic, { StatisiticProps } from './statistic'
 
-export default ({ title, value, caption }: StatisiticProps) => {
+const Container = styled(Card)(({ theme }) => ({
+	borderWidth: 0,
+	transition: 'ease 150ms',
+	padding: theme.spacing(1),
+	margin: theme.spacing(1),
+	':hover': {
+		background: theme.palette.background.default
+	}
+}))
+
+export default (props: StatisiticProps) => {
 	return (
-		<Card
-			sx={{
-				p: 1,
-				borderWidth: 0,
-				transition: 'ease 150ms',
-				m: 1,
-				flex: 1,
-				':hover': {
-					background: 'whitesmoke'
-				}
-			}}
-		>
-			<Statistic title={title} value={value} caption={caption} />
-		</Card>
+		<Container>
+			<Statistic {...props} />
+		</Container>
 	)
 }

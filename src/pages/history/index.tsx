@@ -3,7 +3,7 @@ import { Matches } from '../../types/match'
 import { getMatchHistory } from '../../apis/wwrpg'
 import MatchesPanel from './components/matches-panel'
 import AppLayout from '../../layout/app'
-import { Container } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
 export default () => {
 	const [matches, setMatches] = useState<Matches | null>(null)
@@ -19,7 +19,9 @@ export default () => {
 	return (
 		<AppLayout>
 			<Container>
-				<MatchesPanel matches={matches} />
+				<Box py={10}>
+					<MatchesPanel matches={matches} />
+				</Box>
 			</Container>
 		</AppLayout>
 	)
