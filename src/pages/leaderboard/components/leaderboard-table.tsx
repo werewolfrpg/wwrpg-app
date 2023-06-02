@@ -17,7 +17,7 @@ export default ({ page, count, leaderboard, onRefresh }: LeaderboardProps) => {
 	if (!leaderboard) {
 		const skeletons = []
 		for (let i = 0; i < count; i++) {
-			skeletons.push(<LeaderbaordRow key={i} light={i % 2 === 0} skeleton />)
+			skeletons.push(<LeaderbaordRow key={i} light={i % 2 === 0} />)
 		}
 
 		return (

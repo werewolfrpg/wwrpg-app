@@ -3,13 +3,12 @@ import { Grid, Hidden, Skeleton, Stack } from '@mui/material'
 
 export interface LeaderboardRowProps {
 	values?: (string | React.ReactNode)[]
-	skeleton?: boolean
 	light?: boolean
 	onClick?: () => unknown
 }
 
-export default ({ values, light, skeleton, onClick }: LeaderboardRowProps) => {
-	if (skeleton) {
+export default ({ values, light, onClick }: LeaderboardRowProps) => {
+	if (!values) {
 		values = [
 			<Skeleton width={20} />,
 			<Stack direction="row" alignItems="center" gap={3}>
@@ -23,7 +22,7 @@ export default ({ values, light, skeleton, onClick }: LeaderboardRowProps) => {
 		]
 	}
 
-	const [rank, player, title, score, win, matches] = values!
+	const [rank, player, title, score, win, matches] = values
 
 	return (
 		<Grid

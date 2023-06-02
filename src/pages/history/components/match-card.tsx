@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Stack, Typography, Grid, Card, styled, Tooltip } from '@mui/material'
+import { Box, Stack, Typography, Grid, Card, styled, Tooltip, Skeleton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { Match } from '../../../types/match'
 import { WarningRounded } from '@mui/icons-material'
@@ -25,11 +25,28 @@ const WinnerIndicator = styled(Box)<{ role: string }>(({ role }) => ({
 }))
 
 export interface MatchCardProps {
-	match: Match
+	match?: Match
 }
 
 export default ({ match }: MatchCardProps) => {
 	const navigate = useNavigate()
+
+	if (!match) {
+		return (
+			<Grid item>
+				<Container image="">
+					<Stack direction="row" alignItems="center" gap={3} p={3}>
+						<Skeleton variant="circular" height={10} width={10} />
+						<Skeleton height={35} width={100} />
+						<Stack direction="row" gap={2}>
+							<Skeleton width={60} />
+							<Skeleton width={50} />
+						</Stack>
+					</Stack>
+				</Container>
+			</Grid>
+		)
+	}
 
 	return (
 		<Grid item>

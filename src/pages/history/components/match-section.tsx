@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Chip, Grid, Stack, Typography, styled } from '@mui/material'
+import { Box, Chip, Grid, Skeleton, Stack, Typography, styled } from '@mui/material'
 import { DailyMatches, Match } from '../../../types/match'
 import MatchCard from './match-card'
 
@@ -18,10 +18,35 @@ const LineIndicator = styled(Box)(({ theme }) => ({
 }))
 
 export interface MatchListProps {
-	matches: DailyMatches<Match>
+	matches?: DailyMatches<Match>
 }
 
 export default ({ matches }: MatchListProps) => {
+	if (!matches) {
+		const skeletons = []
+		for (let i = 0; i < 3; i++) {
+			skeletons.push(<MatchCard key={i} />)
+		}
+
+		return (
+			<Box>
+				<Stack direction="row" alignItems="center" gap={1} my={1}>
+					<PointIndicator />
+					<Typography fontWeight={600} fontSize={20}>
+						<Skeleton height={35} width={90} />
+					</Typography>
+					<Skeleton width={30} />
+				</Stack>
+				<Stack direction="row" gap={1}>
+					<LineIndicator />
+					<Grid container spacing={1} direction="column" my={1} mb={2}>
+						{skeletons}
+					</Grid>
+				</Stack>
+			</Box>
+		)
+	}
+
 	return (
 		<Box>
 			<Stack direction="row" alignItems="center" gap={1} my={1}>

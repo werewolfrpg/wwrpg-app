@@ -12,10 +12,6 @@ export default () => {
 		getMatchHistory(1, 20).then(setMatches)
 	}, [])
 
-	if (!matches) {
-		return <div>loading...</div>
-	}
-
 	return (
 		<AppLayout>
 			<Container>
