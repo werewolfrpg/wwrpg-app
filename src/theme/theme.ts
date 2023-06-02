@@ -2,6 +2,9 @@ import { createTheme } from '@mui/material'
 
 export const theme = createTheme({
 	palette: {
+		primary: {
+			main: '#008000' // green
+		},
 		divider: '#212121',
 		background: {
 			default: '#212121',
@@ -30,6 +33,11 @@ export const theme = createTheme({
 			}
 		},
 		MuiChip: {
+			styleOverrides: {
+				filled: {
+					background: '#008000'
+				}
+			},
 			defaultProps: {
 				style: {
 					cursor: 'inherit'

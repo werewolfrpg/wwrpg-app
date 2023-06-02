@@ -107,14 +107,14 @@ const Row = ({
 				<Grid item justifySelf="center" alignSelf="center" xs={2}>
 					<Stack alignItems="center">{title}</Stack>
 				</Grid>
-				<Grid item justifySelf="center" alignSelf="center" xs={1}>
-					<Stack alignItems="center">{score}</Stack>
-				</Grid>
 			</Hidden>
 			<Grid item justifySelf="center" alignSelf="center" xs={1}>
-				<Stack alignItems="center">{win}</Stack>
+				<Stack alignItems="center">{score}</Stack>
 			</Grid>
 			<Hidden smDown>
+				<Grid item justifySelf="center" alignSelf="center" xs={1}>
+					<Stack alignItems="center">{win}</Stack>
+				</Grid>
 				<Grid item justifySelf="center" alignSelf="center" xs={2}>
 					<Stack alignItems="end">{matches}</Stack>
 				</Grid>

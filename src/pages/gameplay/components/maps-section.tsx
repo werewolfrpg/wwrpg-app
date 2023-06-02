@@ -60,7 +60,7 @@ export default ({ maps }: MapsSectionProps) => {
 				</Typography>
 				<Stack direction="row" gap={1} my={3}>
 					{maps[map].tags.map((tag, index) => (
-						<Chip key={index} label={tag} style={{ background: 'green' }} />
+						<Chip key={index} label={tag} />
 					))}
 				</Stack>
 				<Typography textAlign="center" fontSize={18} mx={{ md: 12 }}>

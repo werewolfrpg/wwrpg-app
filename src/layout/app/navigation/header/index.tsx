@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Box, Collapse, Container, Hidden, Stack, Typography, styled } from '@mui/material'
+import { Box, Collapse, Container, Divider, Hidden, Stack, Typography, styled } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
 import { ServerLinkProps } from '../../../../components/server-link'
@@ -88,6 +88,7 @@ export default (props: HeaderProps) => {
 							))}
 						</Content>
 					</Collapse>
+					<Divider />
 				</Container>
 			</Header>
 			{isAtTop && <Box height={container.current?.clientHeight} />}
