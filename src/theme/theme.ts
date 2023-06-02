@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material'
+import '../assets/fonts/index.css'
 
 export const theme = createTheme({
 	palette: {
@@ -16,7 +17,7 @@ export const theme = createTheme({
 		}
 	},
 	typography: {
-		fontFamily: ['Roboto'].join(',')
+		fontFamily: ['Roboto', 'Minecraft Ten', 'Minecraft'].join(',')
 	},
 	components: {
 		MuiTab: {
