@@ -11,7 +11,7 @@ const Container = styled(Box)<{ image: string }>(({ image }) => ({
 const Content = styled(Stack)(({ theme }) => ({
 	justifyContent: 'center',
 	alignItems: 'center',
-	width: '100vw',
+	width: '100%',
 	padding: theme.spacing(5)
 }))
 

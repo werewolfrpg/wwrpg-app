@@ -60,7 +60,7 @@ export default ({ stats }: OverviewPanelProps) => {
 						value: stats.skeletons.emeralds
 					},
 					{
-						title: 'Basic Killed',
+						title: 'Common Killed',
 						value: stats.skeletons.killed.basic
 					},
 					{

@@ -4,13 +4,23 @@ import { PlayerStatistic } from '../../../types/player'
 import { getPlayerStats } from '../../../apis/wwrpg'
 import { PlayerMatches } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
-import { Box, Container, Grid, Tab, Tabs } from '@mui/material'
+import { Box, Card, Container, Grid, Stack, Tab, Tabs, styled } from '@mui/material'
 import RolePanel from './components/role-panel'
 import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
 import ItemPanel from './components/item-panel'
 import MatchesPanel from './components/matches-panel'
 import AppLayout from '../../../layout/app'
+
+const TabButton = styled(Tab)(({ theme }) => ({
+	color: theme.palette.text.secondary,
+	textTransform: 'none',
+	fontWeight: 'bold',
+	fontSize: 18,
+	'&.Mui-selected': {
+		color: '#fff'
+	}
+}))
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()
@@ -45,12 +55,16 @@ export default () => {
 								<RolePanel roles={stats.roles} />
 							</Grid>
 						</Grid>
-						<Grid container item direction="column" xs /*gap={3}*/>
+						<Grid container item direction="column" xs>
 							<Grid item mb={3}>
-								<Tabs value={tab} onChange={(_, i) => setTab(i)}>
-									<Tab label="Overview" />
-									<Tab label="Items" />
-								</Tabs>
+								<Card>
+									<Stack direction="row">
+										<Tabs value={tab} onChange={(_, i) => setTab(i)} TabIndicatorProps={{ style: { height: 4 } }}>
+											<TabButton label="Overview" />
+											<TabButton label="Items" />
+										</Tabs>
+									</Stack>
+								</Card>
 							</Grid>
 							{tab == 0 ? (
 								<>

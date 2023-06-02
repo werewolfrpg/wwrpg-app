@@ -1,7 +1,6 @@
 import React from 'react'
-import { Stack, Box, LinearProgress, Typography, Divider, Card } from '@mui/material'
+import { Stack, Box, Typography, Divider, Card, Tooltip, LinearProgress } from '@mui/material'
 import { PlayerStatistic } from '../../../../types/player'
-import StatisticCard from './statistic-card'
 import Statistic from './statistic'
 
 export interface ProfilePanelProps {
@@ -11,27 +10,32 @@ export interface ProfilePanelProps {
 export default ({ stats: { minecraftId, username, score, rank, title } }: ProfilePanelProps) => {
 	return (
 		<Card>
-			<Box sx={{ p: 2 }} display="flex">
-				<Typography variant="h3" px={1}>
+			<Stack p={2} justifyContent="center" alignItems="center">
+				<Typography variant="h4" fontSize={25}>
 					{username}
 				</Typography>
-			</Box>
+				<Typography variant="h5" color="yellow">
+					{title.current}
+				</Typography>
+			</Stack>
 			<Divider />
-			<Stack direction="row" py={2} justifyContent="center" alignItems="center" gap={1}>
+			<Stack direction="row" alignItems="center" justifyContent="center" py={2}>
 				<Statistic title="Rank" value={'#' + rank} />
 				<Box component="img" src={'https://mc-heads.net/body/' + minecraftId} height={150} />
-				<Statistic title="Score" value={score.current} />
+				<Statistic title="Levels" value={score.current} />
 			</Stack>
-			<Divider />
-			<Stack>
-				<StatisticCard title={title.current} value={score.current} />
-				<Box position="relative" p={1} mx={1}>
-					<LinearProgress variant="determinate" value={score.progress} />
-					<Typography fontSize={12} align="right">
-						{title.next ? score.difference + ' until ' + title.next : 'Max score reached!'}
+			<LinearProgress value={score.progress} variant="determinate" />
+			<Tooltip
+				placement="bottom"
+				title={title.next ? score.difference + ' levels needed to reach ' + title.next : 'Max levels reached!'}
+			>
+				<Stack direction="row" justifyContent="center" alignItems="center" p={1} gap={1}>
+					<Typography variant="caption">{title.next ? score.difference + ' until' : 'Max levels reached!'}</Typography>
+					<Typography color="purple" variant="h5">
+						{title.next}
 					</Typography>
-				</Box>
-			</Stack>
+				</Stack>
+			</Tooltip>
 		</Card>
 	)
 }

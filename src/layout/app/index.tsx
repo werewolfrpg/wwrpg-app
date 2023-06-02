@@ -7,7 +7,7 @@ import Footer from './navigation/footer'
 
 const Title = styled(Stack)(({ theme }) => ({
 	background: theme.palette.primary.main,
-	width: '100vw',
+	width: '100%',
 	paddingTop: theme.spacing(5),
 	paddingBottom: theme.spacing(5),
 	justifyContent: 'center',

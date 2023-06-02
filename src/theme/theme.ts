@@ -12,14 +12,18 @@ export const theme = createTheme({
 		},
 		text: {
 			primary: '#FFF',
-			secondary: '#C0C0C0',
-			disabled: '#808080'
+			secondary: '#808080'
 		}
 	},
 	typography: {
 		fontFamily: ['Roboto'].join(',')
 	},
 	components: {
+		MuiTab: {
+			defaultProps: {
+				disableRipple: true
+			}
+		},
 		MuiDivider: {
 			defaultProps: {
 				style: {
@@ -87,6 +91,10 @@ export const theme = createTheme({
 				h4: {
 					fontFamily: 'Minecraft',
 					fontSize: 20
+				},
+				h5: {
+					fontFamily: 'Minecraft Ten',
+					fontSize: 18
 				},
 				caption: {
 					color: 'text.secondary',

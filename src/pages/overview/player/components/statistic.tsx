@@ -4,7 +4,7 @@ import { Stack, Tooltip, Typography } from '@mui/material'
 export interface StatisiticProps {
 	title: string
 	value: any
-	caption?: string
+	caption?: any
 	tooltip?: string
 }
 
@@ -14,7 +14,7 @@ export default ({ title, value, caption, tooltip }: StatisiticProps) => {
 	return (
 		<Tooltip title={tooltip}>
 			<Stack sx={{ px: 2, py: 0 }}>
-				<Typography fontSize={16} fontWeight={900} color="grey">
+				<Typography fontSize={16} fontWeight={900} color="text.secondary">
 					{title}
 				</Typography>
 				<Typography fontFamily="Minecraft" fontSize={24}>

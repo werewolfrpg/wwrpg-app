@@ -8,7 +8,7 @@ import Banner from './components/banner'
 
 const Header = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
-	width: '100vw',
+	width: '100%',
 	zIndex: 1000,
 	top: 0
 }))

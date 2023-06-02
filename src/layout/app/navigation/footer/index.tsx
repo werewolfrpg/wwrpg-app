@@ -6,7 +6,7 @@ import { headers } from '../../../../routes/router'
 
 const Footer = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
-	width: '100vw',
+	width: '100%',
 	bottom: 0,
 	paddingTop: theme.spacing(8),
 	paddingBottom: theme.spacing(4)

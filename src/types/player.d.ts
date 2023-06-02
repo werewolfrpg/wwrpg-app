@@ -54,6 +54,7 @@ export interface Skeletons {
 
 export interface Score {
 	current: number
+	next: number
 	progress: number
 	difference: number
 }

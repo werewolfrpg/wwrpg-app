@@ -27,13 +27,13 @@ export const getLeaderboard = async (page: number = 1, count: number = 20): Prom
 		played: player.gamesPlayed,
 		...player
 	}))
-	return { meta, data }
+	// return { meta, data }
 
-	// return new Promise(resolve => {
-	// 	setTimeout(() => {
-	// 		resolve({ meta, data })
-	// 	}, 3000)
-	// })
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve({ meta, data })
+		}, 3000)
+	})
 }
 
 export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatistic> => {
@@ -44,6 +44,7 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 	const b = data.score - data.currentThreshold
 	const score = {
 		current: data.score,
+		next: data.nextThreshold,
 		difference: a - b,
 		progress: data.nextThreshold === -1 ? 100 : a / b
 	}
@@ -105,7 +106,14 @@ export const getMatchHistory = async (page: number = 1, count: number = 20): Pro
 	const res = await axios.get(BASE_URL + '/api/matches?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as MatchesDto
 	const data = convertToDailyMatches<Match>(convertToMatches(raw))
-	return { meta, data }
+
+	// return { meta, data }
+
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve({ meta, data })
+		}, 3000)
+	})
 }
 
 export const getMatch = async (matchId: string): Promise<MatchPlayer[]> => {
@@ -155,7 +163,7 @@ const convertToDailyMatches = <M extends Match>(matches: Match[]): DailyMatches<
 const convertToMatches = (matches: MatchDto[]): Match[] => {
 	const data: Match[] = []
 
-	for (const { matchId, map, startTime, endTime, winner = 'CANCELED' } of matches) {
+	for (const { matchId, map, startTime, endTime, winner } of matches) {
 		const start = new Date(startTime)
 		const end = new Date(endTime)
 		const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
@@ -177,7 +185,7 @@ const convertToMatches = (matches: MatchDto[]): Match[] => {
 			duration += seconds + 's'
 		}
 		if (duration === '') {
-			duration = 'Not played'
+			duration = '--'
 		}
 
 		data.push({ matchId, map, winner, duration, time, date })
