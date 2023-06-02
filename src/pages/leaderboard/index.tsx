@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Table from './components/leaderboard'
+import LeaderboardTable from './components/leaderboard-table'
 import AppLayout from '../../layout/app'
 import { Box, Container } from '@mui/material'
 import { getLeaderboard } from '../../apis/wwrpg'
@@ -25,7 +25,7 @@ export default () => {
 		<AppLayout>
 			<Container>
 				<Box py={5}>
-					<Table {...{ page, count, leaderboard, onRefresh }} />
+					<LeaderboardTable {...{ page, count, leaderboard, onRefresh }} />
 				</Box>
 			</Container>
 		</AppLayout>

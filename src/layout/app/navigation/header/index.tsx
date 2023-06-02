@@ -88,8 +88,8 @@ export default (props: HeaderProps) => {
 							))}
 						</Content>
 					</Collapse>
-					<Divider />
 				</Container>
+				<Divider />
 			</Header>
 			{isAtTop && <Box height={container.current?.clientHeight} />}
 		</>
