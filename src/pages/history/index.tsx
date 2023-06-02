@@ -19,7 +19,7 @@ export default () => {
 	return (
 		<AppLayout>
 			<Container>
-				<Box py={10}>
+				<Box py={5}>
 					<MatchesPanel matches={matches} />
 				</Box>
 			</Container>

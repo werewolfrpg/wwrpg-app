@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Card, Divider, Grid, Hidden, Skeleton, Stack, TablePagination, Typography } from '@mui/material'
 import { Leaderboard } from '../../../types/leaderboard'
-import { getLeaderboard } from '../../../apis/wwrpg'
 
-export default () => {
+export interface LeaderboardProps {
+	page: number
+	count: number
+	leaderboard: Leaderboard | null
+	onRefresh: (page: number, count: number) => void
+}
+
+export default ({ page, count, leaderboard, onRefresh }: LeaderboardProps) => {
 	const navigate = useNavigate()
-	const [page, setPage] = useState(0)
-	const [count, setCount] = useState(20)
-	const [leaderboard, setLeaderboard] = useState<Leaderboard | null>(null)
-
-	useEffect(() => {
-		refreshLeaderboard(page, count)
-	}, [])
-
-	const refreshLeaderboard = (newPage: number, newCount: number) => {
-		setPage(newPage)
-		setCount(newCount)
-		setLeaderboard(null)
-		getLeaderboard(newPage + 1, newCount).then(setLeaderboard)
-	}
 
 	if (!leaderboard) {
 		const skeletons = []
@@ -76,8 +68,8 @@ export default () => {
 			<TablePagination
 				style={{ border: 'none' }}
 				rowsPerPageOptions={[20, 50, 100]}
-				onPageChange={(_, page) => refreshLeaderboard(page, count)}
-				onRowsPerPageChange={event => refreshLeaderboard(0, parseInt(event.target.value))}
+				onPageChange={(_, page) => onRefresh(page, count)}
+				onRowsPerPageChange={event => onRefresh(0, parseInt(event.target.value))}
 				count={leaderboard.meta.entries * leaderboard.meta.totalPageNumber}
 				rowsPerPage={count}
 				page={page}
