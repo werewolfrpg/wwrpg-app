@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
-import { Stack, Box, Typography, Chip, styled } from '@mui/material'
+import { Stack, Box, Typography, styled } from '@mui/material'
+import { Map } from '../../../types/map'
 
 const ArrowButton = styled(Box)(({ theme }) => ({
 	cursor: 'pointer',
@@ -15,13 +16,6 @@ const MapIndicator = styled(Box)(({ active }: { active: boolean }) => ({
 	height: 8,
 	opacity: active ? 1 : 0.5
 }))
-
-export type Map = {
-	name: string
-	thumbnail: string
-	description: string
-	tags: string[]
-}
 
 export interface MapsSectionProps {
 	maps: Map[]
@@ -38,13 +32,17 @@ export default ({ maps }: MapsSectionProps) => {
 		setMap(map == 0 ? maps.length - 1 : map - 1)
 	}
 
+	if (!maps.length) {
+		return <></>
+	}
+
 	return (
 		<>
 			<Stack direction="row" alignItems="center" justifyContent="center">
 				<ArrowButton>
 					<ArrowBack onClick={handlePreviousMap} />
 				</ArrowButton>
-				<Box component="img" src={maps[map].thumbnail} width="80%" />
+				<Box component="img" src={maps[map].image} width="80%" />
 				<ArrowButton>
 					<ArrowForward onClick={handleNextMap} />
 				</ArrowButton>
@@ -55,14 +53,9 @@ export default ({ maps }: MapsSectionProps) => {
 				))}
 			</Stack>
 			<Stack alignItems="center" my={6}>
-				<Typography fontSize={26} fontFamily={'Minecraft Ten'}>
+				<Typography fontSize={26} fontFamily="Minecraft Ten">
 					{maps[map].name}
 				</Typography>
-				<Stack direction="row" gap={1} my={3}>
-					{maps[map].tags.map((tag, index) => (
-						<Chip key={index} label={tag} />
-					))}
-				</Stack>
 				<Typography textAlign="center" fontSize={18} mx={{ md: 12 }}>
 					{maps[map].description}
 				</Typography>

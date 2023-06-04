@@ -16,6 +16,7 @@ import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
 import { Match } from '../types/match'
 import axios from 'axios'
 import { getName } from './mojang'
+import { Map } from '../types/map'
 
 const BASE_URL = process.env.REACT_APP_WWRPG_BASE_URL
 
@@ -146,7 +147,7 @@ export const getMatchHistory = async (page: number = 1, count: number = 20): Pro
 	// })
 }
 
-export const getMatch = async (matchId: string): Promise<MatchPlayer[]> => {
+export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> => {
 	const res = await axios.get(BASE_URL + '/api/stats/match/' + matchId)
 	const raw = res.data as MatchPlayerDto[]
 
@@ -155,6 +156,40 @@ export const getMatch = async (matchId: string): Promise<MatchPlayer[]> => {
 		const skeletons = convertSkeletons(data.skeletons)
 		return { minecraftId: playerId, score: scoreGain, death: deathCause, ...stats, skeletons }
 	})
+}
+
+export const getMatch = async (matchId: string): Promise<Match> => {
+	const res = await axios.get(BASE_URL + '/api/match/' + matchId)
+	const data = res.data as MatchDto
+	const match = convertMatch(data)
+	return { ...match, duration: convertDuration(match.duration as number) }
+
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({ ...match, duration: convertDuration(match.duration as number) })
+	// 	}, 3000)
+	// })
+}
+
+export const getMaps = async (): Promise<Map[]> => {
+	const res = await axios.get(BASE_URL + '/api/maps')
+	const data = res.data as Map[]
+
+	return data.map(({ image, name, description }) => ({
+		image: BASE_URL + '/maps/thumbnails/' + image,
+		name: name[0].toUpperCase() + name.replace('_', ' ').substring(1).toLowerCase(),
+		description
+	}))
+}
+
+const convertMatch = (match: MatchDto): Match => {
+	const { startTime, endTime, winnerFaction: winner, ...data } = match
+	const start = new Date(startTime)
+	const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
+	const time = start.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })
+	const duration = endTime - startTime
+	const state = !winner ? 'Game Canceled' : winner[0] + winner.substring(1).toLowerCase() + ' Victory'
+	return { ...data, winner, duration, time, date, state }
 }
 
 const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
@@ -169,14 +204,7 @@ const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
 }
 
 const convertToDailyMatches = <M extends Match, D extends MatchDto>(dto: D[]): DailyMatches<M>[] => {
-	const matches = dto.map(({ startTime, endTime, winnerFaction: winner, ...data }) => {
-		const start = new Date(startTime)
-		const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
-		const time = start.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })
-		const duration = endTime - startTime
-		const state = !winner ? 'Game Canceled' : winner[0] + winner.substring(1).toLowerCase() + ' Victory'
-		return { ...data, winner, duration, time, date, state }
-	})
+	const matches = dto.map(convertMatch)
 
 	const dailyMatches: Record<string, Match[]> = {}
 	for (const match of matches) {

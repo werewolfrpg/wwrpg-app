@@ -1,9 +1,9 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import AppLayout from '../../layout/app'
-import RoleSection from './components/role-section'
-import ItemDescriptor from './components/item-descriptor'
 import MapsSection from './components/maps-section'
+import { getMaps } from '../../apis/wwrpg'
+import { Map } from '../../types/map'
 
 const roles = [
 	{
@@ -26,30 +26,6 @@ const roles = [
 			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
 		image: 'https://mc-heads.net/body/5ca277ce-4227-41f2-9e9b-517da62c2331/left',
 		meta: ['example meta 1', 'example meta 2', 'example meta 3', 'example meta 4']
-	}
-]
-
-const maps = [
-	{
-		name: 'Airship 1',
-		thumbnail: require('../../assets/images/map.png'),
-		description:
-			'In publishing and graphic design, Lorem ipsum isf a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-		tags: ['Popular', 'Large', 'Difficult']
-	},
-	{
-		name: 'Airship 2',
-		thumbnail: require('../../assets/images/map.png'),
-		description:
-			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-		tags: ['Easy', 'Small']
-	},
-	{
-		name: 'Airship 3',
-		thumbnail: require('../../assets/images/map.png'),
-		description:
-			'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual',
-		tags: ['Popular', 'Large', 'Difficult']
 	}
 ]
 
@@ -81,6 +57,12 @@ const items = [
 ]
 
 export default () => {
+	const [maps, setMaps] = useState<Map[]>([])
+
+	useEffect(() => {
+		getMaps().then(setMaps).catch(console.error)
+	}, [])
+
 	return (
 		<AppLayout>
 			<Container>
