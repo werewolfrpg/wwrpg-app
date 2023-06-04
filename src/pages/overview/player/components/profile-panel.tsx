@@ -22,15 +22,15 @@ export default ({ stats: { minecraftId, username, score, rank, title } }: Profil
 			<Stack direction="row" alignItems="center" justifyContent="center" py={2}>
 				<Statistic title="Rank" value={'#' + rank} />
 				<Box component="img" src={'https://mc-heads.net/body/' + minecraftId} height={150} />
-				<Statistic title="Levels" value={score.current} />
+				<Statistic title="Points" value={score.current} />
 			</Stack>
 			<LinearProgress value={score.progress} variant="determinate" />
 			<Tooltip
 				placement="bottom"
-				title={title.next ? score.difference + ' levels needed to reach ' + title.next : 'Max levels reached!'}
+				title={title.next ? score.difference + ' levels needed to reach ' + title.next : 'Max level reached!'}
 			>
 				<Stack direction="row" justifyContent="center" alignItems="center" p={1} gap={1}>
-					<Typography variant="caption">{title.next ? score.difference + ' until' : 'Max levels reached!'}</Typography>
+					<Typography variant="caption">{title.next ? score.difference + ' until' : 'Max level reached!'}</Typography>
 					<Typography color="purple" variant="h5">
 						{title.next}
 					</Typography>

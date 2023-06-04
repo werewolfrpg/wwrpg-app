@@ -11,7 +11,7 @@ export default ({ role: { name, played, won } }: RoleCardProps) => {
 	const winRate = played > 0 ? (won / played) * 100 : 0
 
 	return (
-		<Stack direction="row" p={2}>
+		<Stack direction="row" p={2} justifyContent="space-between">
 			<Tooltip placement="left" title={'Win rate of ' + winRate.toFixed(2) + '%'}>
 				<Stack alignItems="center" justifyContent="center">
 					<StatisticProgress progress={winRate} />

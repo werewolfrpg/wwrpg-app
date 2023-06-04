@@ -14,10 +14,16 @@ export default ({ values, light }: LeaderboardRowProps) => {
 				<Skeleton width={40} height={40} variant="circular" />
 				<Skeleton width={100} />
 			</Stack>,
-			<Skeleton width={60} />,
+			<Hidden smDown>
+				<Skeleton width={60} />
+			</Hidden>,
 			<Skeleton width={40} />,
-			<Skeleton width={40} />,
-			<Skeleton width={30} />
+			<Hidden smDown>
+				<Skeleton width={40} />
+			</Hidden>,
+			<Hidden smDown>
+				<Skeleton width={30} />
+			</Hidden>
 		]
 	}
 
