@@ -8,7 +8,8 @@ import {
 	PlayerMatch,
 	PlayerMatches,
 	MatchPlayer,
-	PlayerMatchDto
+	PlayerMatchDto,
+	PlayerMatchesDto
 } from '../types/match'
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
 import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
@@ -114,14 +115,13 @@ export const getPlayerMatchHistory = async (
 	count: number = 20
 ): Promise<PlayerMatches> => {
 	const res = await axios.get(BASE_URL + '/api/match/player/' + minecraftId + '?page=' + page + '&number=' + count)
-	const { meta, data: raw } = res.data as MatchesDto
+	const { meta, data: raw } = res.data as PlayerMatchesDto
 
 	const matches: PlayerMatchDto[] = raw.map(match => ({
 		...match,
-		role: 'WEREWOLF',
-		score: 123
+		score: 123,
+		role: match.role[0] + match.role.substring(1).toLowerCase()
 	}))
-
 	const data = convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
 	// return { meta, data }
 
@@ -169,7 +169,7 @@ const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
 }
 
 const convertToDailyMatches = <M extends Match, D extends MatchDto>(dto: D[]): DailyMatches<M>[] => {
-	const matches = dto.map(({ startTime, endTime, winner, ...data }) => {
+	const matches = dto.map(({ startTime, endTime, winnerFaction: winner, ...data }) => {
 		const start = new Date(startTime)
 		const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
 		const time = start.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })

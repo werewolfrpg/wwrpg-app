@@ -6,7 +6,7 @@ export interface MatchDto {
 	map: string
 	startTime: number
 	endTime: number
-	winner: string
+	winnerFaction: string
 }
 
 export interface Match {
@@ -60,6 +60,8 @@ export type DailyMatches<T extends Match = Match> = {
 }
 
 export type MatchesDto = Paginated<MatchDto>
+
+export type PlayerMatchesDto = Paginated<PlayerMatchDto>
 
 export type Matches = Paginated<DailyMatches<Match>>
 
