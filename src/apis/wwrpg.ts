@@ -32,13 +32,13 @@ export const getLeaderboard = async (page: number = 1, count: number = 20): Prom
 			...player
 		}))
 	)
-	// return { meta, data }
+	return { meta, data }
 
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve({ meta, data })
-		}, 3000)
-	})
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({ meta, data })
+	// 	}, 3000)
+	// })
 }
 
 export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatistic> => {
@@ -76,37 +76,37 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 
 	const username = await getName(minecraftId)
 
-	// return {
-	// 	minecraftId: data.minecraftId,
-	// 	rank: data.ranking,
-	// 	kills: data.kills,
-	// 	deaths: data.deaths,
-	// 	items: data.items,
-	//  username,
-	// 	skeletons,
-	// 	matches,
-	// 	title,
-	// 	score,
-	// 	roles
-	// }
+	return {
+		minecraftId: data.minecraftId,
+		rank: data.ranking,
+		kills: data.kills,
+		deaths: data.deaths,
+		items: data.items,
+		username,
+		skeletons,
+		matches,
+		title,
+		score,
+		roles
+	}
 
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve({
-				minecraftId: data.minecraftId,
-				rank: data.ranking,
-				kills: data.kills,
-				deaths: data.deaths,
-				items: data.items,
-				username,
-				skeletons,
-				matches,
-				title,
-				score,
-				roles
-			})
-		}, 3000)
-	})
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({
+	// 			minecraftId: data.minecraftId,
+	// 			rank: data.ranking,
+	// 			kills: data.kills,
+	// 			deaths: data.deaths,
+	// 			items: data.items,
+	// 			username,
+	// 			skeletons,
+	// 			matches,
+	// 			title,
+	// 			score,
+	// 			roles
+	// 		})
+	// 	}, 3000)
+	// })
 }
 
 export const getPlayerMatchHistory = async (
@@ -119,17 +119,17 @@ export const getPlayerMatchHistory = async (
 
 	const matches: PlayerMatchDto[] = raw.map(match => ({
 		...match,
-		score: 123,
 		role: match.role[0] + match.role.substring(1).toLowerCase()
 	}))
-	const data = convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
-	// return { meta, data }
 
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve({ meta, data })
-		}, 3000)
-	})
+	const data = convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
+	return { meta, data }
+
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({ meta, data })
+	// 	}, 3000)
+	// })
 }
 
 export const getMatchHistory = async (page: number = 1, count: number = 20): Promise<Matches> => {
@@ -137,13 +137,13 @@ export const getMatchHistory = async (page: number = 1, count: number = 20): Pro
 	const { meta, data: raw } = res.data as MatchesDto
 	const data = convertToDailyMatches<Match, MatchDto>(raw)
 
-	// return { meta, data }
+	return { meta, data }
 
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve({ meta, data })
-		}, 3000)
-	})
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({ meta, data })
+	// 	}, 3000)
+	// })
 }
 
 export const getMatch = async (matchId: string): Promise<MatchPlayer[]> => {

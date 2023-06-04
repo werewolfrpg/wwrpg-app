@@ -26,8 +26,6 @@ export default ({ title, value, caption, tooltip }: StatisiticProps) => {
 		)
 	}
 
-	console.log(title, value)
-
 	return (
 		<Tooltip title={tooltip}>
 			<Stack px={2}>

@@ -75,9 +75,9 @@ export default ({ match }: MatchCardProps) => {
 				<Grid item justifySelf="center" alignSelf="center" xs={3}>
 					<Statistic title="Duration" value={match.duration} />
 				</Grid>
-				{/* <Grid item justifySelf="center" alignSelf="center" xs={3}>
-					<Statistic title="Score" value={match.score} />
-				</Grid> */}
+				<Grid item justifySelf="center" alignSelf="center" xs={3}>
+					<Statistic title="Score" value={'+' + match.score} />
+				</Grid>
 			</Grid>
 		</Container>
 	)
