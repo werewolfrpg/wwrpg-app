@@ -4,10 +4,24 @@ import { Role } from '../../../../types/player'
 import { Card, Divider, Typography } from '@mui/material'
 
 export interface RolePanelProps {
-	roles: Role[]
+	roles?: Role[]
 }
 
 export default ({ roles }: RolePanelProps) => {
+	if (!roles) {
+		return (
+			<Card>
+				<Typography variant="h3" p={2}>
+					Roles
+				</Typography>
+				<Divider />
+				{[1, 2, 3].map((_, index) => (
+					<RoleCard key={index} />
+				))}
+			</Card>
+		)
+	}
+
 	return (
 		<Card>
 			<Typography variant="h3" p={2}>

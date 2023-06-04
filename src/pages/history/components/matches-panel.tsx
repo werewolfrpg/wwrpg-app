@@ -9,14 +9,13 @@ export interface MatchListProps {
 
 export default ({ matches }: MatchListProps) => {
 	if (!matches) {
-		const skeletons = []
-		for (let i = 0; i < 3; i++) {
-			skeletons.push(<MatchSection key={i} />)
-		}
-
 		return (
 			<Card>
-				<Stack p={2}>{skeletons}</Stack>
+				<Stack p={2}>
+					{[1, 2, 3].map(index => (
+						<MatchSection key={index} />
+					))}
+				</Stack>
 			</Card>
 		)
 	}

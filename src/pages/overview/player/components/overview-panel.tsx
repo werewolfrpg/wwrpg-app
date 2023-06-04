@@ -4,7 +4,7 @@ import { Card, Divider, Typography } from '@mui/material'
 import StatisticPanel from './statistic-panel'
 
 export interface OverviewPanelProps {
-	stats: PlayerStatistic
+	stats?: PlayerStatistic
 }
 
 export default ({ stats }: OverviewPanelProps) => {
@@ -19,15 +19,15 @@ export default ({ stats }: OverviewPanelProps) => {
 				statistics={[
 					{
 						title: 'Wins',
-						value: stats.matches.won
+						value: stats?.matches.won
 					},
 					{
 						title: 'Win %',
-						value: ((stats.matches.won / stats.matches.played) * 100).toFixed(1)
+						value: stats ? ((stats?.matches.won / stats?.matches.played) * 100).toFixed(1) : undefined
 					},
 					{
 						title: 'Matches Played',
-						value: stats.matches.played
+						value: stats?.matches.played
 					}
 				]}
 			/>
@@ -35,15 +35,15 @@ export default ({ stats }: OverviewPanelProps) => {
 				statistics={[
 					{
 						title: 'Kills',
-						value: stats.kills
+						value: stats?.kills
 					},
 					{
 						title: 'Deaths',
-						value: stats.deaths
+						value: stats?.deaths
 					},
 					{
 						title: 'K/D',
-						value: (stats.kills / stats.deaths).toFixed(2)
+						value: stats ? (stats?.kills / stats?.deaths).toFixed(2) : undefined
 					}
 				]}
 			/>
@@ -53,19 +53,19 @@ export default ({ stats }: OverviewPanelProps) => {
 				statistics={[
 					{
 						title: 'Emeralds',
-						value: stats.skeletons.emeralds
+						value: stats?.skeletons.emeralds
 					},
 					{
 						title: 'Common Killed',
-						value: stats.skeletons.killed.basic
+						value: stats?.skeletons.killed.basic
 					},
 					{
 						title: 'Lucky Killed',
-						value: stats.skeletons.killed.lucky
+						value: stats?.skeletons.killed.lucky
 					},
 					{
 						title: 'Special Killed',
-						value: stats.skeletons.killed.special
+						value: stats?.skeletons.killed.special
 					}
 				]}
 			/>

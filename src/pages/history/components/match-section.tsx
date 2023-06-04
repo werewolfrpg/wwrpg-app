@@ -23,11 +23,6 @@ export interface MatchListProps {
 
 export default ({ matches }: MatchListProps) => {
 	if (!matches) {
-		const skeletons = []
-		for (let i = 0; i < 3; i++) {
-			skeletons.push(<MatchCard key={i} />)
-		}
-
 		return (
 			<Box>
 				<Stack direction="row" alignItems="center" gap={1} my={1}>
@@ -40,7 +35,9 @@ export default ({ matches }: MatchListProps) => {
 				<Stack direction="row" gap={1}>
 					<LineIndicator />
 					<Grid container spacing={1} direction="column" my={1} mb={2}>
-						{skeletons}
+						{[1, 2, 3].map(index => (
+							<MatchCard key={index} />
+						))}
 					</Grid>
 				</Stack>
 			</Box>

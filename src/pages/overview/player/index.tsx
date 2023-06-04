@@ -24,8 +24,8 @@ const TabButton = styled(Tab)(({ theme }) => ({
 
 export default () => {
 	const { minecraftId } = useParams<{ minecraftId: string }>()
-	const [stats, setStats] = useState<PlayerStatistic | null>(null)
-	const [matches, setMatches] = useState<PlayerMatches | null>(null)
+	const [stats, setStats] = useState<PlayerStatistic | undefined>()
+	const [matches, setMatches] = useState<PlayerMatches | undefined>()
 	const [tab, setTab] = useState(0)
 
 	useEffect(() => {
@@ -33,30 +33,26 @@ export default () => {
 			getPlayerStats(minecraftId).then(setStats).catch(console.error)
 			getPlayerMatchHistory(minecraftId).then(setMatches).catch(console.error)
 		} else {
-			setStats(null)
-			setMatches(null)
+			setStats(undefined)
+			setMatches(undefined)
 		}
 	}, [minecraftId])
-
-	if (!stats || !matches) {
-		return <div>loading...</div>
-	}
 
 	return (
 		<AppLayout>
 			<Container>
 				<Box py={5}>
-					<Grid container gap={4}>
+					<Grid container gap={stats ? 4 : 6}>
 						<Grid container item direction="column" xs={3} gap={3}>
 							<Grid item>
 								<ProfilePanel stats={stats} />
 							</Grid>
 							<Grid item>
-								<RolePanel roles={stats.roles} />
+								<RolePanel roles={stats?.roles} />
 							</Grid>
 						</Grid>
-						<Grid container item direction="column" xs>
-							<Grid item mb={3}>
+						<Grid container item direction="column" xs gap={matches ? 0 : 3}>
+							<Grid item mb={matches ? 3 : 0}>
 								<Card>
 									<Stack direction="row">
 										<Tabs value={tab} onChange={(_, i) => setTab(i)} TabIndicatorProps={{ style: { height: 4 } }}>
@@ -77,7 +73,7 @@ export default () => {
 								</>
 							) : (
 								<Grid item>
-									<ItemPanel items={stats.items} />
+									<ItemPanel items={stats?.items} />
 								</Grid>
 							)}
 						</Grid>
