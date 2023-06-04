@@ -175,10 +175,10 @@ export const getMaps = async (): Promise<Map[]> => {
 	const res = await axios.get(BASE_URL + '/api/maps')
 	const data = res.data as Map[]
 
-	return data.map(({ image, name, description }) => ({
+	return data.map(({ image, name, ...info }) => ({
 		image: BASE_URL + '/maps/thumbnails/' + image,
 		name: name[0].toUpperCase() + name.replace('_', ' ').substring(1).toLowerCase(),
-		description
+		...info
 	}))
 }
 

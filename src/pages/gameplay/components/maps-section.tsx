@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
-import { Stack, Box, Typography, styled } from '@mui/material'
+import { Stack, Box, Typography, styled, Chip } from '@mui/material'
 import { Map } from '../../../types/map'
 
 const ArrowButton = styled(Box)(({ theme }) => ({
@@ -52,7 +52,12 @@ export default ({ maps }: MapsSectionProps) => {
 					<MapIndicator key={index} active={index === map} onClick={() => setMap(index)} />
 				))}
 			</Stack>
-			<Stack alignItems="center" my={6}>
+			<Stack alignItems="center" my={3}>
+				<Stack direction="row" gap={1} my={3}>
+					{maps[map].tags.map((tag, index) => (
+						<Chip key={index} label={tag} />
+					))}
+				</Stack>
 				<Typography fontSize={26} fontFamily="Minecraft Ten">
 					{maps[map].name}
 				</Typography>
