@@ -15,7 +15,6 @@ export interface SkeletonsDto {
 
 export interface PlayerDto {
 	minecraftId: string
-	minecraftUsername: string
 	score: number
 	ranking: number
 	title: string

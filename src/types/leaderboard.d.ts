@@ -3,7 +3,6 @@ import { Paginated } from './response'
 
 export interface LeaderboardPlayerDto {
 	minecraftId: string
-	minecraftUsername: string
 	score: number
 	ranking: number
 	title: string

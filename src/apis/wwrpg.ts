@@ -14,6 +14,7 @@ import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
 import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
 import { Match } from '../types/match'
 import axios from 'axios'
+import { getName } from './mojang'
 
 const BASE_URL = process.env.REACT_APP_WWRPG_BASE_URL
 
@@ -21,13 +22,15 @@ export const getLeaderboard = async (page: number = 1, count: number = 20): Prom
 	const res = await axios.get(BASE_URL + '/api/leaderboard/?page=' + page + '&number=' + count)
 	const { meta, data: players } = res.data as LeaderboardDto
 
-	const data = players.map(player => ({
-		username: player.minecraftUsername,
-		rank: player.ranking,
-		won: player.gamesWon,
-		played: player.gamesPlayed,
-		...player
-	}))
+	const data = await Promise.all(
+		players.map(async player => ({
+			username: await getName(player.minecraftId),
+			rank: player.ranking,
+			won: player.gamesWon,
+			played: player.gamesPlayed,
+			...player
+		}))
+	)
 	// return { meta, data }
 
 	return new Promise(resolve => {
@@ -70,19 +73,39 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 		next: data.nextTitle
 	}
 
-	return {
-		minecraftId: data.minecraftId,
-		username: data.minecraftUsername,
-		rank: data.ranking,
-		kills: data.kills,
-		deaths: data.deaths,
-		items: data.items,
-		skeletons,
-		matches,
-		title,
-		score,
-		roles
-	}
+	const username = await getName(minecraftId)
+
+	// return {
+	// 	minecraftId: data.minecraftId,
+	// 	rank: data.ranking,
+	// 	kills: data.kills,
+	// 	deaths: data.deaths,
+	// 	items: data.items,
+	//  username,
+	// 	skeletons,
+	// 	matches,
+	// 	title,
+	// 	score,
+	// 	roles
+	// }
+
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve({
+				minecraftId: data.minecraftId,
+				rank: data.ranking,
+				kills: data.kills,
+				deaths: data.deaths,
+				items: data.items,
+				username,
+				skeletons,
+				matches,
+				title,
+				score,
+				roles
+			})
+		}, 3000)
+	})
 }
 
 export const getPlayerMatchHistory = async (
@@ -100,7 +123,13 @@ export const getPlayerMatchHistory = async (
 	}))
 
 	const data = convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
-	return { meta, data }
+	// return { meta, data }
+
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve({ meta, data })
+		}, 3000)
+	})
 }
 
 export const getMatchHistory = async (page: number = 1, count: number = 20): Promise<Matches> => {
