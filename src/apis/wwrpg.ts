@@ -14,9 +14,9 @@ import {
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
 import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
 import { Match } from '../types/match'
-import axios from 'axios'
 import { getName } from './mojang'
-import { Map } from '../types/map'
+import { Map, MapDto } from '../types/map'
+import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_WWRPG_BASE_URL
 
@@ -123,7 +123,7 @@ export const getPlayerMatchHistory = async (
 		role: match.role[0] + match.role.substring(1).toLowerCase()
 	}))
 
-	const data = convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
+	const data = await convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
 	return { meta, data }
 
 	// return new Promise(resolve => {
@@ -136,8 +136,7 @@ export const getPlayerMatchHistory = async (
 export const getMatchHistory = async (page: number = 1, count: number = 20): Promise<Matches> => {
 	const res = await axios.get(BASE_URL + '/api/matches?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as MatchesDto
-	const data = convertToDailyMatches<Match, MatchDto>(raw)
-
+	const data = await convertToDailyMatches<Match, MatchDto>(raw)
 	return { meta, data }
 
 	// return new Promise(resolve => {
@@ -161,7 +160,7 @@ export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> =
 export const getMatch = async (matchId: string): Promise<Match> => {
 	const res = await axios.get(BASE_URL + '/api/match/' + matchId)
 	const data = res.data as MatchDto
-	const match = convertMatch(data)
+	const match = await convertMatch(data)
 	return { ...match, duration: convertDuration(match.duration as number) }
 
 	// return new Promise(resolve => {
@@ -173,23 +172,25 @@ export const getMatch = async (matchId: string): Promise<Match> => {
 
 export const getMaps = async (): Promise<Map[]> => {
 	const res = await axios.get(BASE_URL + '/api/maps')
-	const data = res.data as Map[]
+	const data = res.data as MapDto[]
 
 	return data.map(({ image, name, ...info }) => ({
-		image: BASE_URL + '/maps/thumbnails/' + image,
+		id: name,
 		name: name[0].toUpperCase() + name.replace('_', ' ').substring(1).toLowerCase(),
+		image: BASE_URL + '/maps/thumbnails/' + image,
 		...info
 	}))
 }
 
-const convertMatch = (match: MatchDto): Match => {
-	const { startTime, endTime, winnerFaction: winner, ...data } = match
+const convertMatch = async (match: MatchDto): Promise<Match> => {
+	const { startTime, endTime, winnerFaction: winner, map: mapId, ...data } = match
 	const start = new Date(startTime)
 	const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
 	const time = start.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })
 	const duration = endTime - startTime
 	const state = !winner ? 'Game Canceled' : winner[0] + winner.substring(1).toLowerCase() + ' Victory'
-	return { ...data, winner, duration, time, date, state }
+	const map = (await getMaps()).find(map => map.id === mapId)!
+	return { ...data, map, winner, duration, time, date, state }
 }
 
 const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
@@ -203,8 +204,8 @@ const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
 	}
 }
 
-const convertToDailyMatches = <M extends Match, D extends MatchDto>(dto: D[]): DailyMatches<M>[] => {
-	const matches = dto.map(convertMatch)
+const convertToDailyMatches = async <M extends Match, D extends MatchDto>(dto: D[]): Promise<DailyMatches<M>[]> => {
+	const matches = await Promise.all(dto.map(convertMatch))
 
 	const dailyMatches: Record<string, Match[]> = {}
 	for (const match of matches) {

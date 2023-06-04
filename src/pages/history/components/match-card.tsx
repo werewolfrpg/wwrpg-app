@@ -7,10 +7,10 @@ import { WarningRounded } from '@mui/icons-material'
 const colors: Record<string, string> = {
 	VILLAGER: 'green',
 	WEREWOLF: 'red',
-	VAMPIRE: 'purple'
+	OTHER: 'purple'
 }
 
-const Container = styled(Card)<{ image: string }>(({ theme, image }) => ({
+const Container = styled(Card)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to right, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
@@ -51,15 +51,12 @@ export default ({ match }: MatchCardProps) => {
 
 	return (
 		<Grid item>
-			<Container
-				image={require('../../../assets/images/map.png')}
-				onClick={() => navigate('/overview/match/' + match.matchId)}
-			>
+			<Container image={match.map?.image} onClick={() => navigate('/overview/match/' + match.matchId)}>
 				<Stack direction="row" alignItems="center" gap={3} p={3}>
 					<Tooltip title={match.state}>
 						{!match.winner ? <WarningRounded /> : <WinnerIndicator role={match.winner} />}
 					</Tooltip>
-					<Typography variant="h4">{match.map[0].toUpperCase() + match.map.substring(1)}</Typography>
+					<Typography variant="h4">{match.map?.name}</Typography>
 					<Typography variant="caption" color="text.secondary">
 						{match.time + ' • ' + match.duration}
 					</Typography>

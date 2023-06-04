@@ -1,5 +1,6 @@
 import { Paginated } from './response'
 import { Item, Skeletons, SkeletonsDto } from './player'
+import { Map } from './map'
 
 export interface MatchDto {
 	matchId: string
@@ -11,7 +12,7 @@ export interface MatchDto {
 
 export interface Match {
 	matchId: string
-	map: string
+	map?: Map
 	date: string
 	time: string
 	duration: string | number

@@ -2,22 +2,24 @@ import React from 'react'
 import { PlayerMatch } from '../../../../types/match'
 import { useNavigate } from 'react-router-dom'
 import { Box, Grid, Skeleton, Stack, Tooltip, styled } from '@mui/material'
-import Statistic from './statistic'
 import { WarningRounded } from '@mui/icons-material'
+import Statistic from './statistic'
 
 const colors: Record<string, string> = {
 	VILLAGER: 'green',
 	WEREWOLF: 'red',
-	VAMPIRE: 'purple'
+	OTHER: 'purple'
 }
 
-const Container = styled(Stack)<{ image: string }>(({ theme, image }) => ({
+const Container = styled(Stack)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to right, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
 	cursor: 'pointer',
 	alignItems: 'center',
 	padding: theme.spacing(2),
+	marginTop: theme.spacing(0.1),
+	marginBottom: theme.spacing(0.1),
 	gap: theme.spacing(3)
 }))
 
@@ -58,11 +60,7 @@ export default ({ match }: MatchCardProps) => {
 	}
 
 	return (
-		<Container
-			onClick={() => navigate('/overview/match/' + match.matchId)}
-			image={require('../../../../assets/images/map.png')}
-			direction="row"
-		>
+		<Container onClick={() => navigate('/overview/match/' + match.matchId)} image={match.map?.image} direction="row">
 			<Grid container px={2}>
 				<Grid item justifySelf="center" alignSelf="center" xs={1}>
 					<Tooltip title={match.state}>

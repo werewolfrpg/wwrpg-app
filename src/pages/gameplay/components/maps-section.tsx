@@ -9,7 +9,7 @@ const ArrowButton = styled(Box)(({ theme }) => ({
 	padding: theme.spacing(1)
 }))
 
-const MapIndicator = styled(Box)(({ active }: { active: boolean }) => ({
+const MapIndicator = styled(Box)<{ active: boolean }>(({ active }) => ({
 	background: 'white',
 	cursor: 'pointer',
 	width: 8,

@@ -49,6 +49,7 @@ export default (props: HeaderProps) => {
 	const shouldLoadBanner = location.pathname !== '/'
 
 	useLayoutEffect(() => {
+		window.scrollTo(0, 0) // TODO - review
 		container.current?.scrollIntoView()
 
 		if (shouldLoadBanner) {
