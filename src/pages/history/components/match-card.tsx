@@ -21,7 +21,8 @@ const WinnerIndicator = styled(Box)<{ role: string }>(({ role }) => ({
 	width: 10,
 	height: 10,
 	borderRadius: 10,
-	background: colors[role] ?? 'white'
+	background: colors[role] ?? 'white',
+	margin: 7
 }))
 
 export interface MatchCardProps {
@@ -55,11 +56,7 @@ export default ({ match }: MatchCardProps) => {
 				onClick={() => navigate('/overview/match/' + match.matchId)}
 			>
 				<Stack direction="row" alignItems="center" gap={3} p={3}>
-					<Tooltip
-						title={
-							!match.winner ? 'Game Canceled' : match.winner[0] + match.winner.substring(1).toLowerCase() + ' Victory'
-						}
-					>
+					<Tooltip title={match.state}>
 						{!match.winner ? <WarningRounded /> : <WinnerIndicator role={match.winner} />}
 					</Tooltip>
 					<Typography variant="h4">{match.map[0].toUpperCase() + match.map.substring(1)}</Typography>

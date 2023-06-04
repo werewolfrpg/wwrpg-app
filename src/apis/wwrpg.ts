@@ -7,7 +7,8 @@ import {
 	MatchesDto,
 	PlayerMatch,
 	PlayerMatches,
-	MatchPlayer
+	MatchPlayer,
+	PlayerMatchDto
 } from '../types/match'
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
 import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
@@ -92,20 +93,20 @@ export const getPlayerMatchHistory = async (
 	const res = await axios.get(BASE_URL + '/api/match/player/' + minecraftId + '?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as MatchesDto
 
-	const matches: PlayerMatch[] = convertToMatches(raw).map(match => ({
+	const matches: PlayerMatchDto[] = raw.map(match => ({
 		...match,
 		role: 'WEREWOLF',
 		score: 123
 	}))
 
-	const data = convertToDailyMatches<PlayerMatch>(matches)
+	const data = convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
 	return { meta, data }
 }
 
 export const getMatchHistory = async (page: number = 1, count: number = 20): Promise<Matches> => {
 	const res = await axios.get(BASE_URL + '/api/matches?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as MatchesDto
-	const data = convertToDailyMatches<Match>(convertToMatches(raw))
+	const data = convertToDailyMatches<Match, MatchDto>(raw)
 
 	// return { meta, data }
 
@@ -138,57 +139,52 @@ const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
 	}
 }
 
-const convertToDailyMatches = <M extends Match>(matches: Match[]): DailyMatches<M>[] => {
-	const dailyMatches: DailyMatches<M>[] = []
-
-	const matchesByDate = matches.reduce((acc: any, match) => {
-		const date = match.date
-		acc[date] = acc[date] || []
-		acc[date].push(match)
-		return acc
-	}, {})
-
-	for (const date in matchesByDate) {
-		if (matchesByDate.hasOwnProperty(date)) {
-			const dailyMatch: DailyMatches<M> = {
-				date,
-				matches: matchesByDate[date]
-			}
-			dailyMatches.push(dailyMatch)
-		}
-	}
-	return dailyMatches
-}
-
-const convertToMatches = (matches: MatchDto[]): Match[] => {
-	const data: Match[] = []
-
-	for (const { matchId, map, startTime, endTime, winner } of matches) {
+const convertToDailyMatches = <M extends Match, D extends MatchDto>(dto: D[]): DailyMatches<M>[] => {
+	const matches = dto.map(({ startTime, endTime, winner, ...data }) => {
 		const start = new Date(startTime)
-		const end = new Date(endTime)
 		const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
 		const time = start.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })
+		const duration = endTime - startTime
+		const state = !winner ? 'Game Canceled' : winner[0] + winner.substring(1).toLowerCase() + ' Victory'
+		return { ...data, winner, duration, time, date, state }
+	})
 
-		const diff = end.getTime() - start.getTime()
-		const hours = Math.floor(diff / (1000 * 60 * 60))
-		const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-		const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-
-		let duration = ''
-		if (hours > 0) {
-			duration += hours + 'h '
+	const dailyMatches: Record<string, Match[]> = {}
+	for (const match of matches) {
+		if (!dailyMatches[match.date]) {
+			dailyMatches[match.date] = []
 		}
-		if (minutes > 0) {
-			duration += minutes + 'm '
-		}
-		if (seconds > 0) {
-			duration += seconds + 's'
-		}
-		if (duration === '') {
-			duration = '--'
-		}
-
-		data.push({ matchId, map, winner, duration, time, date })
+		dailyMatches[match.date].push(match)
 	}
-	return data
+
+	const matchesByDate: DailyMatches<M>[] = []
+	for (const [date, matches] of Object.entries(dailyMatches)) {
+		matchesByDate.push({
+			date,
+			duration: convertDuration(matches.reduce<any>((total, match) => total + match.duration, 0)),
+			matches: matches.map(match => ({ ...match, duration: convertDuration(match.duration as number) })) as M[]
+		})
+	}
+	return matchesByDate
+}
+
+const convertDuration = (time: number) => {
+	const hours = Math.floor(time / (1000 * 60 * 60))
+	const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
+	const seconds = Math.floor((time % (1000 * 60)) / 1000)
+
+	let duration = ''
+	if (hours > 0) {
+		duration += hours + 'h '
+	}
+	if (minutes > 0) {
+		duration += minutes + 'm '
+	}
+	if (seconds > 0) {
+		duration += seconds + 's'
+	}
+	if (duration === '') {
+		duration = '--'
+	}
+	return duration
 }

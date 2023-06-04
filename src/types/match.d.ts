@@ -14,8 +14,9 @@ export interface Match {
 	map: string
 	date: string
 	time: string
-	duration: string
+	duration: string | number
 	winner: string
+	state: string
 }
 
 export interface MatchPlayerDto {
@@ -42,6 +43,11 @@ export interface MatchPlayer {
 	items: Item[]
 }
 
+export interface PlayerMatchDto extends MatchDto {
+	role: string
+	score: number
+}
+
 export interface PlayerMatch extends Match {
 	role: string
 	score: number
@@ -49,6 +55,7 @@ export interface PlayerMatch extends Match {
 
 export type DailyMatches<T extends Match = Match> = {
 	date: string
+	duration: string
 	matches: T[]
 }
 
