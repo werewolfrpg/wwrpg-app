@@ -34,6 +34,7 @@ export interface MatchPlayerDto {
 
 export interface MatchPlayer {
 	minecraftId: string
+	username: string
 	matchId: string
 	role: string
 	result: string

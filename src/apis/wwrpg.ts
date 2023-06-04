@@ -150,11 +150,14 @@ export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> =
 	const res = await axios.get(BASE_URL + '/api/stats/match/' + matchId)
 	const raw = res.data as MatchPlayerDto[]
 
-	return raw.map(data => {
-		const { playerId, scoreGain, deathCause, ...stats } = data
-		const skeletons = convertSkeletons(data.skeletons)
-		return { minecraftId: playerId, score: scoreGain, death: deathCause, ...stats, skeletons }
-	})
+	return await Promise.all(
+		raw.map(async data => {
+			const { playerId: minecraftId, scoreGain, deathCause, ...stats } = data
+			const skeletons = convertSkeletons(data.skeletons)
+			const username = await getName(minecraftId)
+			return { minecraftId, username, score: scoreGain, death: deathCause, ...stats, skeletons }
+		})
+	)
 }
 
 export const getMatch = async (matchId: string): Promise<Match> => {

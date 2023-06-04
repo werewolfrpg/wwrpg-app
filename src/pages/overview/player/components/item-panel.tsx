@@ -20,6 +20,7 @@ export default ({ items }: ItemPanelProps) => {
 			</Card>
 		)
 	}
+
 	return (
 		<Card>
 			<Typography variant="h3" p={2}>
