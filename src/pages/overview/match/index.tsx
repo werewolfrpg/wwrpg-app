@@ -56,9 +56,28 @@ export default () => {
 								},
 								{
 									title: 'Date',
-									value: game ? game.overview.date + ' @ ' + game.overview.time : undefined
+									value: game ? game.overview.date + ', ' + game.overview.time : undefined
 								}
 							]}
+						/>
+						<Divider />
+						<StatisticPanel
+							title="Teams"
+							statistics={
+								game
+									? [
+											{
+												title: 'Total Players',
+												value: game.teams.reduce((total, team) => total + team.players.length, 0)
+											},
+											...game.teams.map(team => ({
+												title: team.faction.name,
+												color: team.faction.color,
+												value: team.players.length
+											}))
+									  ]
+									: undefined
+							}
 						/>
 					</Card>
 					<Card>

@@ -25,14 +25,14 @@ export default ({ matches }: MatchListProps) => {
 	if (!matches) {
 		return (
 			<Box>
-				<Stack direction="row" alignItems="center" gap={1} my={1}>
+				<Stack direction="row" alignItems="center" gap={2} my={1}>
 					<PointIndicator />
 					<Typography fontWeight={600} fontSize={20}>
 						<Skeleton height={35} width={90} />
 					</Typography>
 					<Skeleton width={30} />
 				</Stack>
-				<Stack direction="row" gap={1}>
+				<Stack direction="row" gap={2}>
 					<LineIndicator />
 					<Grid container spacing={1} direction="column" my={1} mb={2}>
 						{[1, 2, 3].map(index => (
@@ -46,14 +46,14 @@ export default ({ matches }: MatchListProps) => {
 
 	return (
 		<Box>
-			<Stack direction="row" alignItems="center" gap={1} my={1}>
+			<Stack direction="row" alignItems="center" gap={2} my={1}>
 				<PointIndicator />
 				<Typography fontWeight={600} fontSize={20}>
 					{matches.date}
 				</Typography>
 				<Chip label={matches.matches.length} />
 			</Stack>
-			<Stack direction="row" gap={1}>
+			<Stack direction="row" gap={2}>
 				<LineIndicator />
 				<Grid container spacing={1} direction="column" my={1} mb={2}>
 					{matches.matches.map((match, index) => (

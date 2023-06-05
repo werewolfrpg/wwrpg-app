@@ -28,6 +28,7 @@ export interface MatchPlayerDto {
 	result: string
 	scoreGain: number
 	kills: number
+	killerId?: string
 	deathCause?: string
 	skeletons: SkeletonsDto
 	items: Item[]

@@ -31,13 +31,13 @@ export default ({ player, light }: PlayerCardProps) => {
 				<Grid item xs>
 					<Statistic />
 				</Grid>
-				<Grid item xs>
+				<Grid item xs={2}>
 					<Statistic />
 				</Grid>
-				<Grid item xs>
+				<Grid item xs={1}>
 					<Statistic />
 				</Grid>
-				<Grid item xs>
+				<Grid item xs={1}>
 					<Statistic />
 				</Grid>
 			</Grid>
@@ -58,16 +58,16 @@ export default ({ player, light }: PlayerCardProps) => {
 					<LeaderboardPlayer username={player.username} minecraftId={player.minecraftId} />
 				</Grid>
 				<Grid item xs>
+					<Statistic title="Death Cause" value={player?.death ?? '--'} color={player.death && 'red'} />
+				</Grid>
+				<Grid item xs={2}>
 					<Statistic title="Role" value={player.role.name} color={player.role.color} />
 				</Grid>
-				<Grid item xs>
+				<Grid item xs={1}>
 					<Statistic title="Kills" value={player.kills} />
 				</Grid>
-				<Grid item xs>
+				<Grid item xs={1}>
 					<Statistic title="Score" value={'+' + player.score} />
-				</Grid>
-				<Grid item xs>
-					<Statistic title="Death Cause" value={player?.death ?? '--'} color={player.death && 'red'} />
 				</Grid>
 			</Grid>
 			<Modal
