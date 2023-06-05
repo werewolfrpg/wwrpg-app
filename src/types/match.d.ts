@@ -1,6 +1,7 @@
 import { Paginated } from './response'
 import { Item, Skeletons, SkeletonsDto } from './player'
 import { Map } from './map'
+import { Faction } from './faction'
 
 export interface MatchDto {
 	matchId: string
@@ -43,6 +44,16 @@ export interface MatchPlayer {
 	death?: string
 	skeletons: Skeletons
 	items: Item[]
+}
+
+export interface MatchTeam {
+	faction: Faction
+	players: MatchPlayer[]
+}
+
+export interface GameMatch {
+	overview: Match
+	teams: MatchTeam[]
 }
 
 export interface PlayerMatchDto extends MatchDto {

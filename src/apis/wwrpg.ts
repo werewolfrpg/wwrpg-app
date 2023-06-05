@@ -9,7 +9,9 @@ import {
 	PlayerMatches,
 	MatchPlayer,
 	PlayerMatchDto,
-	PlayerMatchesDto
+	PlayerMatchesDto,
+	GameMatch,
+	MatchTeam
 } from '../types/match'
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
 import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
@@ -172,6 +174,18 @@ export const getMatch = async (matchId: string): Promise<Match> => {
 	// 		resolve({ ...match, duration: convertDuration(match.duration as number) })
 	// 	}, 3000)
 	// })
+}
+
+export const getGameMatch = async (matchId: string): Promise<GameMatch> => {
+	const overview = await getMatch(matchId)
+	const factions = await getFactions()
+	const players = await getMatchPlayers(matchId)
+	const teams: MatchTeam[] = factions.map(faction => ({ faction, players: [] }))
+
+	for (const player of players) {
+		teams.find(f => f.faction.roles.find(r => r.id === player.role))?.players.push(player)
+	}
+	return { overview, teams }
 }
 
 export const getMaps = async (): Promise<Map[]> => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Match, MatchPlayer } from '../../../types/match'
-import { getMatch, getMatchPlayers } from '../../../apis/wwrpg'
-import { Box, Card, Container, Divider, Modal, Stack, Typography, styled } from '@mui/material'
+import { GameMatch } from '../../../types/match'
+import { getGameMatch } from '../../../apis/wwrpg'
+import { Box, Card, Container, Divider, Stack, Typography, styled } from '@mui/material'
 import AppLayout from '../../../layout/app'
 import StatisticPanel from '../player/components/statistic-panel'
 import PlayerSection from './components/player-section'
@@ -19,22 +19,19 @@ const Wallpaper = styled(Box)<{ image?: string }>(({ theme, image }) => ({
 
 export default () => {
 	const { matchId } = useParams<{ matchId: string }>()
-	const [match, setMatch] = useState<Match | undefined>()
-	const [players, setPlayers] = useState<MatchPlayer[] | undefined>()
+	const [game, setGame] = useState<GameMatch | undefined>()
 
 	useEffect(() => {
 		if (matchId) {
-			getMatch(matchId).then(setMatch).catch(console.error)
-			getMatchPlayers(matchId).then(setPlayers).catch(console.error)
+			getGameMatch(matchId).then(setGame).catch(console.error)
 		} else {
-			setMatch(undefined)
-			setPlayers(undefined)
+			setGame(undefined)
 		}
 	}, [matchId])
 
 	return (
 		<AppLayout>
-			<Wallpaper image={match?.map?.image} />
+			<Wallpaper image={game?.overview.map?.image} />
 			<Container>
 				<Box py={5}>
 					<Card>
@@ -46,28 +43,27 @@ export default () => {
 							statistics={[
 								{
 									title: 'Map',
-									value: match?.map?.name
+									value: game?.overview.map?.name
 								},
 								{
 									title: 'Duration',
-									value: match?.duration
+									value: game?.overview.duration
 								},
 								{
 									title: 'State',
-									value: match?.state
+									value: game?.overview.state
 								},
 								{
 									title: 'Date',
-									value: match ? match.date + ' @ ' + match.time : undefined
+									value: game ? game.overview.date + ' @ ' + game.overview.time : undefined
 								}
 							]}
 						/>
 					</Card>
 					<Stack py={2}>
-						{players && <PlayerSection players={players} faction="Villager" />}
-						{players && <PlayerSection players={players} faction="Villager" />}
-						{players && <PlayerSection players={players} faction="Villager" />}
-						{players && <PlayerSection players={players} faction="Villager" />}
+						{game?.teams.map((team, index) => (
+							<PlayerSection key={index} players={team.players} faction={team.faction} />
+						))}
 					</Stack>
 				</Box>
 			</Container>
