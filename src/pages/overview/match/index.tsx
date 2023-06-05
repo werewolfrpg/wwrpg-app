@@ -2,16 +2,19 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Match, MatchPlayer } from '../../../types/match'
 import { getMatch, getMatchPlayers } from '../../../apis/wwrpg'
+import { Box, Card, Container, Divider, Modal, Stack, Typography, styled } from '@mui/material'
 import AppLayout from '../../../layout/app'
-import { Box, Card, Container, Divider, Stack, Typography, styled } from '@mui/material'
 import StatisticPanel from '../player/components/statistic-panel'
+import PlayerSection from './components/player-section'
 
 const Wallpaper = styled(Box)<{ image?: string }>(({ theme, image }) => ({
-	backgroundImage: `linear-gradient(to top, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
+	backgroundImage: `linear-gradient(to top, ${theme.palette.background.default}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
-	outlineColor: theme.palette.background.paper,
-	outlineWidth: 1
+	position: 'absolute',
+	width: '100vw',
+	height: '50vh',
+	zIndex: -1000
 }))
 
 export default () => {
@@ -31,11 +34,12 @@ export default () => {
 
 	return (
 		<AppLayout>
-			<Wallpaper image={match?.map?.image} py={5}>
-				<Container>
+			<Wallpaper image={match?.map?.image} />
+			<Container>
+				<Box py={5}>
 					<Card>
 						<Typography variant="h3" p={2}>
-							Overview
+							Game Report
 						</Typography>
 						<Divider />
 						<StatisticPanel
@@ -59,15 +63,14 @@ export default () => {
 							]}
 						/>
 					</Card>
-					<Stack>
-						{Array(10)
-							.fill(players)
-							.map((player, index) => (
-								<Card key={index}>{JSON.stringify(player)}</Card>
-							))}
+					<Stack py={2}>
+						{players && <PlayerSection players={players} faction="Villager" />}
+						{players && <PlayerSection players={players} faction="Villager" />}
+						{players && <PlayerSection players={players} faction="Villager" />}
+						{players && <PlayerSection players={players} faction="Villager" />}
 					</Stack>
-				</Container>
-			</Wallpaper>
+				</Box>
+			</Container>
 		</AppLayout>
 	)
 }
