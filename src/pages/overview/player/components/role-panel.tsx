@@ -1,10 +1,10 @@
 import React from 'react'
 import RoleCard from './role-card'
-import { Role } from '../../../../types/player'
+import { RoleStatistic } from '../../../../types/player'
 import { Card, Divider, Typography } from '@mui/material'
 
 export interface RolePanelProps {
-	roles?: Role[]
+	roles?: RoleStatistic[]
 }
 
 export default ({ roles }: RolePanelProps) => {

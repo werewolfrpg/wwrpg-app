@@ -12,7 +12,7 @@ const Wallpaper = styled(Box)<{ image?: string }>(({ theme, image }) => ({
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
 	position: 'absolute',
-	width: '100vw',
+	width: '100%',
 	height: '50vh',
 	zIndex: -1000
 }))
@@ -33,7 +33,7 @@ export default () => {
 		<AppLayout>
 			<Wallpaper image={game?.overview.map?.image} />
 			<Container>
-				<Box py={5}>
+				<Stack py={5} gap={3}>
 					<Card>
 						<Typography variant="h3" p={2}>
 							Game Report
@@ -50,8 +50,9 @@ export default () => {
 									value: game?.overview.duration
 								},
 								{
-									title: 'State',
-									value: game?.overview.state
+									title: 'Winners',
+									value: game ? (game?.overview.winner ? game.overview.winner.name : 'Canceled') : null,
+									color: game?.overview.winner?.color ?? 'white'
 								},
 								{
 									title: 'Date',
@@ -60,12 +61,37 @@ export default () => {
 							]}
 						/>
 					</Card>
-					<Stack py={2}>
-						{game?.teams.map((team, index) => (
-							<PlayerSection key={index} players={team.players} faction={team.faction} />
-						))}
-					</Stack>
-				</Box>
+					<Card>
+						<Stack>
+							<Stack>
+								<Typography variant="h3" p={2}>
+									Winners
+								</Typography>
+								<Divider />
+								<Box p={3}>
+									{game?.teams
+										.filter(team => team.faction.id === game.overview.winner?.id)
+										.map((team, index) => (
+											<PlayerSection key={index} players={team.players} faction={team.faction} />
+										))}
+								</Box>
+							</Stack>
+							<Stack>
+								<Typography variant="h3" p={2}>
+									Defeated
+								</Typography>
+								<Divider />
+								<Stack p={3} gap={3}>
+									{game?.teams
+										.filter(team => team.faction.id !== game.overview.winner?.id)
+										.map((team, index) => (
+											<PlayerSection key={index} players={team.players} faction={team.faction} />
+										))}
+								</Stack>
+							</Stack>
+						</Stack>
+					</Card>
+				</Stack>
 			</Container>
 		</AppLayout>
 	)

@@ -62,7 +62,7 @@ export default ({ match }: MatchCardProps) => {
 					</Tooltip>
 				</Grid>
 				<Grid item justifySelf="center" alignSelf="center" xs={3}>
-					<Statistic title="Role" value={match.role?.name} />
+					<Statistic title="Role" value={match.role?.name} color={match.role.color} />
 				</Grid>
 				<Grid item justifySelf="center" alignSelf="center" xs={3}>
 					<Statistic title="Duration" value={match.duration} />

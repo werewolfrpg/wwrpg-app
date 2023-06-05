@@ -1,13 +1,16 @@
-import { Skeleton, Stack, Tooltip, Typography } from '@mui/material'
-import { Role } from '../../../../types/player'
+import { Box, Collapse, Skeleton, Stack, Tooltip, Typography } from '@mui/material'
+import { RoleStatistic } from '../../../../types/player'
 import StatisticProgress from './statistic-progress'
 import Statistic from './statistic'
+import { useState } from 'react'
 
 export interface RoleCardProps {
-	role?: Role
+	role?: RoleStatistic
 }
 
 export default ({ role }: RoleCardProps) => {
+	const [show, setShow] = useState(false)
+
 	if (!role) {
 		return (
 			<Stack direction="row" p={2} gap={1}>
@@ -30,21 +33,24 @@ export default ({ role }: RoleCardProps) => {
 	const winRate = role.played > 0 ? (role.won / role.played) * 100 : 0
 
 	return (
-		<Stack direction="row" p={2} gap={1}>
-			<Tooltip placement="left" title={'Win rate of ' + winRate.toFixed(2) + '%'}>
-				<Stack alignItems="center" justifyContent="center">
-					<StatisticProgress progress={winRate} />
-				</Stack>
-			</Tooltip>
-			<Stack justifyContent="space-between" width="100%">
-				<Typography variant="h5" px={2} mb={1}>
-					{role.name}
-				</Typography>
-				<Stack direction="row" justifyContent="space-between">
-					<Statistic title="Victories" value={role.won} />
-					<Statistic title="Defeats" value={role.played - role.won} />
+		<Box p={2} onClick={() => setShow(!show)}>
+			<Stack direction="row" gap={1}>
+				<Tooltip placement="left" title={'Win rate of ' + winRate.toFixed(2) + '%'}>
+					<Stack alignItems="center" justifyContent="center">
+						<StatisticProgress progress={winRate} />
+					</Stack>
+				</Tooltip>
+				<Stack justifyContent="space-between" width="100%">
+					<Typography variant="h5" px={2} mb={1}>
+						{role.role.name}
+					</Typography>
+					<Stack direction="row" justifyContent="space-between">
+						<Statistic title="Victories" value={role.won} />
+						<Statistic title="Defeats" value={role.played - role.won} />
+					</Stack>
 				</Stack>
 			</Stack>
-		</Stack>
+			<Collapse in={show}></Collapse>
+		</Box>
 	)
 }

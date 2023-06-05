@@ -160,7 +160,7 @@ export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> =
 	const factions = await getFactions()
 	const roles = factions.map(faction => faction.roles).reduce((_, roles) => [..._, ...roles], [])
 
-	return await Promise.all(
+	const players = await Promise.all(
 		raw.map(async data => {
 			const { playerId: minecraftId, scoreGain, deathCause, role: roleId, ...stats } = data
 			const skeletons = convertSkeletons(data.skeletons)
@@ -169,6 +169,7 @@ export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> =
 			return { minecraftId, role, username, score: scoreGain, death: deathCause, ...stats, skeletons }
 		})
 	)
+	return players.sort((a, b) => b.score - a.score)
 }
 
 export const getMatch = async (matchId: string): Promise<Match> => {
@@ -189,7 +190,7 @@ export const getGameMatch = async (matchId: string): Promise<GameMatch> => {
 	const overview = await getMatch(matchId)
 	const factions = await getFactions()
 	const players = await getMatchPlayers(matchId)
-	const teams: MatchTeam[] = factions.map(faction => ({ faction, players: [] }))
+	const teams: MatchTeam[] = factions.map(faction => ({ faction, players: [] })).reverse()
 
 	for (const player of players) {
 		teams.find(f => f.faction.roles.find(r => r.id === player.role.id))?.players.push(player)

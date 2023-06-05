@@ -51,8 +51,8 @@ export default () => {
 								<RolePanel roles={stats?.roles} />
 							</Grid>
 						</Grid>
-						<Grid container item direction="column" xs gap={matches ? 0 : 3}>
-							<Grid item mb={matches ? 3 : 0}>
+						<Grid container item direction="column" xs gap={stats ? 0 : 3}>
+							<Grid item mb={stats ? 3 : 0}>
 								<Card>
 									<Stack direction="row">
 										<Tabs value={tab} onChange={(_, i) => setTab(i)} TabIndicatorProps={{ style: { height: 4 } }}>
