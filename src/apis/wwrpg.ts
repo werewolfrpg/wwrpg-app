@@ -13,6 +13,7 @@ import {
 } from '../types/match'
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
 import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
+import { Faction, FactionsDto } from '../types/faction'
 import { Match } from '../types/match'
 import { getName } from './mojang'
 import { Map, MapDto } from '../types/map'
@@ -182,6 +183,20 @@ export const getMaps = async (): Promise<Map[]> => {
 		name: name[0].toUpperCase() + name.replace('_', ' ').substring(1).toLowerCase(),
 		image: BASE_URL + '/maps/thumbnails/' + image,
 		...info
+	}))
+}
+
+export const getFactions = async (): Promise<Faction[]> => {
+	const res = await axios.get(BASE_URL + '/api/roles')
+	const data = res.data as FactionsDto
+
+	return Object.entries(data).map(([faction, { roles, ...info }]) => ({
+		id: faction,
+		...info,
+		roles: Object.entries(roles).map(([role, info]) => ({
+			id: role,
+			...info
+		}))
 	}))
 }
 
