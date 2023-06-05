@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MatchPlayer } from '../../../../types/match'
-import { Box, Grid, Modal, Skeleton, Stack } from '@mui/material'
+import { Box, Grid, Hidden, Modal, Skeleton, Stack } from '@mui/material'
 import PlayerModal from './player-modal'
 import LeaderboardPlayer from '../../../leaderboard/components/leaderboard-player'
 import Statistic from '../../player/components/statistic'
@@ -28,16 +28,20 @@ export default ({ player, light }: PlayerCardProps) => {
 						<Skeleton width={100} />
 					</Stack>
 				</Grid>
-				<Grid item xs>
-					<Statistic />
-				</Grid>
-				<Grid item xs={2}>
-					<Statistic />
-				</Grid>
-				<Grid item xs={1}>
-					<Statistic />
-				</Grid>
-				<Grid item xs={1}>
+				<Hidden mdDown>
+					<Grid item xs>
+						<Statistic />
+					</Grid>
+				</Hidden>
+				<Hidden smDown>
+					<Grid item xs={3} md={2}>
+						<Statistic />
+					</Grid>
+					<Grid item xs={3} sm={2} md={1}>
+						<Statistic />
+					</Grid>
+				</Hidden>
+				<Grid item xs={3} sm={2} md={1}>
 					<Statistic />
 				</Grid>
 			</Grid>
@@ -57,16 +61,20 @@ export default ({ player, light }: PlayerCardProps) => {
 				<Grid item xs alignSelf="center">
 					<LeaderboardPlayer username={player.username} minecraftId={player.minecraftId} />
 				</Grid>
-				<Grid item xs>
-					<Statistic title="Death Cause" value={player?.death ?? '--'} color={player.death && 'red'} />
-				</Grid>
-				<Grid item xs={2}>
-					<Statistic title="Role" value={player.role.name} color={player.role.color} />
-				</Grid>
-				<Grid item xs={1}>
-					<Statistic title="Kills" value={player.kills} />
-				</Grid>
-				<Grid item xs={1}>
+				<Hidden mdDown>
+					<Grid item xs>
+						<Statistic title="Death Cause" value={player?.death ?? '--'} color={player.death && 'red'} />
+					</Grid>
+				</Hidden>
+				<Hidden smDown>
+					<Grid item xs={3} md={2}>
+						<Statistic title="Role" value={player.role.name} color={player.role.color} />
+					</Grid>
+					<Grid item xs={3} sm={2} md={1}>
+						<Statistic title="Kills" value={player.kills} />
+					</Grid>
+				</Hidden>
+				<Grid item xs={3} sm={2} md={1}>
 					<Statistic title="Score" value={'+' + player.score} />
 				</Grid>
 			</Grid>
