@@ -1,4 +1,6 @@
-export interface GameStatsDro {
+import { Role } from './faction'
+
+export interface GameStatsDto {
 	role: string
 	data: {
 		played: number
@@ -23,7 +25,7 @@ export interface PlayerDto {
 	nextThreshold: number
 	kills: number
 	deaths: number
-	gameStats: GameStatsDro[]
+	gameStats: GameStatsDto[]
 	skeletons: SkeletonsDto
 	items: Item[]
 }
@@ -33,8 +35,8 @@ export interface MatchStatistic {
 	won: number
 }
 
-export interface Role extends MatchStatistic {
-	name: string
+export interface RoleStatistic extends MatchStatistic {
+	role: Role
 }
 
 export interface Item {
@@ -73,6 +75,6 @@ export interface PlayerStatistic {
 	title: Title
 	matches: MatchStatistic
 	skeletons: Skeletons
-	roles: Role[]
+	roles: RoleStatistic[]
 	items: Item[]
 }

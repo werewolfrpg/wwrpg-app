@@ -59,9 +59,11 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 
 	const skeletons = convertSkeletons(data.skeletons)
 
+	const factions = await getFactions()
+	const factionRoles = factions.map(faction => faction.roles).reduce((_, roles) => [..._, ...roles], [])
 	const roles = data.gameStats
 		.map(stat => ({
-			name: stat.role,
+			role: factionRoles.find(role => role.id === stat.role)!,
 			played: stat.data.played,
 			won: stat.data.victories
 		}))
@@ -155,12 +157,16 @@ export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> =
 	const res = await axios.get(BASE_URL + '/api/stats/match/' + matchId)
 	const raw = res.data as MatchPlayerDto[]
 
+	const factions = await getFactions()
+	const roles = factions.map(faction => faction.roles).reduce((_, roles) => [..._, ...roles], [])
+
 	return await Promise.all(
 		raw.map(async data => {
-			const { playerId: minecraftId, scoreGain, deathCause, ...stats } = data
+			const { playerId: minecraftId, scoreGain, deathCause, role: roleId, ...stats } = data
 			const skeletons = convertSkeletons(data.skeletons)
 			const username = await getName(minecraftId)
-			return { minecraftId, username, score: scoreGain, death: deathCause, ...stats, skeletons }
+			const role = roles.find(role => role.id === roleId)!
+			return { minecraftId, role, username, score: scoreGain, death: deathCause, ...stats, skeletons }
 		})
 	)
 }
@@ -186,7 +192,7 @@ export const getGameMatch = async (matchId: string): Promise<GameMatch> => {
 	const teams: MatchTeam[] = factions.map(faction => ({ faction, players: [] }))
 
 	for (const player of players) {
-		teams.find(f => f.faction.roles.find(r => r.id === player.role))?.players.push(player)
+		teams.find(f => f.faction.roles.find(r => r.id === player.role.id))?.players.push(player)
 	}
 	return { overview, teams }
 }

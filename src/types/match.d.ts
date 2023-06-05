@@ -37,7 +37,7 @@ export interface MatchPlayer {
 	minecraftId: string
 	username: string
 	matchId: string
-	role: string
+	role: Role
 	result: string
 	score: number
 	kills: number
