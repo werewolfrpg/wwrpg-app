@@ -4,12 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { Match } from '../../../types/match'
 import { WarningRounded } from '@mui/icons-material'
 
-const colors: Record<string, string> = {
-	VILLAGER: 'green',
-	WEREWOLF: 'red',
-	OTHER: 'purple'
-}
-
 const Container = styled(Card)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to right, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
@@ -17,11 +11,11 @@ const Container = styled(Card)<{ image?: string }>(({ theme, image }) => ({
 	cursor: 'pointer'
 }))
 
-const WinnerIndicator = styled(Box)<{ role: string }>(({ role }) => ({
+const WinnerIndicator = styled(Box)<{ color?: string }>(({ color }) => ({
 	width: 10,
 	height: 10,
 	borderRadius: 10,
-	background: colors[role] ?? 'white',
+	background: color ?? 'white',
 	margin: 7
 }))
 
@@ -54,7 +48,7 @@ export default ({ match }: MatchCardProps) => {
 			<Container image={match.map?.image} onClick={() => navigate('/overview/match/' + match.matchId)}>
 				<Stack direction="row" alignItems="center" gap={3} p={3}>
 					<Tooltip title={match.state}>
-						{!match.winner ? <WarningRounded /> : <WinnerIndicator role={match.winner} />}
+						{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
 					</Tooltip>
 					<Typography variant="h4">{match.map?.name}</Typography>
 					<Typography variant="caption" color="text.secondary">

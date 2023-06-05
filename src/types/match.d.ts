@@ -1,14 +1,14 @@
 import { Paginated } from './response'
 import { Item, Skeletons, SkeletonsDto } from './player'
+import { Faction, Role } from './faction'
 import { Map } from './map'
-import { Faction } from './faction'
 
 export interface MatchDto {
 	matchId: string
 	map: string
 	startTime: number
 	endTime: number
-	winnerFaction: string
+	winnerFaction?: string
 }
 
 export interface Match {
@@ -17,7 +17,7 @@ export interface Match {
 	date: string
 	time: string
 	duration: string | number
-	winner: string
+	winner?: Faction
 	state: string
 }
 
@@ -62,7 +62,7 @@ export interface PlayerMatchDto extends MatchDto {
 }
 
 export interface PlayerMatch extends Match {
-	role: string
+	role: Role
 	score: number
 }
 

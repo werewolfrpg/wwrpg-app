@@ -48,9 +48,14 @@ export default ({ matches }: MatchesPanelProps) => {
 							<Chip label={data.matches.length} />
 						</Stack>
 						<Stack direction="row" gap={1} alignItems="center">
-							<Typography variant="caption">{data.matches.filter(m => m.role == m.winner).length} W</Typography>•
-							<Typography variant="caption">{data.matches.filter(m => m.role != m.winner).length} L</Typography>•
-							<Typography variant="caption">{data.duration}</Typography>
+							<Typography variant="caption">
+								{data.matches.filter(m => m.winner?.roles.find(r => r.id === m.role?.id)).length} W
+							</Typography>
+							•
+							<Typography variant="caption">
+								{data.matches.filter(m => !m.winner?.roles.find(r => r.id !== m.role?.id)).length} L
+							</Typography>
+							•<Typography variant="caption">{data.duration}</Typography>
 						</Stack>
 					</Stack>
 					<Divider />

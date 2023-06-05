@@ -5,12 +5,6 @@ import { Box, Grid, Skeleton, Stack, Tooltip, styled } from '@mui/material'
 import { WarningRounded } from '@mui/icons-material'
 import Statistic from './statistic'
 
-const colors: Record<string, string> = {
-	VILLAGER: 'green',
-	WEREWOLF: 'red',
-	OTHER: 'purple'
-}
-
 const Container = styled(Stack)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to right, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
@@ -23,11 +17,11 @@ const Container = styled(Stack)<{ image?: string }>(({ theme, image }) => ({
 	gap: theme.spacing(3)
 }))
 
-const WinnerIndicator = styled(Box)<{ role: string }>(({ role }) => ({
+const WinnerIndicator = styled(Box)<{ color?: string }>(({ color }) => ({
 	width: 10,
 	height: 10,
 	borderRadius: 10,
-	background: colors[role] ?? 'white',
+	background: color ?? 'white',
 	margin: 7
 }))
 
@@ -64,11 +58,11 @@ export default ({ match }: MatchCardProps) => {
 			<Grid container px={2}>
 				<Grid item justifySelf="center" alignSelf="center" xs={1}>
 					<Tooltip title={match.state}>
-						{!match.winner ? <WarningRounded /> : <WinnerIndicator role={match.winner} />}
+						{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
 					</Tooltip>
 				</Grid>
 				<Grid item justifySelf="center" alignSelf="center" xs={3}>
-					<Statistic title="Role" value={match.role} />
+					<Statistic title="Role" value={match.role?.name} />
 				</Grid>
 				<Grid item justifySelf="center" alignSelf="center" xs={3}>
 					<Statistic title="Duration" value={match.duration} />

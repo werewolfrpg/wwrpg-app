@@ -8,7 +8,6 @@ import {
 	PlayerMatch,
 	PlayerMatches,
 	MatchPlayer,
-	PlayerMatchDto,
 	PlayerMatchesDto,
 	GameMatch,
 	MatchTeam
@@ -121,12 +120,12 @@ export const getPlayerMatchHistory = async (
 	const res = await axios.get(BASE_URL + '/api/match/player/' + minecraftId + '?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as PlayerMatchesDto
 
-	const matches: PlayerMatchDto[] = raw.map(match => ({
-		...match,
-		role: match.role[0] + match.role.substring(1).toLowerCase()
-	}))
+	const factions = await getFactions()
+	const roles = factions.map(faction => faction.roles).reduce((_, roles) => [..._, ...roles], [])
+	const playerMatches = raw.map(match => ({ ...match, role: roles.find(role => role.id === match.role) }))
 
-	const data = await convertToDailyMatches<PlayerMatch, PlayerMatchDto>(matches)
+	const matches = await Promise.all(playerMatches.map(match => convertMatch(match, factions)))
+	const data = (await convertToDailyMatches(matches)) as DailyMatches<PlayerMatch>[]
 	return { meta, data }
 
 	// return new Promise(resolve => {
@@ -139,7 +138,10 @@ export const getPlayerMatchHistory = async (
 export const getMatchHistory = async (page: number = 1, count: number = 20): Promise<Matches> => {
 	const res = await axios.get(BASE_URL + '/api/matches?page=' + page + '&number=' + count)
 	const { meta, data: raw } = res.data as MatchesDto
-	const data = await convertToDailyMatches<Match, MatchDto>(raw)
+
+	const factions = await getFactions()
+	const matches = await Promise.all(raw.map(match => convertMatch(match, factions)))
+	const data = await convertToDailyMatches(matches)
 	return { meta, data }
 
 	// return new Promise(resolve => {
@@ -166,7 +168,8 @@ export const getMatchPlayers = async (matchId: string): Promise<MatchPlayer[]> =
 export const getMatch = async (matchId: string): Promise<Match> => {
 	const res = await axios.get(BASE_URL + '/api/match/' + matchId)
 	const data = res.data as MatchDto
-	const match = await convertMatch(data)
+	const factions = await getFactions()
+	const match = await convertMatch(data, factions)
 	return { ...match, duration: convertDuration(match.duration as number) }
 
 	// return new Promise(resolve => {
@@ -214,13 +217,14 @@ export const getFactions = async (): Promise<Faction[]> => {
 	}))
 }
 
-const convertMatch = async (match: MatchDto): Promise<Match> => {
-	const { startTime, endTime, winnerFaction: winner, map: mapId, ...data } = match
+const convertMatch = async (match: MatchDto, factions: Faction[]): Promise<Match> => {
+	const { startTime, endTime, winnerFaction, map: mapId, ...data } = match
 	const start = new Date(startTime)
 	const date = start.toLocaleString('en-us', { month: 'long', day: 'numeric' })
 	const time = start.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })
 	const duration = endTime - startTime
-	const state = !winner ? 'Game Canceled' : winner[0] + winner.substring(1).toLowerCase() + ' Victory'
+	const winner = factions.find(faction => faction.id === winnerFaction)
+	const state = !winner ? 'Game Canceled' : winner.name + ' Victory'
 	const map = (await getMaps()).find(map => map.id === mapId)!
 	return { ...data, map, winner, duration, time, date, state }
 }
@@ -236,9 +240,7 @@ const convertSkeletons = (skeletons: SkeletonsDto): Skeletons => {
 	}
 }
 
-const convertToDailyMatches = async <M extends Match, D extends MatchDto>(dto: D[]): Promise<DailyMatches<M>[]> => {
-	const matches = await Promise.all(dto.map(convertMatch))
-
+const convertToDailyMatches = async (matches: Match[]): Promise<DailyMatches<Match>[]> => {
 	const dailyMatches: Record<string, Match[]> = {}
 	for (const match of matches) {
 		if (!dailyMatches[match.date]) {
@@ -247,12 +249,12 @@ const convertToDailyMatches = async <M extends Match, D extends MatchDto>(dto: D
 		dailyMatches[match.date].push(match)
 	}
 
-	const matchesByDate: DailyMatches<M>[] = []
+	const matchesByDate: DailyMatches<Match>[] = []
 	for (const [date, matches] of Object.entries(dailyMatches)) {
 		matchesByDate.push({
 			date,
 			duration: convertDuration(matches.reduce<any>((total, match) => total + match.duration, 0)),
-			matches: matches.map(match => ({ ...match, duration: convertDuration(match.duration as number) })) as M[]
+			matches: matches.map(match => ({ ...match, duration: convertDuration(match.duration as number) }))
 		})
 	}
 	return matchesByDate
