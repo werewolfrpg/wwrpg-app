@@ -9,7 +9,7 @@ export interface StatisiticProps {
 }
 
 export default ({ title, value, caption, tooltip }: StatisiticProps) => {
-	// value may be '0', but valid
+	// value may be '0', but falsy
 	if (value === null || value === undefined) {
 		return (
 			<Tooltip title={tooltip}>
@@ -20,7 +20,6 @@ export default ({ title, value, caption, tooltip }: StatisiticProps) => {
 					<Typography fontFamily="Minecraft" fontSize={24}>
 						<Skeleton width={50} />
 					</Typography>
-					<Typography variant="caption">{caption}</Typography>
 				</Stack>
 			</Tooltip>
 		)
@@ -34,7 +33,6 @@ export default ({ title, value, caption, tooltip }: StatisiticProps) => {
 				</Typography>
 				<Typography fontFamily="Minecraft" fontSize={24}>
 					{value == 'NaN' || value == 'Infinity' ? '--' : value}
-					{/* {value} */}
 				</Typography>
 				<Typography variant="caption">{caption}</Typography>
 			</Stack>

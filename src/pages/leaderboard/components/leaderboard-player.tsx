@@ -14,10 +14,8 @@ export interface LeaderboardPlayerProps {
 }
 
 export default ({ username, minecraftId }: LeaderboardPlayerProps) => {
-	const navigate = useNavigate()
-
 	return (
-		<Container direction="row" onClick={() => navigate('/overview/player/' + minecraftId)}>
+		<Container direction="row">
 			<Box component="img" src={'https://mc-heads.net/head/' + minecraftId} height={40} />
 			<Typography variant="h4">{username}</Typography>
 		</Container>

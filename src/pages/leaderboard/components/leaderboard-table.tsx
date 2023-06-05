@@ -3,6 +3,7 @@ import { Box, Card, Pagination, Skeleton } from '@mui/material'
 import { Leaderboard } from '../../../types/leaderboard'
 import LeaderboardRow from './leaderboard-row'
 import LeaderboardPlayer from './leaderboard-player'
+import { useNavigate } from 'react-router-dom'
 
 export interface LeaderboardProps {
 	leaderboard: Leaderboard | null
@@ -10,6 +11,7 @@ export interface LeaderboardProps {
 }
 
 export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
+	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
 	const [count, TODO] = useState(10)
 
@@ -42,7 +44,9 @@ export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
 					light={index % 2 === 0}
 					values={[
 						rank,
-						<LeaderboardPlayer {...{ username, minecraftId }} />,
+						<Box onClick={() => navigate('/overview/player/' + minecraftId)}>
+							<LeaderboardPlayer {...{ username, minecraftId }} />
+						</Box>,
 						title,
 						score,
 						played > 0 ? ((won / played) * 100).toFixed(1) + '%' : '--',

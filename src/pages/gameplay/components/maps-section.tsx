@@ -52,15 +52,15 @@ export default ({ maps }: MapsSectionProps) => {
 					<MapIndicator key={index} active={index === map} onClick={() => setMap(index)} />
 				))}
 			</Stack>
-			<Stack alignItems="center" my={3}>
-				<Stack direction="row" gap={1} my={3}>
+			<Stack alignItems="center" my={6}>
+				<Typography fontSize={26} fontFamily="Minecraft Ten">
+					{maps[map].name}
+				</Typography>
+				<Stack direction="row" gap={1} my={2}>
 					{maps[map].tags.map((tag, index) => (
 						<Chip key={index} label={tag} />
 					))}
 				</Stack>
-				<Typography fontSize={26} fontFamily="Minecraft Ten">
-					{maps[map].name}
-				</Typography>
 				<Typography textAlign="center" fontSize={18} mx={{ md: 12 }}>
 					{maps[map].description}
 				</Typography>

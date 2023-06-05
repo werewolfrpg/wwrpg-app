@@ -2,6 +2,9 @@ import { createTheme } from '@mui/material'
 import '../assets/fonts/index.css'
 
 export const theme = createTheme({
+	shape: {
+		borderRadius: 7.5
+	},
 	palette: {
 		primary: {
 			main: '#008000' // green
@@ -53,8 +56,7 @@ export const theme = createTheme({
 			defaultProps: {
 				variant: 'outlined',
 				style: {
-					flex: 1,
-					borderRadius: 7.5
+					flex: 1
 				}
 			}
 		},
