@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Card, Stack, Typography } from '@mui/material'
+import { Card, Stack, Typography } from '@mui/material'
 import { Matches } from '../../../types/match'
 import MatchSection from './match-section'
 
@@ -26,13 +26,9 @@ export default ({ matches }: MatchListProps) => {
 				{matches.data.map((matches, index) => (
 					<MatchSection key={index} matches={matches} />
 				))}
-				<Box>
-					<Stack direction="row" alignItems="center" justifyContent="center" gap={1} my={5}>
-						<Typography fontWeight={600} fontSize={20} color="text.secondary">
-							No game history prior to {matches.data[matches.data.length - 1].date}
-						</Typography>
-					</Stack>
-				</Box>
+				<Typography fontWeight={600} fontSize={20} color="text.secondary" align="center" my={5}>
+					No game history prior to {matches.data[matches.data.length - 1].date}
+				</Typography>
 			</Stack>
 		</Card>
 	)

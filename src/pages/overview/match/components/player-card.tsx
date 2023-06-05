@@ -1,17 +1,48 @@
 import { useState } from 'react'
 import { MatchPlayer } from '../../../../types/match'
-import { Box, Grid, Modal } from '@mui/material'
+import { Box, Grid, Modal, Skeleton, Stack } from '@mui/material'
 import PlayerModal from './player-modal'
 import LeaderboardPlayer from '../../../leaderboard/components/leaderboard-player'
 import Statistic from '../../player/components/statistic'
 
 export interface PlayerCardProps {
-	player: MatchPlayer
+	player?: MatchPlayer
 	light?: boolean
 }
 
 export default ({ player, light }: PlayerCardProps) => {
 	const [show, setShow] = useState(false)
+
+	if (!player) {
+		return (
+			<Grid
+				container
+				direction="row"
+				justifyContent="space-between"
+				bgcolor={light ? 'background.default' : 'background.paper'}
+				p={2}
+			>
+				<Grid item xs alignSelf="center">
+					<Stack direction="row" alignItems="center" gap={3}>
+						<Skeleton width={40} height={40} variant="circular" />
+						<Skeleton width={100} />
+					</Stack>
+				</Grid>
+				<Grid item xs>
+					<Statistic />
+				</Grid>
+				<Grid item xs>
+					<Statistic />
+				</Grid>
+				<Grid item xs>
+					<Statistic />
+				</Grid>
+				<Grid item xs>
+					<Statistic />
+				</Grid>
+			</Grid>
+		)
+	}
 
 	return (
 		<Box style={{ cursor: 'pointer' }}>
@@ -34,6 +65,9 @@ export default ({ player, light }: PlayerCardProps) => {
 				</Grid>
 				<Grid item xs>
 					<Statistic title="Score" value={'+' + player.score} />
+				</Grid>
+				<Grid item xs>
+					<Statistic title="Death Cause" value={player?.death ?? '--'} color={player.death && 'red'} />
 				</Grid>
 			</Grid>
 			<Modal

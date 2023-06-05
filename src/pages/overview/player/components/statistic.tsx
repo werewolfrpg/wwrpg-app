@@ -19,7 +19,7 @@ export default ({ title, value, caption, tooltip, color }: StatisiticProps) => {
 						<Skeleton width={80} />
 					</Typography>
 					<Typography fontFamily="Minecraft" fontSize={24}>
-						<Skeleton width={50} />
+						<Skeleton width={50} height={33} />
 					</Typography>
 				</Stack>
 			</Tooltip>

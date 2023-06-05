@@ -196,6 +196,12 @@ export const getGameMatch = async (matchId: string): Promise<GameMatch> => {
 		teams.find(f => f.faction.roles.find(r => r.id === player.role.id))?.players.push(player)
 	}
 	return { overview, teams }
+
+	// return new Promise(resolve => {
+	// 	setTimeout(() => {
+	// 		resolve({ overview, teams })
+	// 	}, 3000)
+	// })
 }
 
 export const getMaps = async (): Promise<Map[]> => {

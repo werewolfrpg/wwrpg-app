@@ -69,11 +69,13 @@ export default () => {
 								</Typography>
 								<Divider />
 								<Box p={3}>
-									{game?.teams
-										.filter(team => team.faction.id === game.overview.winner?.id)
-										.map((team, index) => (
-											<PlayerSection key={index} players={team.players} faction={team.faction} />
-										))}
+									{game
+										? game.teams
+												.filter(team => team.faction.id === game.overview.winner?.id)
+												.map((team, index) => (
+													<PlayerSection key={index} players={team.players} faction={team.faction} />
+												))
+										: [1, 2, 3].map(index => <PlayerSection key={index} />)}
 								</Box>
 							</Stack>
 							<Stack>
@@ -82,11 +84,13 @@ export default () => {
 								</Typography>
 								<Divider />
 								<Stack p={3} gap={3}>
-									{game?.teams
-										.filter(team => team.faction.id !== game.overview.winner?.id)
-										.map((team, index) => (
-											<PlayerSection key={index} players={team.players} faction={team.faction} />
-										))}
+									{game
+										? game.teams
+												.filter(team => team.faction.id !== game.overview.winner?.id)
+												.map((team, index) => (
+													<PlayerSection key={index} players={team.players} faction={team.faction} />
+												))
+										: [1, 2, 3].map(index => <PlayerSection key={index} />)}
 								</Stack>
 							</Stack>
 						</Stack>
