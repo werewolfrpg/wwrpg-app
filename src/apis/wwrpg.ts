@@ -110,12 +110,12 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 	// 			kills: data.kills,
 	// 			deaths: data.deaths,
 	// 			items: data.items,
+	// 			factions,
 	// 			username,
 	// 			skeletons,
 	// 			matches,
 	// 			title,
-	// 			score,
-	// 			roles
+	// 			score
 	// 		})
 	// 	}, 3000)
 	// })

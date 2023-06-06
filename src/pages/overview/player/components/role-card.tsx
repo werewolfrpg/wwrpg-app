@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Tooltip, Stack, Typography } from '@mui/material'
+import { Box, Tooltip, Stack, Typography, Skeleton } from '@mui/material'
 import StatisticProgress from './statistic-progress'
 import { RoleStatistic } from '../../../../types/player'
 import Statistic from './statistic'
@@ -10,7 +10,20 @@ export interface RoleCardProps {
 
 export default ({ role }: RoleCardProps) => {
 	if (!role) {
-		return <div></div>
+		return (
+			<Stack my={1}>
+				<Skeleton width={80} height={30} />
+				<Stack direction="row" gap={1} my={1}>
+					<Stack alignItems="center" justifyContent="center">
+						<StatisticProgress progress={0} />
+					</Stack>
+					<Stack direction="row" justifyContent="space-between" flex={1}>
+						<Statistic />
+						<Statistic />
+					</Stack>
+				</Stack>
+			</Stack>
+		)
 	}
 
 	const { won, played } = role
@@ -22,11 +35,11 @@ export default ({ role }: RoleCardProps) => {
 				{role.role.name}
 			</Typography>
 			{!!winRate ? (
-				<Stack direction="row" gap={2}>
+				<Stack direction="row" gap={1} my={1}>
 					<Tooltip placement="left" title={'Win rate of ' + winRate.toFixed(2) + '%'}>
-						<Box>
+						<Stack alignItems="center" justifyContent="center">
 							<StatisticProgress progress={winRate} color={role.role.color} />
-						</Box>
+						</Stack>
 					</Tooltip>
 					<Stack direction="row" justifyContent="space-between" flex={1}>
 						<Statistic title="Victories" value={won} />
