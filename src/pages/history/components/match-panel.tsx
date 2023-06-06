@@ -3,11 +3,11 @@ import { Card, Stack, Typography } from '@mui/material'
 import { Matches } from '../../../types/match'
 import MatchSection from './match-section'
 
-export interface MatchListProps {
+export interface MatchPanelProps {
 	matches: Matches | null
 }
 
-export default ({ matches }: MatchListProps) => {
+export default ({ matches }: MatchPanelProps) => {
 	if (!matches) {
 		return (
 			<Card>
@@ -26,7 +26,7 @@ export default ({ matches }: MatchListProps) => {
 				{matches.data.map((matches, index) => (
 					<MatchSection key={index} matches={matches} />
 				))}
-				<Typography fontWeight={600} fontSize={20} color="text.secondary" align="center" my={5}>
+				<Typography fontWeight={600} fontSize={16} color="text.secondary" align="center" my={5}>
 					No game history prior to {matches.data[matches.data.length - 1].date}
 				</Typography>
 			</Stack>

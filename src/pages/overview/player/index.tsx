@@ -5,11 +5,11 @@ import { getPlayerStats } from '../../../apis/wwrpg'
 import { PlayerMatches } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
 import { Box, Card, Container, Grid, Stack, Tab, Tabs, styled } from '@mui/material'
-import RolePanel from './components/role-panel'
+import FactionPanel from './components/faction-panel'
 import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
 import ItemPanel from './components/item-panel'
-import MatchesPanel from './components/matches-panel'
+import MatchPanel from './components/match-panel'
 import AppLayout from '../../../layout/app'
 
 const TabButton = styled(Tab)(({ theme }) => ({
@@ -48,7 +48,7 @@ export default () => {
 								<ProfilePanel stats={stats} />
 							</Grid>
 							<Grid item>
-								<RolePanel roles={stats?.roles} />
+								<FactionPanel factions={stats?.factions} />
 							</Grid>
 						</Grid>
 						<Grid container item direction="column" xs gap={stats ? 0 : 3}>
@@ -68,7 +68,7 @@ export default () => {
 										<OverviewPanel stats={stats} />
 									</Grid>
 									<Grid item>
-										<MatchesPanel matches={matches} />
+										<MatchPanel matches={matches} />
 									</Grid>
 								</>
 							) : (

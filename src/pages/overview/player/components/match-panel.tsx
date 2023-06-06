@@ -3,11 +3,11 @@ import { Card, Chip, Divider, Skeleton, Stack, Typography } from '@mui/material'
 import { PlayerMatches } from '../../../../types/match'
 import MatchCard from './match-card'
 
-export interface MatchesPanelProps {
+export interface MatchPanelProps {
 	matches?: PlayerMatches
 }
 
-export default ({ matches }: MatchesPanelProps) => {
+export default ({ matches }: MatchPanelProps) => {
 	if (!matches) {
 		return (
 			<Card>
@@ -53,7 +53,7 @@ export default ({ matches }: MatchesPanelProps) => {
 							</Typography>
 							•
 							<Typography variant="caption">
-								{data.matches.filter(m => !m.winner?.roles.find(r => r.id !== m.role?.id)).length} L
+								{data.matches.filter(m => !m.winner?.roles.find(r => r.id === m.role?.id)).length} L
 							</Typography>
 							•<Typography variant="caption">{data.duration}</Typography>
 						</Stack>

@@ -43,7 +43,7 @@ export default ({ faction, players }: PlayerSectionProps) => {
 				<Card>
 					{!players.length && (
 						<Box bgcolor="background.default" py={2}>
-							<Typography fontWeight={600} fontSize={20} color="text.secondary" align="center">
+							<Typography fontWeight={600} fontSize={16} color="text.secondary" align="center">
 								No players
 							</Typography>
 						</Box>

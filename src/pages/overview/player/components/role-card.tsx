@@ -1,56 +1,43 @@
-import { Box, Collapse, Skeleton, Stack, Tooltip, Typography } from '@mui/material'
-import { RoleStatistic } from '../../../../types/player'
+import React from 'react'
+import { Box, Tooltip, Stack, Typography } from '@mui/material'
 import StatisticProgress from './statistic-progress'
+import { RoleStatistic } from '../../../../types/player'
 import Statistic from './statistic'
-import { useState } from 'react'
 
 export interface RoleCardProps {
 	role?: RoleStatistic
 }
 
 export default ({ role }: RoleCardProps) => {
-	const [show, setShow] = useState(false)
-
 	if (!role) {
-		return (
-			<Stack direction="row" p={2} gap={1}>
-				<Stack alignItems="center" justifyContent="center">
-					<StatisticProgress progress={0} />
-				</Stack>
-				<Stack justifyContent="space-between" width="100%">
-					<Typography variant="h5" px={2} mb={1}>
-						<Skeleton width={60} />
-					</Typography>
-					<Stack direction="row">
-						<Statistic title="Victories" />
-						<Statistic title="Defeats" />
-					</Stack>
-				</Stack>
-			</Stack>
-		)
+		return <div></div>
 	}
 
-	const winRate = role.played > 0 ? (role.won / role.played) * 100 : 0
+	const { won, played } = role
+	const winRate = played > 0 ? (won / played) * 100 : 0
 
 	return (
-		<Box p={2} onClick={() => setShow(!show)}>
-			<Stack direction="row" gap={1}>
-				<Tooltip placement="left" title={'Win rate of ' + winRate.toFixed(2) + '%'}>
-					<Stack alignItems="center" justifyContent="center">
-						<StatisticProgress progress={winRate} />
-					</Stack>
-				</Tooltip>
-				<Stack justifyContent="space-between" width="100%">
-					<Typography variant="h5" px={2} mb={1}>
-						{role.role.name}
-					</Typography>
-					<Stack direction="row" justifyContent="space-between">
-						<Statistic title="Victories" value={role.won} />
-						<Statistic title="Defeats" value={role.played - role.won} />
+		<Stack my={1}>
+			<Typography variant="h4" color={role.role.color} mb={1}>
+				{role.role.name}
+			</Typography>
+			{!!winRate ? (
+				<Stack direction="row" gap={2}>
+					<Tooltip placement="left" title={'Win rate of ' + winRate.toFixed(2) + '%'}>
+						<Box>
+							<StatisticProgress progress={winRate} color={role.role.color} />
+						</Box>
+					</Tooltip>
+					<Stack direction="row" justifyContent="space-between" flex={1}>
+						<Statistic title="Victories" value={won} />
+						<Statistic title="Defeats" value={played - won} />
 					</Stack>
 				</Stack>
-			</Stack>
-			<Collapse in={show}></Collapse>
-		</Box>
+			) : (
+				<Typography fontWeight={600} fontSize={16} color="text.secondary" align="center" my={2}>
+					Not played yet
+				</Typography>
+			)}
+		</Stack>
 	)
 }
