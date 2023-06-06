@@ -36,11 +36,11 @@ export default ({ matches }: MatchListProps) => {
 				</Stack>
 				<Stack direction="row" gap={2}>
 					<LineIndicator />
-					<Grid container spacing={1} direction="column" my={1} mb={2}>
+					<Stack gap={1} my={1} mb={2} flex={1}>
 						{[1, 2, 3].map(index => (
 							<MatchCard key={index} />
 						))}
-					</Grid>
+					</Stack>
 				</Stack>
 			</Box>
 		)
@@ -57,11 +57,11 @@ export default ({ matches }: MatchListProps) => {
 			</Stack>
 			<Stack direction="row" gap={2}>
 				<LineIndicator />
-				<Grid container spacing={1} direction="column" my={1} mb={2}>
+				<Stack gap={1} my={1} mb={2} flex={1}>
 					{matches.matches.map((match, index) => (
 						<MatchCard key={index} match={match} />
 					))}
-				</Grid>
+				</Stack>
 			</Stack>
 		</Box>
 	)

@@ -3,12 +3,14 @@ import { Box, Stack, Typography, Grid, Card, styled, Tooltip, Skeleton } from '@
 import { Link } from 'react-router-dom'
 import { Match } from '../../../types/match'
 import { WarningRounded } from '@mui/icons-material'
+import Statistic from '../../overview/player/components/statistic'
 
 const Container = styled(Card)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to right, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
-	textDecoration: 'none'
+	textDecoration: 'none',
+	flex: 1
 }))
 
 const WinnerIndicator = styled(Box)<{ color?: string }>(({ color }) => ({
@@ -26,36 +28,45 @@ export interface MatchCardProps {
 export default ({ match }: MatchCardProps) => {
 	if (!match) {
 		return (
-			<Grid item>
-				<Container image="">
-					<Stack direction="row" alignItems="center" gap={3} p={3}>
+			<Container image="">
+				<Grid container direction="row" p={2} gap={3}>
+					<Grid item alignSelf="center" justifySelf="center" xs={1}>
 						<Skeleton variant="circular" height={10} width={10} />
-						<Skeleton height={35} width={100} />
-						<Stack direction="row" gap={2}>
-							<Skeleton width={60} />
-							<Skeleton width={50} />
-						</Stack>
-					</Stack>
-				</Container>
-			</Grid>
+					</Grid>
+					<Grid item xs alignSelf="center" justifySelf="center">
+						<Statistic />
+					</Grid>
+					<Grid item xs alignSelf="center" justifySelf="center">
+						<Statistic />
+					</Grid>
+					<Grid item xs alignSelf="center" justifySelf="center">
+						<Statistic />
+					</Grid>
+				</Grid>
+			</Container>
 		)
 	}
 
 	return (
-		<Grid item>
-			<Link to={'/overview/match/' + match.matchId} style={{ textDecoration: 'none' }}>
-				<Container image={match.map?.image}>
-					<Stack direction="row" alignItems="center" gap={3} p={3}>
+		<Link to={'/overview/match/' + match.matchId} style={{ textDecoration: 'none' }}>
+			<Container image={match.map?.image}>
+				<Grid container direction="row" p={2} gap={3}>
+					<Grid item alignSelf="center" justifySelf="center" xs={1}>
 						<Tooltip title={match.state}>
 							{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
 						</Tooltip>
-						<Typography variant="h4">{match.map?.name}</Typography>
-						<Typography variant="caption" color="text.secondary">
-							{match.time + ' • ' + match.duration}
-						</Typography>
-					</Stack>
-				</Container>
-			</Link>
-		</Grid>
+					</Grid>
+					<Grid item xs alignSelf="center" justifySelf="center">
+						<Statistic title="Map" value={match.map?.name} />
+					</Grid>
+					<Grid item xs alignSelf="center" justifySelf="center">
+						<Statistic title="Duration" value={match.duration} />
+					</Grid>
+					<Grid item xs alignSelf="center" justifySelf="center">
+						<Statistic title="Time" value={match.time} />
+					</Grid>
+				</Grid>
+			</Container>
+		</Link>
 	)
 }
