@@ -43,7 +43,7 @@ export const theme = createTheme({
 		MuiChip: {
 			styleOverrides: {
 				filled: {
-					background: '#008000'
+					background: '#212121'
 				}
 			},
 			defaultProps: {

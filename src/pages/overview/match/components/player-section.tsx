@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Skeleton, Stack, Typography, styled } from '@mui/material'
+import { Box, Card, Skeleton, Stack, Typography, styled } from '@mui/material'
 import { MatchPlayer } from '../../../../types/match'
 import PlayerCard from './player-card'
 import { Faction } from '../../../../types/faction'
@@ -7,7 +7,8 @@ import { Faction } from '../../../../types/faction'
 const LineIndicator = styled(Box)<{ color?: string }>(({ theme, color }) => ({
 	background: color ?? theme.palette.background.default,
 	width: 5,
-	height: 'flex'
+	height: 'flex',
+	borderRadius: 2
 }))
 
 export interface PlayerSectionProps {
@@ -35,11 +36,11 @@ export default ({ faction, players }: PlayerSectionProps) => {
 	return (
 		<Stack direction="row" gap={2} flex={1}>
 			<LineIndicator color={faction.color} />
-			<Box flex={1}>
+			<Box flex={1} mb={1}>
 				<Typography fontFamily="Minecraft Ten" fontSize={20} color={faction.color} mb={1}>
 					{faction.name}
 				</Typography>
-				<Stack flex={1}>
+				<Card>
 					{!players.length && (
 						<Box bgcolor="background.default" py={2}>
 							<Typography fontWeight={600} fontSize={20} color="text.secondary" align="center">
@@ -50,7 +51,7 @@ export default ({ faction, players }: PlayerSectionProps) => {
 					{players.map((player, index) => (
 						<PlayerCard key={index} player={player} light={index % 2 === 0} />
 					))}
-				</Stack>
+				</Card>
 			</Box>
 		</Stack>
 	)

@@ -4,17 +4,19 @@ import { DailyMatches, Match } from '../../../types/match'
 import MatchCard from './match-card'
 
 const PointIndicator = styled(Box)(({ theme }) => ({
-	background: theme.palette.primary.main,
+	background: theme.palette.background.default,
 	width: 10,
-	height: 10
+	height: 10,
+	borderRadius: 5
 }))
 
 const LineIndicator = styled(Box)(({ theme }) => ({
-	background: theme.palette.primary.main,
-	width: 4,
+	background: theme.palette.background.default,
+	width: 5,
 	height: 'flex',
-	marginLeft: 2.5,
-	marginRight: 2.5
+	marginLeft: 2,
+	marginRight: 2,
+	borderRadius: 2
 }))
 
 export interface MatchListProps {

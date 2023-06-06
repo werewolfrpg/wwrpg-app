@@ -87,7 +87,7 @@ export default () => {
 									Winners
 								</Typography>
 								<Divider />
-								<Box p={3}>
+								<Box p={2}>
 									{game
 										? game.teams
 												.filter(team => team.faction.id === game.overview.winner?.id)
@@ -102,7 +102,7 @@ export default () => {
 									Defeated
 								</Typography>
 								<Divider />
-								<Stack p={3} gap={3}>
+								<Stack p={2} gap={3}>
 									{game
 										? game.teams
 												.filter(team => team.faction.id !== game.overview.winner?.id)
