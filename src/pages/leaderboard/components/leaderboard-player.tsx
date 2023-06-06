@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Stack, Box, Typography, styled } from '@mui/material'
 
 const Container = styled(Stack)(({ theme }) => ({

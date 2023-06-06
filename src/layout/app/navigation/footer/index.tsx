@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Container, Divider, Grid, Stack, SvgIcon, Typography, styled } from '@mui/material'
 import ServerLink, { ServerLinkProps } from '../../../../components/server-link'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
 
 const Footer = styled(Box)(({ theme }) => ({
@@ -12,8 +12,9 @@ const Footer = styled(Box)(({ theme }) => ({
 	paddingBottom: theme.spacing(4)
 }))
 
-const Link = styled(Typography)(({ theme }) => ({
+const PageLink = styled(Link)(({ theme }) => ({
 	color: theme.palette.text.secondary,
+	textDecoration: 'none',
 	cursor: 'pointer',
 	fontSize: 16,
 	transition: '300ms ease',
@@ -25,8 +26,6 @@ const Link = styled(Typography)(({ theme }) => ({
 export type FooterProps = ServerLinkProps
 
 export default (props: FooterProps) => {
-	const navigate = useNavigate()
-
 	return (
 		<Footer>
 			<Container>
@@ -64,9 +63,9 @@ export default (props: FooterProps) => {
 								Quick Links
 							</Typography>
 							{headers.map((link, index) => (
-								<Link key={index} onClick={() => navigate(link.path)}>
+								<PageLink key={index} to={link.path}>
 									{link.name}
-								</Link>
+								</PageLink>
 							))}
 						</Stack>
 					</Grid>

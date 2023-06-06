@@ -1,6 +1,6 @@
 import React from 'react'
 import { PlayerMatch } from '../../../../types/match'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Box, Grid, Skeleton, Stack, Tooltip, styled } from '@mui/material'
 import { WarningRounded } from '@mui/icons-material'
 import Statistic from './statistic'
@@ -30,8 +30,6 @@ export interface MatchCardProps {
 }
 
 export default ({ match }: MatchCardProps) => {
-	const navigate = useNavigate()
-
 	if (!match) {
 		return (
 			<Container image="" direction="row">
@@ -54,23 +52,25 @@ export default ({ match }: MatchCardProps) => {
 	}
 
 	return (
-		<Container onClick={() => navigate('/overview/match/' + match.matchId)} image={match.map?.image} direction="row">
-			<Grid container px={2}>
-				<Grid item justifySelf="center" alignSelf="center" xs={1}>
-					<Tooltip title={match.state}>
-						{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
-					</Tooltip>
+		<Link to={'/overview/match/' + match.matchId} style={{ textDecoration: 'none', color: 'inherit' }}>
+			<Container image={match.map?.image} direction="row">
+				<Grid container px={2}>
+					<Grid item justifySelf="center" alignSelf="center" xs={1}>
+						<Tooltip title={match.state}>
+							{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
+						</Tooltip>
+					</Grid>
+					<Grid item justifySelf="center" alignSelf="center" xs={3}>
+						<Statistic title="Role" value={match.role?.name} color={match.role.color} />
+					</Grid>
+					<Grid item justifySelf="center" alignSelf="center" xs={3}>
+						<Statistic title="Duration" value={match.duration} />
+					</Grid>
+					<Grid item justifySelf="center" alignSelf="center" xs={3}>
+						<Statistic title="Score" value={'+' + match.score} />
+					</Grid>
 				</Grid>
-				<Grid item justifySelf="center" alignSelf="center" xs={3}>
-					<Statistic title="Role" value={match.role?.name} color={match.role.color} />
-				</Grid>
-				<Grid item justifySelf="center" alignSelf="center" xs={3}>
-					<Statistic title="Duration" value={match.duration} />
-				</Grid>
-				<Grid item justifySelf="center" alignSelf="center" xs={3}>
-					<Statistic title="Score" value={'+' + match.score} />
-				</Grid>
-			</Grid>
-		</Container>
+			</Container>
+		</Link>
 	)
 }

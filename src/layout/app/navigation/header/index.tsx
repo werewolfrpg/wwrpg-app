@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Box, Collapse, Container, Divider, Hidden, Stack, Typography, styled } from '@mui/material'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
 import { ServerLinkProps } from '../../../../components/server-link'
 import { Menu } from '@mui/icons-material'
@@ -22,7 +22,8 @@ const Content = styled(Stack)(({ theme }) => ({
 	paddingBottom: theme.spacing(3)
 }))
 
-const Link = styled(Typography)({
+const PageLink = styled(Link)({
+	textDecoration: 'none',
 	color: 'white',
 	fontSize: 20,
 	cursor: 'pointer',
@@ -39,7 +40,6 @@ const Link = styled(Typography)({
 export type HeaderProps = ServerLinkProps
 
 export default (props: HeaderProps) => {
-	const navigate = useNavigate()
 	const location = useLocation()
 	const [isAtTop, setIsAtTop] = useState(false)
 	const [showMenu, setShowMenu] = useState(true)
@@ -83,9 +83,9 @@ export default (props: HeaderProps) => {
 					<Collapse in={showMenu}>
 						<Content direction={{ md: 'row' }}>
 							{headers.map((header, index) => (
-								<Link key={index} onClick={() => navigate(header.path)}>
+								<PageLink to={header.path} key={index}>
 									{header.name}
-								</Link>
+								</PageLink>
 							))}
 						</Content>
 					</Collapse>

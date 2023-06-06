@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Stack, Typography, Grid, Card, styled, Tooltip, Skeleton } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Match } from '../../../types/match'
 import { WarningRounded } from '@mui/icons-material'
 
@@ -8,7 +8,7 @@ const Container = styled(Card)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to right, ${theme.palette.background.paper}, rgba(0, 0, 0, 0)), url(${image})`,
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
-	cursor: 'pointer'
+	textDecoration: 'none'
 }))
 
 const WinnerIndicator = styled(Box)<{ color?: string }>(({ color }) => ({
@@ -24,8 +24,6 @@ export interface MatchCardProps {
 }
 
 export default ({ match }: MatchCardProps) => {
-	const navigate = useNavigate()
-
 	if (!match) {
 		return (
 			<Grid item>
@@ -45,17 +43,19 @@ export default ({ match }: MatchCardProps) => {
 
 	return (
 		<Grid item>
-			<Container image={match.map?.image} onClick={() => navigate('/overview/match/' + match.matchId)}>
-				<Stack direction="row" alignItems="center" gap={3} p={3}>
-					<Tooltip title={match.state}>
-						{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
-					</Tooltip>
-					<Typography variant="h4">{match.map?.name}</Typography>
-					<Typography variant="caption" color="text.secondary">
-						{match.time + ' • ' + match.duration}
-					</Typography>
-				</Stack>
-			</Container>
+			<Link to={'/overview/match/' + match.matchId} style={{ textDecoration: 'none' }}>
+				<Container image={match.map?.image}>
+					<Stack direction="row" alignItems="center" gap={3} p={3}>
+						<Tooltip title={match.state}>
+							{match.winner ? <WinnerIndicator color={match.winner.color} /> : <WarningRounded />}
+						</Tooltip>
+						<Typography variant="h4">{match.map?.name}</Typography>
+						<Typography variant="caption" color="text.secondary">
+							{match.time + ' • ' + match.duration}
+						</Typography>
+					</Stack>
+				</Container>
+			</Link>
 		</Grid>
 	)
 }
