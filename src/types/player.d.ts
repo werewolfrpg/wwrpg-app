@@ -1,4 +1,4 @@
-import { Role } from './faction'
+import { Role, FactionStatistic, Faction } from './faction'
 
 export interface GameStatsDto {
 	role: string
@@ -39,6 +39,11 @@ export interface RoleStatistic extends MatchStatistic {
 	role: Role
 }
 
+export interface FactionStatistic {
+	faction: Faction
+	roles: RoleStatistic[]
+}
+
 export interface Item {
 	name: string
 	stats: Record<string, string | number>
@@ -75,6 +80,6 @@ export interface PlayerStatistic {
 	title: Title
 	matches: MatchStatistic
 	skeletons: Skeletons
-	roles: RoleStatistic[]
+	factions: FactionStatistic[]
 	items: Item[]
 }

@@ -1,4 +1,4 @@
-import { SkeletonsDto } from './../types/player.d'
+import { FactionStatistic, SkeletonsDto } from './../types/player.d'
 import {
 	DailyMatches,
 	MatchPlayerDto,
@@ -13,7 +13,7 @@ import {
 	MatchTeam
 } from '../types/match'
 import { Leaderboard, LeaderboardDto } from '../types/leaderboard'
-import { PlayerDto, PlayerStatistic, Skeletons } from '../types/player'
+import { PlayerDto, PlayerStatistic, Skeletons, RoleStatistic } from '../types/player'
 import { Faction, FactionsDto } from '../types/faction'
 import { Match } from '../types/match'
 import { getName } from './mojang'
@@ -59,15 +59,22 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 
 	const skeletons = convertSkeletons(data.skeletons)
 
-	const factions = await getFactions()
-	const factionRoles = factions.map(faction => faction.roles).reduce((_, roles) => [..._, ...roles], [])
-	const roles = data.gameStats
-		.map(stat => ({
-			role: factionRoles.find(role => role.id === stat.role)!,
-			played: stat.data.played,
-			won: stat.data.victories
-		}))
-		.sort((a, b) => a.played / a.won - b.played / b.won)
+	const allFactions = await getFactions()
+	const factions: FactionStatistic[] = allFactions.map(faction => ({
+		winRate: 0,
+		played: 0,
+		won: 0,
+		faction,
+		roles: faction.roles
+			.map(role => ({
+				role,
+				played: data.gameStats.find(r => r.role === role.id)?.data.played ?? 0,
+				won: data.gameStats.find(r => r.role === role.id)?.data.victories ?? 0
+			}))
+			.sort((a, b) => b.won - a.won)
+	}))
+
+	const roles = factions.reduce<RoleStatistic[]>((_, f) => [..._, ...f.roles], [])
 
 	const matches = {
 		played: roles.reduce((sum, { played }) => sum + played, 0),
@@ -87,12 +94,12 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 		kills: data.kills,
 		deaths: data.deaths,
 		items: data.items,
+		factions,
 		username,
 		skeletons,
 		matches,
 		title,
-		score,
-		roles
+		score
 	}
 
 	// return new Promise(resolve => {

@@ -7,9 +7,10 @@ const Container = styled(Stack)({
 	justifyContent: 'center'
 })
 
-const Foreground = styled(CircularProgress)(({ theme }) => ({
+const Foreground = styled(CircularProgress)<{ fgColor?: string }>(({ theme, fgColor }) => ({
 	position: 'absolute',
 	px: theme.spacing(1),
+	color: fgColor ?? theme.palette.primary.main,
 	left: 0
 }))
 
@@ -25,13 +26,14 @@ Foreground.defaultProps = Background.defaultProps = {
 
 export interface StatisticProgressProps {
 	progress: number
+	color?: string
 }
 
-export default ({ progress }: StatisticProgressProps) => {
+export default ({ progress, color }: StatisticProgressProps) => {
 	return (
 		<Container>
 			<Background size={50} value={100} />
-			<Foreground size={50} value={progress} />
+			<Foreground size={50} value={progress} fgColor={color} />
 		</Container>
 	)
 }

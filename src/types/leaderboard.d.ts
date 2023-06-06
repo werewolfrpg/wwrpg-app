@@ -1,4 +1,3 @@
-import { LeaderboardDto } from './dtos/leadboard.dto.d'
 import { Paginated } from './response'
 
 export interface LeaderboardPlayerDto {
