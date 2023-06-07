@@ -44,12 +44,10 @@ export default () => {
 						<Grid container item direction="column" xs gap={stats ? 0 : 3}>
 							<Grid item mb={stats ? 3 : 0}>
 								<Card>
-									<Stack direction="row">
-										<Tabs value={tab} onChange={(_, i) => setTab(i)}>
-											<Tab label="Overview" />
-											<Tab label="Items" />
-										</Tabs>
-									</Stack>
+									<Tabs value={tab} onChange={(_, i) => setTab(i)}>
+										<Tab label="Overview" />
+										<Tab label="Items" />
+									</Tabs>
 								</Card>
 							</Grid>
 							{tab == 0 ? (

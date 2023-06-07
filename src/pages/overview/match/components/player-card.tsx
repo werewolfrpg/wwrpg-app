@@ -49,13 +49,13 @@ export default ({ player, light }: PlayerCardProps) => {
 	}
 
 	return (
-		<Box style={{ cursor: 'pointer' }}>
+		<Box bgcolor={light ? 'background.default' : 'background.paper'}>
 			<Grid
 				container
 				direction="row"
 				justifyContent="space-between"
-				bgcolor={light ? 'background.default' : 'background.paper'}
 				onClick={() => setShow(!show)}
+				style={{ cursor: 'pointer' }}
 				p={2}
 			>
 				<Grid item xs alignSelf="center">
