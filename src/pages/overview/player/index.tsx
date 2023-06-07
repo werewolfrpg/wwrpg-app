@@ -37,25 +37,27 @@ export default () => {
 			setPage(page + 1)
 			const count = 10
 
-			getPlayerMatchHistory(minecraftId, page, count).then(({ data, meta }) => {
-				setState(meta.entries === count ? 'idle' : 'max')
+			getPlayerMatchHistory(minecraftId, page, count)
+				.then(({ data, meta }) => {
+					setState(meta.entries === count ? 'idle' : 'max')
 
-				if (!matches) {
-					setMatches(data)
-				} else {
-					const merged = matches.map(m => {
-						const found = data.find(d => d.date === m.date)
+					if (!matches) {
+						setMatches(data)
+					} else {
+						const merged = matches.map(m => {
+							const found = data.find(d => d.date === m.date)
 
-						if (found) {
-							const filtered = m.matches.filter(c => !found.matches.find(i => i.matchId === c.matchId))
-							return { ...found, matches: [...filtered, ...found.matches] }
-						}
-						return m
-					})
-					merged.push(...data.filter(day => !merged.some(k => k.date === day.date)))
-					setMatches(merged)
-				}
-			})
+							if (found) {
+								const filtered = m.matches.filter(c => !found.matches.find(i => i.matchId === c.matchId))
+								return { ...found, matches: [...filtered, ...found.matches] }
+							}
+							return m
+						})
+						merged.push(...data.filter(day => !merged.some(k => k.date === day.date)))
+						setMatches(merged)
+					}
+				})
+				.catch(console.error)
 		}
 	}
 
