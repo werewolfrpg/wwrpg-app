@@ -19,7 +19,7 @@ export interface PlayerSectionProps {
 export default ({ faction, players }: PlayerSectionProps) => {
 	if (!faction || !players) {
 		return (
-			<Stack direction="row" gap={2} flex={1}>
+			<Stack direction="row" gap={2} flex={1} my={2}>
 				<LineIndicator />
 				<Box flex={1}>
 					<Skeleton width={100} height={35} />
@@ -34,7 +34,7 @@ export default ({ faction, players }: PlayerSectionProps) => {
 	}
 
 	return (
-		<Stack direction="row" gap={2} flex={1}>
+		<Stack direction="row" gap={2} flex={1} my={2}>
 			<LineIndicator color={faction.color} />
 			<Box flex={1} mb={1}>
 				<Typography fontFamily="Minecraft Ten" fontSize={20} color={faction.color} mb={1}>

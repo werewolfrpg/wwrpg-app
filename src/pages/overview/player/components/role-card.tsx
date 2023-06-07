@@ -48,7 +48,7 @@ export default ({ role }: RoleCardProps) => {
 				</Stack>
 			) : (
 				<Typography fontWeight={600} fontSize={16} color="text.secondary" align="center" my={2}>
-					Not played yet
+					No data
 				</Typography>
 			)}
 		</Stack>

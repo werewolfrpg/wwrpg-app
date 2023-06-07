@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { GameMatch } from '../../../types/match'
 import { getGameMatch } from '../../../apis/wwrpg'
-import { Box, Card, Container, Divider, Stack, Typography, styled } from '@mui/material'
+import { Box, Card, Container, Stack, styled } from '@mui/material'
 import AppLayout from '../../../layout/app'
-import StatisticPanel from '../player/components/statistic-panel'
-import PlayerSection from './components/player-section'
+import TeamSection from './components/team-section'
+import MatchOverview from './components/match-overview'
 
 const Wallpaper = styled(Box)<{ image?: string }>(({ theme, image }) => ({
 	backgroundImage: `linear-gradient(to top, ${theme.palette.background.default}, rgba(0, 0, 0, 0)), url(${image})`,
@@ -34,84 +34,30 @@ export default () => {
 			<Wallpaper image={game?.overview.map?.image} />
 			<Container>
 				<Stack py={5} gap={3}>
-					<Card>
-						<Typography variant="h3" p={2}>
-							Game Report
-						</Typography>
-						<Divider />
-						<StatisticPanel
-							statistics={[
-								{
-									title: 'Map',
-									value: game?.overview.map?.name
-								},
-								{
-									title: 'Duration',
-									value: game?.overview.duration
-								},
-								{
-									title: 'Winners',
-									value: game ? (game?.overview.winner ? game.overview.winner.name : 'Canceled') : null,
-									color: game?.overview.winner?.color ?? 'white'
-								},
-								{
-									title: 'Date',
-									value: game ? game.overview.date + ', ' + game.overview.time : undefined
-								}
-							]}
-						/>
-						<Divider />
-						<StatisticPanel
-							title="Teams"
-							statistics={
-								game
-									? [
-											{
-												title: 'Total Players',
-												value: game.teams.reduce((total, team) => total + team.players.length, 0)
-											},
-											...game.teams.map(team => ({
-												title: team.faction.name,
-												color: team.faction.color,
-												value: team.players.length
-											}))
-									  ]
-									: undefined
-							}
-						/>
-					</Card>
+					<MatchOverview game={game} />
 					<Card>
 						<Stack>
-							<Stack>
-								<Typography variant="h3" p={2}>
-									Winners
-								</Typography>
-								<Divider />
-								<Box p={2}>
-									{game
-										? game.teams
-												.filter(team => team.faction.id === game.overview.winner?.id)
-												.map((team, index) => (
-													<PlayerSection key={index} players={team.players} faction={team.faction} />
-												))
-										: [1, 2, 3].map(index => <PlayerSection key={index} />)}
-								</Box>
-							</Stack>
-							<Stack>
-								<Typography variant="h3" p={2}>
-									Defeated
-								</Typography>
-								<Divider />
-								<Stack p={2} gap={3}>
-									{game
-										? game.teams
-												.filter(team => team.faction.id !== game.overview.winner?.id)
-												.map((team, index) => (
-													<PlayerSection key={index} players={team.players} faction={team.faction} />
-												))
-										: [1, 2, 3].map(index => <PlayerSection key={index} />)}
+							{game ? (
+								game?.overview.winner ? (
+									<Stack>
+										<TeamSection
+											title="Winners"
+											teams={game.teams.filter(team => team.faction.id === game.overview.winner?.id)}
+										/>
+										<TeamSection
+											title="Defeated"
+											teams={game.teams.filter(team => team.faction.id !== game.overview.winner?.id)}
+										/>
+									</Stack>
+								) : (
+									<TeamSection title="Players" teams={game.teams} />
+								)
+							) : (
+								<Stack>
+									<TeamSection title="Winners" />
+									<TeamSection title="Defeated" />
 								</Stack>
-							</Stack>
+							)}
 						</Stack>
 					</Card>
 				</Stack>

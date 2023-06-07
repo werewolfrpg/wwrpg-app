@@ -29,7 +29,7 @@ export default ({ player }: PlayerModalProps) => {
 					/>
 					<Tooltip title={'View ' + player.username + "'s profile"}>
 						<Link to={'/overview/player/' + player.minecraftId} style={{ color: 'inherit' }}>
-							<Box m={2}>
+							<Box m={1}>
 								<ArrowOutwardRounded />
 							</Box>
 						</Link>
