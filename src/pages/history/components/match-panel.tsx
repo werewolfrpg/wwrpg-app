@@ -1,10 +1,10 @@
 import React from 'react'
-import { Card, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import { DailyMatches } from '../../../types/match'
 import MatchSection from './match-section'
 
 export interface MatchPanelProps {
-	matches?: DailyMatches[] | null
+	matches?: DailyMatches[]
 }
 
 export default ({ matches }: MatchPanelProps) => {

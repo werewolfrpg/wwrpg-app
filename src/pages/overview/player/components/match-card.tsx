@@ -1,7 +1,7 @@
 import React from 'react'
 import { PlayerMatch } from '../../../../types/match'
 import { Link } from 'react-router-dom'
-import { Box, Grid, Stack, styled } from '@mui/material'
+import { Box, Divider, Grid, Stack, styled } from '@mui/material'
 import Statistic from './statistic'
 
 const Container = styled(Stack)<{ image?: string }>(({ theme, image }) => ({
@@ -9,8 +9,6 @@ const Container = styled(Stack)<{ image?: string }>(({ theme, image }) => ({
 	backgroundPosition: 'center',
 	backgroundSize: 'cover',
 	alignItems: 'center',
-	marginTop: theme.spacing(0.1),
-	marginBottom: theme.spacing(0.1),
 	gap: theme.spacing(3),
 	height: 80
 }))
@@ -41,6 +39,7 @@ export default ({ match }: MatchCardProps) => {
 						<Statistic title="Duration" />
 					</Grid>
 				</Grid>
+				<Divider />
 			</Container>
 		)
 	}
@@ -72,6 +71,7 @@ export default ({ match }: MatchCardProps) => {
 					</Grid>
 				</Grid>
 			</Container>
+			<Divider />
 		</Link>
 	)
 }
