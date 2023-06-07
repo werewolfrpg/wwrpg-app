@@ -50,11 +50,19 @@ export default ({ matches }: MatchPanelProps) => {
 						</Stack>
 						<Stack direction="row" gap={1} alignItems="center">
 							<Typography variant="caption">
-								{data.matches.filter(m => m.winner?.roles.find(r => r.id === m.role?.id)).length} W
+								{data.matches.reduce(
+									(t, m) => t + (m.winner && m.winner?.roles.find(r => r.id === m.role?.id) ? 1 : 0),
+									0
+								)}
+								W
 							</Typography>
 							•
 							<Typography variant="caption">
-								{data.matches.filter(m => (m.winner ? m.winner?.roles.find(r => r.id === m.role?.id) : null)).length}L
+								{data.matches.reduce(
+									(t, m) => t + (m.winner && !m.winner?.roles.find(r => r.id === m.role?.id) ? 1 : 0),
+									0
+								)}
+								L
 							</Typography>
 							•<Typography variant="caption">{data.duration}</Typography>•
 							<Typography variant="caption">+{data.matches.reduce((t, m) => t + m.score, 0)}</Typography>
