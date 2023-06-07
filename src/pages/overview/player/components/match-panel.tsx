@@ -22,7 +22,8 @@ export default ({ matches }: MatchPanelProps) => {
 							<Stack direction="row" gap={1} alignItems="center">
 								<Skeleton width={40} />•
 								<Skeleton width={40} />•
-								<Skeleton width={80} />
+								<Skeleton width={80} />•
+								<Skeleton width={30} />
 							</Stack>
 						</Stack>
 						<Divider />
@@ -53,9 +54,10 @@ export default ({ matches }: MatchPanelProps) => {
 							</Typography>
 							•
 							<Typography variant="caption">
-								{data.matches.filter(m => !m.winner?.roles.find(r => r.id === m.role?.id)).length} L
+								{data.matches.filter(m => (m.winner ? m.winner?.roles.find(r => r.id === m.role?.id) : null)).length}L
 							</Typography>
-							•<Typography variant="caption">{data.duration}</Typography>
+							•<Typography variant="caption">{data.duration}</Typography>•
+							<Typography variant="caption">+{data.matches.reduce((t, m) => t + m.score, 0)}</Typography>
 						</Stack>
 					</Stack>
 					<Divider />

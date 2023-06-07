@@ -23,9 +23,24 @@ export const theme = createTheme({
 		fontFamily: ['Roboto', 'Minecraft Ten', 'Minecraft'].join(',')
 	},
 	components: {
+		MuiTabs: {
+			defaultProps: {
+				TabIndicatorProps: {
+					style: {
+						height: 4
+					}
+				}
+			}
+		},
 		MuiTab: {
 			defaultProps: {
-				disableRipple: true
+				disableRipple: true,
+				style: {
+					color: 'white',
+					textTransform: 'none',
+					fontWeight: 'bold',
+					fontSize: 18
+				}
 			}
 		},
 		MuiDivider: {

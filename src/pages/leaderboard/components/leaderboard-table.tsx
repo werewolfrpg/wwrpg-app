@@ -3,7 +3,6 @@ import { Box, Card, Pagination, Skeleton } from '@mui/material'
 import { Leaderboard } from '../../../types/leaderboard'
 import LeaderboardRow from './leaderboard-row'
 import LeaderboardPlayer from './leaderboard-player'
-import { Link } from 'react-router-dom'
 
 export interface LeaderboardProps {
 	leaderboard: Leaderboard | null
@@ -43,9 +42,7 @@ export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
 					light={index % 2 === 0}
 					values={[
 						rank,
-						<Link to={'/overview/player/' + minecraftId} style={{ textDecoration: 'none', color: 'inherit' }}>
-							<LeaderboardPlayer {...{ username, minecraftId }} />
-						</Link>,
+						<LeaderboardPlayer {...{ username, minecraftId }} />,
 						title,
 						score,
 						played > 0 ? ((won / played) * 100).toFixed(1) + '%' : '--',
