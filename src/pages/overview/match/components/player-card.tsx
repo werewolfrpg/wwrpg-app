@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MatchPlayer } from '../../../../types/match'
-import { Box, Grid, Hidden, Modal, Skeleton, Stack } from '@mui/material'
+import { Box, Grid, Hidden, Modal, Skeleton, Stack, Typography } from '@mui/material'
 import PlayerModal from './player-modal'
 import LeaderboardPlayer from '../../../leaderboard/components/leaderboard-player'
 import Statistic from '../../player/components/statistic'
@@ -28,22 +28,19 @@ export default ({ player, light }: PlayerCardProps) => {
 						<Skeleton width={100} />
 					</Stack>
 				</Grid>
+				<Hidden smDown>
+					<Grid item xs={3} sm={2}>
+						<Statistic />
+					</Grid>
+				</Hidden>
+				<Grid item xs={3} sm={2}>
+					<Statistic />
+				</Grid>
 				<Hidden mdDown>
 					<Grid item xs>
 						<Statistic />
 					</Grid>
 				</Hidden>
-				<Hidden smDown>
-					<Grid item xs={3} md={2}>
-						<Statistic />
-					</Grid>
-					<Grid item xs={3} sm={2} md={1}>
-						<Statistic />
-					</Grid>
-				</Hidden>
-				<Grid item xs={3} sm={2} md={1}>
-					<Statistic />
-				</Grid>
 			</Grid>
 		)
 	}
@@ -59,24 +56,29 @@ export default ({ player, light }: PlayerCardProps) => {
 				p={2}
 			>
 				<Grid item xs alignSelf="center">
-					<LeaderboardPlayer username={player.username} minecraftId={player.minecraftId} />
+					<LeaderboardPlayer
+						username={player.username}
+						minecraftId={player.minecraftId}
+						caption={
+							<Typography variant="caption" color={player.role.color}>
+								{player.role.name}
+							</Typography>
+						}
+					/>
+				</Grid>
+				<Hidden smDown>
+					<Grid item xs={3} sm={2}>
+						<Statistic title="Kills" value={player.kills} />
+					</Grid>
+				</Hidden>
+				<Grid item xs={3} sm={2}>
+					<Statistic title="Score" value={'+' + player.score} />
 				</Grid>
 				<Hidden mdDown>
 					<Grid item xs>
 						<Statistic title="Death Cause" value={player?.death ?? '--'} color={player.death && 'red'} />
 					</Grid>
 				</Hidden>
-				<Hidden smDown>
-					<Grid item xs={3} md={2}>
-						<Statistic title="Role" value={player.role.name} color={player.role.color} />
-					</Grid>
-					<Grid item xs={3} sm={2} md={1}>
-						<Statistic title="Kills" value={player.kills} />
-					</Grid>
-				</Hidden>
-				<Grid item xs={3} sm={2} md={1}>
-					<Statistic title="Score" value={'+' + player.score} />
-				</Grid>
 			</Grid>
 			<Modal
 				open={show}

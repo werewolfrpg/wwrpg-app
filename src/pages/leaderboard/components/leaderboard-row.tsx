@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, Hidden, Skeleton, Stack } from '@mui/material'
+import LeaderboardPlayer from './leaderboard-player'
 
 export interface LeaderboardRowProps {
 	values?: (string | React.ReactNode)[]
@@ -10,10 +11,7 @@ export default ({ values, light }: LeaderboardRowProps) => {
 	if (!values) {
 		values = [
 			<Skeleton width={20} />,
-			<Stack direction="row" alignItems="center" gap={3}>
-				<Skeleton width={40} height={40} variant="circular" />
-				<Skeleton width={100} />
-			</Stack>,
+			<LeaderboardPlayer />,
 			<Hidden smDown>
 				<Skeleton width={60} />
 			</Hidden>,

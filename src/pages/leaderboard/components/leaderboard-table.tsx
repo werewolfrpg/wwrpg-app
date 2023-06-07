@@ -3,6 +3,7 @@ import { Box, Card, Pagination, Skeleton } from '@mui/material'
 import { Leaderboard } from '../../../types/leaderboard'
 import LeaderboardRow from './leaderboard-row'
 import LeaderboardPlayer from './leaderboard-player'
+import { Link } from 'react-router-dom'
 
 export interface LeaderboardProps {
 	leaderboard: Leaderboard | null
@@ -37,18 +38,20 @@ export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
 		<Card>
 			<LeaderboardRow values={['#', 'Player', 'Title', 'Score', 'Win %', 'Games Played']} />
 			{leaderboard.data.map(({ rank, username, minecraftId, title, score, played, won }, index) => (
-				<LeaderboardRow
-					key={index}
-					light={index % 2 === 0}
-					values={[
-						rank,
-						<LeaderboardPlayer {...{ username, minecraftId }} />,
-						title,
-						score,
-						played > 0 ? ((won / played) * 100).toFixed(1) + '%' : '--',
-						played
-					]}
-				/>
+				<Link to={'/overview/player/' + minecraftId} style={{ textDecoration: 'none', color: 'inherit' }}>
+					<LeaderboardRow
+						key={index}
+						light={index % 2 === 0}
+						values={[
+							rank,
+							<LeaderboardPlayer {...{ username, minecraftId }} />,
+							title,
+							score,
+							played > 0 ? ((won / played) * 100).toFixed(1) + '%' : '--',
+							played
+						]}
+					/>
+				</Link>
 			))}
 			<Box p={2}>
 				<Pagination page={page} count={leaderboard.meta.totalPageNumber} onChange={handleChange} />
