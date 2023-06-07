@@ -4,7 +4,7 @@ import { PlayerStatistic } from '../../../types/player'
 import { getPlayerStats } from '../../../apis/wwrpg'
 import { PlayerMatches } from '../../../types/match'
 import { getPlayerMatchHistory } from '../../../apis/wwrpg'
-import { Box, Card, Container, Grid, Stack, Tab, Tabs } from '@mui/material'
+import { Box, Card, Container, Grid, Tab, Tabs } from '@mui/material'
 import FactionPanel from './components/faction-panel'
 import OverviewPanel from './components/overview-panel'
 import ProfilePanel from './components/profile-panel'
@@ -50,7 +50,7 @@ export default () => {
 									</Tabs>
 								</Card>
 							</Grid>
-							{tab == 0 ? (
+							{tab === 0 ? (
 								<>
 									<Grid item>
 										<OverviewPanel stats={stats} />

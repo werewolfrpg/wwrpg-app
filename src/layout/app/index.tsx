@@ -16,7 +16,7 @@ const Title = styled(Stack)(({ theme }) => ({
 
 export default ({ children }: React.PropsWithChildren) => {
 	const location = useLocation()
-	const title = headers.filter(({ path }) => path === location.pathname && path != '/')[0]?.name
+	const title = headers.filter(({ path }) => path === location.pathname && path !== '/')[0]?.name
 
 	const info = {
 		server: 'wwrpg.aesten.net',

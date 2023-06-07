@@ -1,8 +1,6 @@
 import React from 'react'
 import { Box, Divider, Skeleton, Stack, Typography } from '@mui/material'
 import { FactionStatistic } from '../../../../types/player'
-import StatisticProgress from './statistic-progress'
-import Statistic from './statistic'
 import RoleCard from './role-card'
 
 export interface FactionCardProps {

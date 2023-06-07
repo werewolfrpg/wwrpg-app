@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { MatchPlayer } from '../../../../types/match'
 import { Card, Stack, Box, Tabs, Tab, Tooltip, Typography } from '@mui/material'
 import ItemPanel from '../../player/components/item-panel'
+import LeaderboardPlayer from '../../../leaderboard/components/leaderboard-player'
 import PerformancePanel from './performance-panel'
 import { ArrowOutwardRounded } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
-import LeaderboardPlayer from '../../../leaderboard/components/leaderboard-player'
 
 export interface PlayerModalProps {
 	player: MatchPlayer
@@ -41,7 +41,7 @@ export default ({ player }: PlayerModalProps) => {
 						<Tab label="Items" />
 					</Tabs>
 				</Card>
-				{tab == 0 ? (
+				{tab === 0 ? (
 					<PerformancePanel player={player} />
 				) : (
 					<ItemPanel items={player.items.filter(i => Object.values(i.stats).some(v => v !== 0))} />

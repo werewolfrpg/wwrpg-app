@@ -12,7 +12,7 @@ export interface LeaderboardProps {
 
 export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
 	const [page, setPage] = useState(1)
-	const [count, TODO] = useState(10)
+	const [count] = useState(10)
 
 	const handleChange = (_: React.ChangeEvent<any>, newPage: number) => {
 		onRefresh(newPage, count)

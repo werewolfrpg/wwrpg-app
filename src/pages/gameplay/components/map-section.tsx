@@ -25,11 +25,11 @@ export default ({ maps }: MapsSectionProps) => {
 	const [map, setMap] = useState(0)
 
 	const handleNextMap = () => {
-		setMap(map == maps.length - 1 ? 0 : map + 1)
+		setMap(map === maps.length - 1 ? 0 : map + 1)
 	}
 
 	const handlePreviousMap = () => {
-		setMap(map == 0 ? maps.length - 1 : map - 1)
+		setMap(map === 0 ? maps.length - 1 : map - 1)
 	}
 
 	if (!maps.length) {

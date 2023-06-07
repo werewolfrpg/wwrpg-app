@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Stack, Typography, Grid, Card, styled, Tooltip, Skeleton } from '@mui/material'
+import { Box, Grid, Card, styled, Tooltip, Skeleton } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { Match } from '../../../types/match'
 import { WarningRounded } from '@mui/icons-material'

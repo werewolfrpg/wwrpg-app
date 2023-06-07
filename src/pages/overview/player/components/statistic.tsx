@@ -33,7 +33,7 @@ export default ({ title, value, caption, tooltip, color }: StatisiticProps) => {
 					{title}
 				</Typography>
 				<Typography fontFamily="Minecraft" fontSize={22} color={color}>
-					{value == 'NaN' || value == 'Infinity' ? '--' : value}
+					{value === 'NaN' || value === 'Infinity' ? '--' : value}
 				</Typography>
 				<Typography variant="caption">{caption}</Typography>
 			</Stack>

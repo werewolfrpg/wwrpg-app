@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Tooltip, Stack, Typography, Skeleton } from '@mui/material'
+import { Tooltip, Stack, Typography, Skeleton } from '@mui/material'
 import StatisticProgress from './statistic-progress'
 import { RoleStatistic } from '../../../../types/player'
 import Statistic from './statistic'

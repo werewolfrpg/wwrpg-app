@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Chip, Grid, Skeleton, Stack, Typography, styled } from '@mui/material'
+import { Box, Chip, Skeleton, Stack, Typography, styled } from '@mui/material'
 import { DailyMatches, Match } from '../../../types/match'
 import MatchCard from './match-card'
 

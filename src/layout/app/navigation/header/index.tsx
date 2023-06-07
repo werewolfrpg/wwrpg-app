@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Box, Collapse, Container, Divider, Hidden, Stack, Typography, styled } from '@mui/material'
+import { Box, Collapse, Container, Divider, Hidden, Stack, styled } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 import { headers } from '../../../../routes/router'
 import { ServerLinkProps } from '../../../../components/server-link'
@@ -57,7 +57,7 @@ export default (props: HeaderProps) => {
 			document.addEventListener('scroll', updateShowBanner)
 			return () => document.removeEventListener('scroll', updateShowBanner)
 		}
-	}, [])
+	}, [shouldLoadBanner])
 
 	const updateShowBanner = () => {
 		setIsAtTop(document.documentElement.scrollTop > banner.current!.clientHeight)

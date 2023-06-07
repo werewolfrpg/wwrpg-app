@@ -2,13 +2,6 @@ import React from 'react'
 import { Box, Grow, Stack, styled } from '@mui/material'
 import ServerLink, { ServerLinkProps } from '../../../components/server-link'
 
-const Container = styled(Stack)<{ image: string }>(({ image }) => ({
-	backgroundImage: `url(${image}`,
-	backgroundPosition: 'center',
-	backgroundSize: 'cover',
-	height: '100vh'
-}))
-
 const Content = styled(Stack)({
 	justifyContent: 'center',
 	alignItems: 'center',
