@@ -12,9 +12,6 @@ export default ({ values, light }: LeaderboardRowProps) => {
 		values = [
 			<Skeleton width={20} />,
 			<LeaderboardPlayer />,
-			<Hidden smDown>
-				<Skeleton width={60} />
-			</Hidden>,
 			<Skeleton width={40} />,
 			<Hidden smDown>
 				<Skeleton width={40} />
@@ -25,7 +22,7 @@ export default ({ values, light }: LeaderboardRowProps) => {
 		]
 	}
 
-	const [rank, player, title, score, win, matches] = values
+	const [rank, player, score, win, matches] = values
 
 	return (
 		<Grid container bgcolor={light ? 'background.default' : 'background.paper'} p={2}>
@@ -35,20 +32,15 @@ export default ({ values, light }: LeaderboardRowProps) => {
 			<Grid item justifySelf="center" alignSelf="center" xs>
 				{player}
 			</Grid>
-			<Hidden smDown>
-				<Grid item justifySelf="center" alignSelf="center" xs={2}>
-					<Stack alignItems="center">{title}</Stack>
-				</Grid>
-			</Hidden>
-			<Grid item justifySelf="center" alignSelf="center" xs={1}>
+			<Grid item justifySelf="center" alignSelf="center" xs>
 				<Stack alignItems="center">{score}</Stack>
 			</Grid>
 			<Hidden smDown>
-				<Grid item justifySelf="center" alignSelf="center" xs={1}>
+				<Grid item justifySelf="center" alignSelf="center" xs>
 					<Stack alignItems="center">{win}</Stack>
 				</Grid>
-				<Grid item justifySelf="center" alignSelf="center" xs={2}>
-					<Stack alignItems="end">{matches}</Stack>
+				<Grid item justifySelf="center" alignSelf="center" xs>
+					<Stack alignItems="center">{matches}</Stack>
 				</Grid>
 			</Hidden>
 		</Grid>

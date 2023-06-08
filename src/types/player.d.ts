@@ -66,8 +66,8 @@ export interface Score {
 }
 
 export interface Title {
-	current: string
-	next?: string
+	current: Rank
+	next?: Rank
 }
 
 export interface PlayerStatistic {
@@ -82,4 +82,17 @@ export interface PlayerStatistic {
 	skeletons: Skeletons
 	factions: FactionStatistic[]
 	items: Item[]
+}
+export interface RankDto {
+	rank: string
+	color: string
+	threshold: number
+}
+
+export type RanksDto = RankDto[]
+
+export interface Rank {
+	name: string
+	color: string
+	threshold: number
 }

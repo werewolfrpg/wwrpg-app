@@ -1,4 +1,4 @@
-import { FactionStatistic, SkeletonsDto } from './../types/player.d'
+import { FactionStatistic, Rank, RanksDto, SkeletonsDto } from './../types/player.d'
 import {
 	DailyMatches,
 	MatchPlayerDto,
@@ -26,13 +26,15 @@ export const getLeaderboard = async (page: number = 1, count: number = 20): Prom
 	const res = await axios.get(BASE_URL + '/api/leaderboard/?page=' + page + '&number=' + count)
 	const { meta, data: players } = res.data as LeaderboardDto
 
+	const ranks = await getRanks()
 	const data = await Promise.all(
 		players.map(async player => ({
+			...player,
 			username: await getName(player.minecraftId),
+			title: ranks.find(rank => rank.name === player.title)!,
 			rank: player.ranking,
 			won: player.gamesWon,
-			played: player.gamesPlayed,
-			...player
+			played: player.gamesPlayed
 		}))
 	)
 	return { meta, data }
@@ -81,9 +83,10 @@ export const getPlayerStats = async (minecraftId: string): Promise<PlayerStatist
 		won: roles.reduce((sum, { won }) => sum + won, 0)
 	}
 
+	const ranks = await getRanks()
 	const title = {
-		current: data.title,
-		next: data.nextTitle
+		current: ranks.find(rank => rank.name === data.title)!,
+		next: ranks.find(rank => rank.name === data.nextTitle)!
 	}
 
 	const username = await getName(minecraftId)
@@ -235,6 +238,12 @@ export const getFactions = async (): Promise<Faction[]> => {
 			...info
 		}))
 	}))
+}
+
+export const getRanks = async (): Promise<Rank[]> => {
+	const res = await axios.get(BASE_URL + '/api/ranks')
+	const data = res.data as RanksDto
+	return data.map(rank => ({ name: rank.rank, ...rank }))
 }
 
 const convertMatch = async (match: MatchDto, factions: Faction[]): Promise<Match> => {

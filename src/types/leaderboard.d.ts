@@ -1,3 +1,4 @@
+import { Rank } from './player'
 import { Paginated } from './response'
 
 export interface LeaderboardPlayerDto {
@@ -14,7 +15,7 @@ export interface LeaderboardPlayer {
 	username: string
 	score: number
 	rank: number
-	title: string
+	title: Rank
 	played: number
 	won: number
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Card, Pagination, Skeleton } from '@mui/material'
+import { Box, Card, Pagination, Skeleton, Typography } from '@mui/material'
 import { Leaderboard } from '../../../types/leaderboard'
 import LeaderboardRow from './leaderboard-row'
 import LeaderboardPlayer from './leaderboard-player'
@@ -36,7 +36,7 @@ export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
 
 	return (
 		<Card>
-			<LeaderboardRow values={['#', 'Player', 'Title', 'Score', 'Win %', 'Games Played']} />
+			<LeaderboardRow values={['#', 'Player', 'Score', 'Win %', 'Games Played']} />
 			{leaderboard.data.map(({ rank, username, minecraftId, title, score, played, won }, index) => (
 				<Link to={'/overview/player/' + minecraftId} style={{ textDecoration: 'none', color: 'inherit' }}>
 					<LeaderboardRow
@@ -44,8 +44,14 @@ export default ({ leaderboard, onRefresh }: LeaderboardProps) => {
 						light={index % 2 === 0}
 						values={[
 							rank,
-							<LeaderboardPlayer {...{ username, minecraftId }} />,
-							title,
+							<LeaderboardPlayer
+								{...{ username, minecraftId }}
+								caption={
+									<Typography variant="h5" color={title.color}>
+										{title.name}
+									</Typography>
+								}
+							/>,
 							score,
 							played > 0 ? ((won / played) * 100).toFixed(1) + '%' : '--',
 							played
