@@ -19,8 +19,8 @@ export default ({ children }: React.PropsWithChildren) => {
 	const title = headers.filter(({ path }) => path === location.pathname && path !== '/')[0]?.name
 
 	const info = {
-		server: 'wwrpg.aesten.net',
-		version: '1.19.2'
+		server: 'aesten.net:25588',
+		version: '1.19'
 	}
 
 	return (

@@ -9,8 +9,8 @@ export default () => {
 			<Wallpaper
 				image={require('../../assets/images/wallpaper.png')}
 				logo={require('../../assets/images/logo.png')}
-				server="wwrpg.aesten.net"
-				version="1.19.2"
+				server="aesten.net:25588"
+				version="1.19"
 			/>
 			<Box>
 				<Typography variant="h1" align="center" my={8}>
