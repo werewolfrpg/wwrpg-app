@@ -1,6 +1,7 @@
 export interface TitleDetail {
 	name: string
 	color: string
+	description: string
 }
 
 export type Role = TitleDetail & {
