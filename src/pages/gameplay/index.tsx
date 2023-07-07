@@ -2,15 +2,25 @@ import { useEffect, useState } from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import AppLayout from '../../layout/app'
 import MapSection from './components/map-section'
-import { getMaps } from '../../apis/wwrpg'
+import { getFactions, getMaps } from '../../apis/wwrpg'
 import { Map } from '../../types/map'
+import { Faction } from '../../types/faction'
+import ObjectivePanel from './components/objective-panel'
+import ItemSection from './components/item-section'
+import GameplaySection from './components/gameplay-section'
 
 export default () => {
 	const [maps, setMaps] = useState<Map[]>([])
+	const [factions, setFactions] = useState<Faction[]>([])
 
 	useEffect(() => {
 		getMaps().then(setMaps).catch(console.error)
+		getFactions().then(setFactions).catch(console.error)
 	}, [])
+
+	if (!maps || !factions) {
+		return <></>
+	}
 
 	return (
 		<AppLayout>
@@ -19,21 +29,21 @@ export default () => {
 					<Typography variant="h1" align="center" my={8}>
 						Roles & Objectives
 					</Typography>
+					{factions.map((faction, index) => (
+						<ObjectivePanel key={index} faction={faction} />
+					))}
 				</Box>
 				<Box>
 					<Typography variant="h1" align="center" my={8}>
-						Day-Night Cycle
+						Gameplay Basics
 					</Typography>
+					<GameplaySection />
 				</Box>
 				<Box>
 					<Typography variant="h1" align="center" my={8}>
-						Shops & Skeletons
+						Items
 					</Typography>
-				</Box>
-				<Box>
-					<Typography variant="h1" align="center" my={8}>
-						Point System
-					</Typography>
+					<ItemSection />
 				</Box>
 				<Box>
 					<Typography variant="h1" align="center" my={8}>
