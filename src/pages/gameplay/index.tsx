@@ -43,7 +43,13 @@ export default () => {
 					<Typography variant="h1" align="center" my={8}>
 						Items
 					</Typography>
-					<ItemSection />
+					<ItemSection
+						items={Array(20).fill({
+							name: 'Axe',
+							description: 'This is an exmple',
+							image: require('../../assets/images/items/item.png')
+						})}
+					/>
 				</Box>
 				<Box>
 					<Typography variant="h1" align="center" my={8}>
