@@ -49,7 +49,7 @@ export default (props: FooterProps) => {
 							</Stack>
 							<Stack direction="row" gap={2}>
 								<Link
-									to="https://discord.gg/KChK7wfuyF"
+									to="https://github.com/werewolfrpg"
 									target="_blank"
 									style={{ textDecoration: 'none', color: 'white' }}
 								>
@@ -58,7 +58,7 @@ export default (props: FooterProps) => {
 									</SvgIcon>
 								</Link>
 								<Link
-									to="https://github.com/werewolfrpg"
+									to="https://discord.gg/KChK7wfuyF"
 									target="_blank"
 									style={{ textDecoration: 'none', color: 'white' }}
 								>
