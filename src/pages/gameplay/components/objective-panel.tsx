@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, Card, Grid, Stack, Typography } from '@mui/material'
 import { Faction } from '../../../types/faction'
 
 export interface ObjectivePanelProps {
@@ -8,24 +8,27 @@ export interface ObjectivePanelProps {
 
 export default ({ faction }: ObjectivePanelProps) => {
 	return (
-		<Grid container my={8}>
-			<Grid item xs={4}>
-				<Typography variant="h2" color={faction.color}>
+		<Stack mt={3}>
+			<Stack gap={3}>
+				<Typography align="center" variant="h2" mt={6} color={faction.color}>
 					{faction.name}
 				</Typography>
-			</Grid>
-			<Grid item xs>
-				<Stack direction="row" alignItems="center">
-					{faction.roles.map((role, index) => (
-						<Box flex={0.5} key={index}>
+				<Typography align="center" variant="h4" my={3}>
+					{faction.description}
+				</Typography>
+			</Stack>
+			<Stack direction="row" gap={3} mt={5}>
+				{faction.roles.map((role, index) => (
+					<Card key={index}>
+						<Box p={3} flex={0.5}>
 							<Typography variant="h4" color={faction.color} mb={3}>
 								{role.name}
 							</Typography>
-							<Typography variant="caption">{role.description ?? 'bla bla bla'}</Typography>
+							<Typography variant="caption">{role.description}</Typography>
 						</Box>
-					))}
-				</Stack>
-			</Grid>
-		</Grid>
+					</Card>
+				))}
+			</Stack>
+		</Stack>
 	)
 }

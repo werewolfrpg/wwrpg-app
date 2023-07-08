@@ -52,7 +52,7 @@ export default () => {
 								description: [
 									'There are multiple types of skeletons that spawn during night time.',
 									'A basic skeleton has a chance of dropping an emerald when killed.',
-									'lucky skeleton will always drop emeralds when killed.',
+									'A lucky skeleton will always drop emeralds when killed.',
 									'A special skeleton will drop items instead of emeralds.'
 								]
 							},

@@ -22,7 +22,7 @@ export default ({ sections, tips }: GameplaySectionProps) => {
 				<Divider />
 				<Box my={3} px={3}>
 					{tips.map((tip, index) => (
-						<Box key={index} mt={1}>
+						<Box key={index} mt={2}>
 							<Typography variant="caption">• {tip}</Typography>
 						</Box>
 					))}
