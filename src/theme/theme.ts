@@ -116,7 +116,7 @@ export const theme = createTheme({
 				},
 				caption: {
 					color: 'text.secondary',
-					fontSize: 16
+					fontSize: 17
 				}
 			}
 		}

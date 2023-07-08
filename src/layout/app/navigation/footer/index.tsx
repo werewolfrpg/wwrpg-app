@@ -43,8 +43,8 @@ export default (props: FooterProps) => {
 									About
 								</Typography>
 								<Typography color="text.secondary">
-									In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the
-									form of a document or a typeface without relying on meaningful content.
+									We are a passionate and skilled team of programmers who share a deep love for Minecraft. We constantly
+									seek new ways to make the game more fun by creating plugins such as WWRPG.
 								</Typography>
 							</Stack>
 							<Stack direction="row" gap={2}>
@@ -84,9 +84,9 @@ export default (props: FooterProps) => {
 				</Grid>
 				<Divider sx={{ bgcolor: 'text.secondary', my: 2 }} />
 				<Stack direction={{ xs: 'column', md: 'row' }} justifyContent="center" alignItems="center" gap={5}>
-					<Typography variant="caption">Privacy & Cookies</Typography>
+					{/* <Typography variant="caption">Privacy & Cookies</Typography>
 					<Typography variant="caption">Terms & Conditions</Typography>
-					<Typography variant="caption">© 2023 Example</Typography>
+					<Typography variant="caption">© 2023 Example</Typography> */}
 				</Stack>
 			</Container>
 		</Footer>

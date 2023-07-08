@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, Card, Stack, Typography } from '@mui/material'
 import { ItemInfo } from '../../../types/item'
 
 export interface ItemSectionProps {
@@ -8,16 +8,29 @@ export interface ItemSectionProps {
 
 export default ({ items }: ItemSectionProps) => {
 	return (
-		<Grid container spacing={8}>
+		<Stack gap={3}>
 			{items.map((item, index) => (
-				<Grid item key={index}>
-					<Stack alignItems="center">
-						<Box component="img" src={item.image} width="50px" />
-						<Typography variant="h3">{item.name}</Typography>
-						<Typography variant="caption">{item.description}</Typography>
+				<Card key={index}>
+					<Stack direction="row" alignItems="center" p={3} gap={3}>
+						<Box
+							component="img"
+							src={item.image}
+							flex={1}
+							style={{
+								imageRendering: 'pixelated'
+							}}
+						/>
+						<Box flex={16}>
+							<Typography variant="h3" mb={2}>
+								{item.name}
+							</Typography>
+							<Typography variant="caption" align="center">
+								{item.description}
+							</Typography>
+						</Box>
 					</Stack>
-				</Grid>
+				</Card>
 			))}
-		</Grid>
+		</Stack>
 	)
 }
