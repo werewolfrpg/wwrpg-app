@@ -67,7 +67,7 @@ export default () => {
 						]}
 						tips={[
 							'When the game starts, scatter around the map and wait for skeletons to spawn.',
-							'If you want to kill skeletons faster for a night, you can purchase a "skeleton slicer".',
+							'If you want to kill skeletons faster for a night, you can purchase a "Skeleton Slicer".',
 							'A villager should either prepare weapons to get some kills ("Powerful Bow", "Sharp Arrow", "Stun Grenade"), or stock up emeralds for a "Divination" which is essential to advance in the game.',
 							'A werewolf should purchase a "Werewolf Axe" rapidly and start killing or stock them up for later.',
 							'A traitor should also try to purchase a "Traitor’s Guide" and behave smartly to support werewolves.',
