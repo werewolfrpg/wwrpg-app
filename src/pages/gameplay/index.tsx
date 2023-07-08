@@ -68,9 +68,9 @@ export default () => {
 						tips={[
 							'When the game starts, scatter around the map and wait for skeletons to spawn.',
 							'If you want to kill skeletons faster for a night, you can purchase a "skeleton slicer".',
-							'A villager should either prepare weapons to get some kills ("powerful bow", "sharp arrow", "stun grenade"), or stock up emeralds for a divination which is essential to advance in the game.',
-							'A werewolf should purchase a "werewolf axe" rapidly and start killing or stock them up for later.',
-							'A traitor should also try to purchase a "traitor’s guide" and behave smartly to support werewolves.',
+							'A villager should either prepare weapons to get some kills ("Powerful Bow", "Sharp Arrow", "Stun Grenade"), or stock up emeralds for a "Divination" which is essential to advance in the game.',
+							'A werewolf should purchase a "Werewolf Axe" rapidly and start killing or stock them up for later.',
+							'A traitor should also try to purchase a "Traitor’s Guide" and behave smartly to support werewolves.',
 							'A vampire should prepare weapons and observe other players carefully.'
 						]}
 					/>
@@ -85,6 +85,12 @@ export default () => {
 								name: 'Skeleton Punisher',
 								description: 'A wooden stick distributed to all players dealing bonus damage to skeletons.',
 								image: require('../../assets/images/items/skeleton_punisher.png')
+							},
+							{
+								name: 'Muter',
+								description:
+									'A tool that allows you to mute/unmute yourself on Discord (the Discord WWRPG bot must be active).',
+								image: require('../../assets/images/items/muter.png')
 							},
 							{
 								name: 'Exquisite Meat',
@@ -163,7 +169,7 @@ export default () => {
 								image: require('../../assets/images/items/holy_star.png')
 							},
 							{
-								name: 'Cursed Spear',
+								name: 'Curse Spear',
 								description:
 									"A one-time use spear that can be used in melee or thrown. First hit applies a curse to the player which lasts all game. Hitting a cursed player kills him instantly. The second hit can be countered by a protection or the vampire's invincibility.",
 								image: require('../../assets/images/items/curse_spear.png')
