@@ -2,8 +2,6 @@ import React from 'react'
 import { Box, Card, Divider, Typography } from '@mui/material'
 import GameplayPanel, { GameplayPanelProps } from './gameplay-panel'
 
-const tips = {}
-
 export interface GameplaySectionProps {
 	sections: GameplayPanelProps[]
 	tips: string[]

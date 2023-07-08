@@ -163,7 +163,7 @@ export default () => {
 								image: require('../../assets/images/items/holy_star.png')
 							},
 							{
-								name: 'Swiftness Potion',
+								name: 'Cursed Spear',
 								description:
 									"A one-time use spear that can be used in melee or thrown. First hit applies a curse to the player which lasts all game. Hitting a cursed player kills him instantly. The second hit can be countered by a protection or the vampire's invincibility.",
 								image: require('../../assets/images/items/curse_spear.png')
