@@ -8,9 +8,9 @@ export interface ObjectivePanelProps {
 
 export default ({ faction }: ObjectivePanelProps) => {
 	return (
-		<Stack mt={3}>
+		<Stack mb={3}>
 			<Stack gap={3}>
-				<Typography align="center" variant="h2" mt={6} color={faction.color}>
+				<Typography align="center" variant="h2" color={faction.color}>
 					{faction.name}
 				</Typography>
 				<Typography align="center" variant="h4" my={3}>

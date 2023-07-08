@@ -8,7 +8,7 @@ export interface ItemSectionProps {
 
 export default ({ items }: ItemSectionProps) => {
 	return (
-		<Stack gap={3}>
+		<Stack gap={2}>
 			{items.map((item, index) => (
 				<Card key={index}>
 					<Stack direction="row" alignItems="center" p={3} gap={3}>
